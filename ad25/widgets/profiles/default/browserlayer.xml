@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<layers>
+  <layer
+    name="ad25.widgets"
+    interface="ad25.widgets.interfaces.IAd25WidgetsLayer"
+  />
+</layers>
