@@ -3,5 +3,8 @@
 from Products.Five.browser import BrowserView
 
 
-class ContentPageView(BrowserView):
-    """ Folderish content page default view """
+class WidgetView(BrowserView):
+    """ Default widget view
+
+    Renders the provided template and view by the widget in question
+    """

@@ -15,21 +15,21 @@ from plone.testing import z2
 import unittest2 as unittest
 
 
-class Ad25WidgetsLayer(PloneSandboxLayer):
+class ade25WidgetsLayer(PloneSandboxLayer):
 
     defaultBases = (PLONE_FIXTURE,)
 
     def setUpZope(self, app, configurationContext):
         """Set up Zope."""
         # Load ZCML
-        import ad25.widgets
-        self.loadZCML(package=ad25.widgets)
-        z2.installProduct(app, 'ad25.widgets')
+        import ade25.widgets
+        self.loadZCML(package=ade25.widgets)
+        z2.installProduct(app, 'ade25.widgets')
 
     def setUpPloneSite(self, portal):
         """Set up Plone."""
         # Install into Plone site using portal_setup
-        applyProfile(portal, 'ad25.widgets:default')
+        applyProfile(portal, 'ade25.widgets:default')
 
         # Login and create some test content
         setRoles(portal, TEST_USER_ID, ['Manager'])
@@ -43,14 +43,14 @@ class Ad25WidgetsLayer(PloneSandboxLayer):
 
     def tearDownZope(self, app):
         """Tear down Zope."""
-        z2.uninstallProduct(app, 'ad25.widgets')
+        z2.uninstallProduct(app, 'ade25.widgets')
 
 
-FIXTURE = Ad25WidgetsLayer()
+FIXTURE = ade25WidgetsLayer()
 INTEGRATION_TESTING = IntegrationTesting(
-    bases=(FIXTURE,), name="Ad25WidgetsLayer:Integration")
+    bases=(FIXTURE,), name="ade25WidgetsLayer:Integration")
 FUNCTIONAL_TESTING = FunctionalTesting(
-    bases=(FIXTURE,), name="Ad25WidgetsLayer:Functional")
+    bases=(FIXTURE,), name="ade25WidgetsLayer:Functional")
 
 
 class IntegrationTestCase(unittest.TestCase):

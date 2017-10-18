@@ -4,7 +4,7 @@
       xmlns:i18n="http://xml.zope.org/namespaces/i18n"
       lang="en"
       metal:use-macro="context/main_template/macros/master"
-      i18n:domain="ad25.sitecontent">
+      i18n:domain="ade25.widgets">
 <body>
 
 <metal:main fill-slot="main">
@@ -13,17 +13,16 @@
     <div class="app-page-header">
       <div class="app-page-title">
           <h1 class="app-page-headline" tal:content="context/Title">
-            ${context/Title}
+            Widget View
           </h1>
       </div>
       <p class="app-page-abstract" tal:condition="context/Description">
-          ${context/Description}
+          Reusable general purpose proxy view that resolves the widgets view
+          attribute to an embeddable content snippet
       </p>
     </div>
     <div class="app-page-body">
-      <div class="app-page-body-text" id="parent-fieldname-text"
-        tal:condition="context/text"
-        tal:content="structure context/text/output" />
+      <code>Widget preview code goes here</code>
     </div>
 
   </metal:content-core>

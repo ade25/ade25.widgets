@@ -13,7 +13,7 @@ def read(*rnames):
 long_description = read('README.rst')
 
 setup(
-    name='ad25.widgets',
+    name='ade25.widgets',
     version='1.0.0',
     description="Base package for reusable content units provided as widgets",
     long_description=long_description,
@@ -25,10 +25,10 @@ setup(
     keywords='Plone, Panelpage',
     author='Kreativkombinat GbR',
     author_email='info@kreativkombinat.de',
-    url='http://pypi.python.org/pypi/ad25.widgets',
+    url='http://pypi.python.org/pypi/ade25.widgets',
     license='BSD',
     packages=find_packages(exclude=['ez_setup']),
-    namespace_packages=['ad25'],
+    namespace_packages=['ade25'],
     include_package_data=True,
     zip_safe=False,
     install_requires=[

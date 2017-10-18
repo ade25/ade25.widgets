@@ -5,7 +5,7 @@
     xmlns:i18n="http://namespaces.zope.org/i18n"
     xmlns:plone="http://namespaces.plone.org/plone"
     xmlns:genericsetup="http://namespaces.zope.org/genericsetup"
-    i18n_domain="ad25.widgets">
+    i18n_domain="ade25.widgets">
 
     <!-- Include configuration for dependencies listed in setup.py -->
     <includeDependencies package="." />
@@ -16,9 +16,9 @@
     <!-- Register the installation GenericSetup extension profile -->
     <genericsetup:registerProfile
         name="default"
-        title="ad25.widgets"
+        title="ade25.widgets"
         directory="profiles/default"
-        description="Extension profile for ad25.widgets."
+        description="Extension profile for ade25.widgets."
         provides="Products.GenericSetup.interfaces.EXTENSION"
         />
 
