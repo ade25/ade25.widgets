@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<layers>
+    <layer
+            name="ade25.widgets"
+            interface="ade25.widgets.interfaces.IAde25WidgetsLayer"
+            remove="True"
+    />
+</layers>

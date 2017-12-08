@@ -1,0 +1,15 @@
+<div class="app-widget app-widget--default app-widget--${context/UID}">
+    <div class="app-widget__content">
+        <div class="app-widget__header">
+            <div class="app-placeholder__cover" alt="">
+
+            </div>
+        </div>
+        <div class="app-widget__main">
+            <h1 class="app-placeholder__heading js-heading"></h1>
+            <p class="app-placeholder__paragraph js-paragraph"></p>
+        </div>
+        <div class="app-widget__footer">
+        </div>
+    </div>
+</div>
