@@ -5,13 +5,13 @@
     i18n_domain="ade25.sitecontent">
 
 
-  <!--<browser:page
-      for="ade25.sitecontent.contentpage.IContentPage"
-      name="contentpage_view"
-      class=".contentpage.ContentPageView"
-      template="contentpage.pt"
+  <browser:page
+      for="*"
+      name="content-widget-view"
+      class=".view.ContentWidgetView"
+      template="view.pt"
       permission="zope2.View"
-      layer="..interfaces.Iade25WidgetsLayer"
-      />-->
+      layer="..interfaces.IAde25WidgetsLayer"
+      />
 
 </configure>

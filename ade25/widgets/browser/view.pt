@@ -22,7 +22,7 @@
       </p>
     </div>
     <div class="app-page-body">
-      <code>Widget preview code goes here</code>
+      <div tal:replace="structure view/rendered_widget" />
     </div>
 
   </metal:content-core>

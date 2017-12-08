@@ -3,7 +3,7 @@
 from Products.Five import BrowserView
 
 
-class BaseWidget(BrowserView):
+class BaseWidgetView(BrowserView):
     """ Base widget used as placeholder """
 
     def __call__(self):

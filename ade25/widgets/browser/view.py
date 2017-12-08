@@ -4,7 +4,7 @@ from Acquisition import aq_inner
 from Products.Five.browser import BrowserView
 
 
-class WidgetView(BrowserView):
+class ContentWidgetView(BrowserView):
     """ Default widget view
 
     Renders the provided template and view by the widget in question
@@ -24,10 +24,16 @@ class WidgetView(BrowserView):
         return self.render()
 
     def render(self):
-        context = aq_inner(self.context)
-        view_name = '@@content-widget-'.format(
-            self.params['identifier'],
-        )
-        rendered_widget = context.restrictedTraverse(view_name)(self.params)
-        return rendered_widget
+        return self.index()
 
+    def rendered_widget(self):
+        context = aq_inner(self.context)
+        if self.params['widget_name']:
+            view_name = '@@content-widget-'.format(
+                self.params['widget_name'],
+            )
+            rendered_widget = context.restrictedTraverse(view_name)(self.params)
+        else:
+            view_name = '@@content-widget-base'
+            rendered_widget = context.restrictedTraverse(view_name)()
+        return rendered_widget
