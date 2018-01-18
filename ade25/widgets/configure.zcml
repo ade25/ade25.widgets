@@ -20,15 +20,28 @@
     <!-- Register the installation GenericSetup extension profile -->
     <genericsetup:registerProfile
         name="default"
-        title="ade25.widgets"
+        title="Ade25 Widgets"
         directory="profiles/default"
-        description="Extension profile for ade25.widgets."
+        description="Modular content widgets for page integration"
         provides="Products.GenericSetup.interfaces.EXTENSION"
         />
+
+    <!-- Uninstall -->
+    <genericsetup:registerProfile
+            name="uninstall"
+            title="Uninstall Content Widgets Support (ade25.widgets)"
+            directory="profiles/uninstall"
+            description="Uninstall content widgets and integrations"
+            provides="Products.GenericSetup.interfaces.EXTENSION"
+    />
 
     <plone:static
         directory="resources"
         type="theme"
     />
+
+    <utility
+            name="ade25.widgets.vocabularies.AvailableContentWidgets"
+            component="ade25.widgets.vocabulary.AvailableContentWidgetsVocabulary" />
 
 </configure>

@@ -4,6 +4,14 @@
     xmlns:z3c="http://namespaces.zope.org/z3c"
     i18n_domain="ade25.sitecontent">
 
+    <!-- Control panels -->
+    <browser:page
+            name="ade25-widgets-controlpanel"
+            for="Products.CMFPlone.interfaces.IPloneSiteRoot"
+            class=".controlpanel.Ade25WidgetsSettings"
+            permission="cmf.ManagePortal"
+            template="controlpanel.pt"
+    />
 
   <browser:page
       for="*"

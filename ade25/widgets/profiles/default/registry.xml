@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<registry>
+    <records interface="ade25.widgets.browser.controlpanel.IAde25WidgetsControlPanel"
+             prefix="ade25.widgets" />
+
+    <record name="ade25.widgets.widget_types">
+        <field type="plone.registry.field.Dict">
+            <title>Page Widgets</title>
+            <key_type type="plone.registry.field.TextLine" />
+            <value_type type="plone.registry.field.TextLine" />
+        </field>
+        <value>
+            <element key="ad25.widgets.widgets.base">Base Widget</element>
+            <element key="ad25.widgets.widgets.placeholder">Placeholder Widget</element>
+            <element key="ad25.widgets.widgets.html">Rich Text Widget</element>
+        </value>
+    </record>
+
+</registry>
