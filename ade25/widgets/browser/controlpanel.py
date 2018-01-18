@@ -17,7 +17,7 @@ class IAde25WidgetsControlPanel(Interface):
                       u"for this site. Allows to enable or disable widgets"
                       u"provided by external packages."),
         value_type=schema.Choice(
-            vocabulary='ade25.widgets.AvailableContentWidgets'
+            vocabulary='ade25.widgets.vocabularies.AvailableContentWidgets'
         ),
         required=False
     )
