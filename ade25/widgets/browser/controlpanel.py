@@ -19,6 +19,7 @@ class IAde25WidgetsControlPanel(Interface):
         value_type=schema.Choice(
             vocabulary='ade25.widgets.vocabularies.AvailableContentWidgets'
         ),
+        default=set(),
         required=False
     )
 
