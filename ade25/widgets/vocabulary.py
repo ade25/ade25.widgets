@@ -14,7 +14,7 @@ class AvailableContentWidgetsVocabularyFactory(object):
         widgets = self.get_available_widget_records()
         terms = [
             safe_simpleterm_from_value(widget)
-            for widget in widgets.values()
+            for widget in widgets
         ]
         return SimpleVocabulary(terms)
 
