@@ -1,0 +1,30 @@
+{
+  "id": "${id}",
+  "timestamp": "${timestamp}",
+  "_runtime": "0.0000059604644775390625",
+  "created": "${created}",
+  "title": "Widget Settings",
+  "items": [
+    {
+      "id": "ade25.widgets.widget.base",
+      "name": "Base Widget",
+      "settings": {
+        "view": "@@content-widget-base",
+        "edit": "@@content-widget-base-edit"
+      },
+      "config": {}
+    },
+    {
+      "id": "ade25.widgets.widget.placeholder",
+      "name": "Placeholder Widget",
+      "settings": {
+        "view": "@@content-widget-placeholder",
+        "edit": "@@content-widget-placeholder-edit"
+      },
+      "config": {
+        "color": "#535353",
+        "background-color": "#cccccc"
+      }
+    }
+  ]
+}

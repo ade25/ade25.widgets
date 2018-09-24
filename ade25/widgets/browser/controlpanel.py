@@ -6,6 +6,8 @@ from zope.interface import Interface
 from plone.z3cform import layout
 from plone.app.registry.browser.controlpanel import ControlPanelFormWrapper
 
+from ade25.widgets import utils as widget_utils
+
 from ade25.widgets import MessageFactory as _
 
 
@@ -33,6 +35,14 @@ class IAde25WidgetsControlPanel(Interface):
         ),
         default=['Base Widget', 'Placeholder Widget'],
         required=False
+    )
+
+    widget_settings = schema.Text(
+        title=_(u"Widget Settings JSON"),
+        description=_(u"Widget configuration registry storing a string "
+                      u"representation of a valid JSON settings array"),
+        required=False,
+        default=widget_utils.default_widget_configuration()
     )
 
 
