@@ -24,12 +24,12 @@ class ContentWidgetView(BrowserView):
         return self.render()
 
     def render(self):
-        return self.index()
+        return self.rendered_widget()
 
     def rendered_widget(self):
         context = aq_inner(self.context)
         if self.params['widget_name']:
-            view_name = '@@content-widget-'.format(
+            view_name = '@@content-widget-{0}'.format(
                 self.params['widget_name'],
             )
             rendered_widget = context.restrictedTraverse(view_name)(self.params)
