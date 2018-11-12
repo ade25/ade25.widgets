@@ -16,7 +16,7 @@ class IAde25WidgetsControlPanel(Interface):
     available_widgets = schema.List(
         title=_(u"Activated widgets"),
         description=_(u"Select Content Widgets that should be available "
-                      u"for this site. Allows to enable or disable widgets"
+                      u"for this site. Allows to enable or disable widgets "
                       u"provided by external packages."),
         value_type=schema.Choice(
             vocabulary='ade25.widgets.vocabularies.AvailableContentWidgets'
