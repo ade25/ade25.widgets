@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 """Module providing controlpanels"""
 from plone.app.registry.browser.controlpanel import RegistryEditForm
+from plone.autoform import form
 from zope import schema
 from zope.interface import Interface
 from plone.z3cform import layout
@@ -21,7 +22,7 @@ class IAde25WidgetsControlPanel(Interface):
         value_type=schema.Choice(
             vocabulary='ade25.widgets.vocabularies.AvailableContentWidgets'
         ),
-        default=list(),
+        defaultFactory=widget_utils.default_widget_types_available(),
         required=False
     )
 
@@ -33,7 +34,7 @@ class IAde25WidgetsControlPanel(Interface):
         value_type=schema.TextLine(
             title=_(u"Widget type"),
         ),
-        default=['Base Widget', 'Placeholder Widget'],
+        defaultFactory=widget_utils.default_widget_types(),
         required=False
     )
 
