@@ -1,0 +1,18 @@
+{
+    "id": "${id}",
+    "timestamp": "${timestamp}",
+    "_runtime": "0.0000059604644775390625",
+    "created": "${created}",
+    "widget": {
+        "type": "ade25.widgets.widget.placeholder",
+        "title": "ADE25 Widget Base",
+        "identifier": "placeholder"
+    },
+    "data": {
+        "content": {
+            "title": "Content Widget Placeholder"
+        },
+        "design": {},
+        "setup": {}
+    }
+}

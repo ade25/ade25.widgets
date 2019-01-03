@@ -22,7 +22,8 @@ class IAde25WidgetsControlPanel(Interface):
         value_type=schema.Choice(
             vocabulary='ade25.widgets.vocabularies.AvailableContentWidgets'
         ),
-        defaultFactory=widget_utils.default_widget_types_available(),
+        defaultFactory=widget_utils.default_widget_types_available,
+        missing_value=(),
         required=False
     )
 
@@ -34,7 +35,8 @@ class IAde25WidgetsControlPanel(Interface):
         value_type=schema.TextLine(
             title=_(u"Widget type"),
         ),
-        defaultFactory=widget_utils.default_widget_types(),
+        defaultFactory=widget_utils.default_widget_types,
+        missing_value=(),
         required=False
     )
 
@@ -43,7 +45,7 @@ class IAde25WidgetsControlPanel(Interface):
         description=_(u"Widget configuration registry storing a string "
                       u"representation of a valid JSON settings array"),
         required=False,
-        default=widget_utils.default_widget_configuration()
+        defaultFactory=widget_utils.default_widget_configuration
     )
 
 
