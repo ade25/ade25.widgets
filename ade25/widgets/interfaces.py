@@ -44,26 +44,22 @@ class IContentWidgets(model.Schema):
         required=False
     )
 
-    @staticmethod
     def store_widget(request):
         """
         Store the vote information, store the request hash to ensure
         that the user does not vote twice
         """
 
-    @staticmethod
     def widget_index():
         """
         Return the widget count for an item
         """
 
-    @staticmethod
     def has_widgets():
         """
         Return whether widgets are available for this item
         """
 
-    @staticmethod
     def clear():
         """
         Clear the widgets. Should only be called by admins
