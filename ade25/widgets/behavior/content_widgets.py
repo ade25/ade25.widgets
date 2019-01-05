@@ -60,6 +60,18 @@ class ContentWidgets(object):
         stored_widgets = self.annotations['widgets']
         stored_widgets[widget_id] = widget_data
 
+    def read_widget(self, widget):
+        widget_id = self.validate_uuid4(widget)
+        stored_widgets = self.annotations['widgets']
+        if widget_id in stored_widgets:
+            return stored_widgets[widget_id]
+
+    def delete_widget(self, widget):
+        widget_id = self.validate_uuid4(widget)
+        stored_widgets = self.annotations['widgets']
+        if widget_id in stored_widgets:
+            del stored_widgets[widget_id]
+
     def widget_index(self):
         records = self.annotations['widgets']
         return len(records)
