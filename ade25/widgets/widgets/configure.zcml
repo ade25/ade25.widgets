@@ -14,4 +14,14 @@
         layer="..interfaces.IAde25WidgetsLayer"
         />
 
+    <!-- Widget: Text Block -->
+    <browser:page
+            for="*"
+            name="content-widget-text-block"
+            class="ade25.widgets.widgets.text.WidgetText"
+            template="text.pt"
+            permission="zope2.View"
+            layer="..interfaces.IAde25WidgetsLayer"
+    />
+
 </configure>

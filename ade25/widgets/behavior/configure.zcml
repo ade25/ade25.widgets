@@ -1,0 +1,13 @@
+<configure
+        xmlns="http://namespaces.zope.org/zope"
+        xmlns:plone="http://namespaces.plone.org/plone">
+
+    <plone:behavior
+            title="ContentWidgets"
+            description="Manage assigned content widgets"
+            provides="ade25.widgets.interfaces.IContentWidgets"
+            factory=".content_widgets.ContentWidgets"
+            marker="ade25.widgets.interfaces.IContentWidgetSupport"
+    />
+
+</configure>

@@ -1,0 +1,24 @@
+<div class="c-widget c-widget--text-block c-widget__text-block c-widget--${view/widget_uid}">
+    <div class="c-widget__header c-widget__header--text-block">
+        <div class="c-widget__title">
+            Widget: Text Block
+        </div>
+    </div>
+    <div class="c-widget__content">
+        <div class="c-text-block c-text-block--default">
+            <div class="c-text-block__content"
+                 tal:condition="python:view.has_content()">
+                     <tal:text-block tal:content="python:view.widget_text_block()">
+                        Text Block
+                     </tal:text-block>
+            </div>
+            <div class="c-text-block__content c-text-block__content--fallback"
+                     tal:condition="not:python:view.has_content()">
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Architecto assumenda blanditiis corporis dolorem explicabo fugiat iure laboriosam magnam modi mollitia nesciunt, qui quibusdam quidem quod recusandae repellat repudiandae saepe tempora?</p>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium commodi debitis, deleniti ea earum excepturi harum illo laboriosam minima molestiae neque nisi non quaerat qui quia rem repellendus saepe totam.</p>
+            </div>
+        </div>
+    </div>
+    <div class="c-widget__footer">
+    </div>
+</div>
