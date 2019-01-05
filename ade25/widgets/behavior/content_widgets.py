@@ -83,6 +83,9 @@ class ContentWidgets(object):
         widget_hash = self._hash(request, widget_data)
         return widget_hash in self.annotations['widget_hashes']
 
+    def read(self):
+        return self.annotations['widgets']
+
     def clear(self):
         annotations = IAnnotations(self.context)
         annotations[KEY] = PersistentDict({'widget_hashes': PersistentList(),
