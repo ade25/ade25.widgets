@@ -52,14 +52,8 @@ class ContentWidgets(object):
         widget_hash.update(widget_data)
         return widget_hash.hexdigest()
 
-    def create_widget(self, widget, widget_data, request):
+    def store_widget(self, widget, widget_data, request):
         widget_id = self.validate_uuid4(widget)
-        if self.already_voted(request):
-            # Exceptions can create ugly error messages. If you or your user
-            # can't resolve the error, you should not catch it.
-            # Transactions can throw errors too.
-            # What happens if you catch them?
-            raise KeyError("You may not vote twice")
         self.annotations['widget_hashes'].append(
             self._hash(request, widget_data)
         )

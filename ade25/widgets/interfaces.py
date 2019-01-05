@@ -45,7 +45,7 @@ class IContentWidgets(model.Schema):
     )
 
     @staticmethod
-    def create_widget(request):
+    def store_widget(request):
         """
         Store the vote information, store the request hash to ensure
         that the user does not vote twice
