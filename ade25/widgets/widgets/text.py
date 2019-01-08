@@ -25,6 +25,12 @@ class WidgetText(BrowserView):
         return self.index()
 
     @property
+    def edit_mode(self):
+        if self.params['widget_mode'] == 'edit':
+            return True
+        return False
+
+    @property
     def record(self):
         return self.params['widget_data']
 
