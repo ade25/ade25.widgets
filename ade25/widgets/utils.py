@@ -30,8 +30,8 @@ def default_widget_types_available(widget_types=None):
 def default_widget_types(widget_types=None):
     if widget_types is None:
         widget_types = [
-            'Base Widget',
-            'Placeholder Widget'
+            safe_unicode('Base Widget'),
+            safe_unicode('Placeholder Widget')
         ]
     return widget_types
 
