@@ -21,6 +21,21 @@ def get_filesystem_template(name, data=dict()):
     return composed
 
 
+def default_widget_types_available(widget_types=None):
+    if widget_types is None:
+        widget_types = []
+    return widget_types
+
+
+def default_widget_types(widget_types=None):
+    if widget_types is None:
+        widget_types = [
+            safe_unicode('Base Widget'),
+            safe_unicode('Placeholder Widget')
+        ]
+    return widget_types
+
+
 def default_widget_configuration():
     """ Add default widget configuration
 

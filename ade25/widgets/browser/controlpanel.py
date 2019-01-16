@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 """Module providing controlpanels"""
 from plone.app.registry.browser.controlpanel import RegistryEditForm
+from plone.autoform import form
 from zope import schema
 from zope.interface import Interface
 from plone.z3cform import layout
@@ -16,12 +17,13 @@ class IAde25WidgetsControlPanel(Interface):
     available_widgets = schema.List(
         title=_(u"Activated widgets"),
         description=_(u"Select Content Widgets that should be available "
-                      u"for this site. Allows to enable or disable widgets"
+                      u"for this site. Allows to enable or disable widgets "
                       u"provided by external packages."),
         value_type=schema.Choice(
             vocabulary='ade25.widgets.vocabularies.AvailableContentWidgets'
         ),
-        default=list(),
+        defaultFactory=widget_utils.default_widget_types_available,
+        missing_value=(),
         required=False
     )
 
@@ -33,7 +35,8 @@ class IAde25WidgetsControlPanel(Interface):
         value_type=schema.TextLine(
             title=_(u"Widget type"),
         ),
-        default=['Base Widget', 'Placeholder Widget'],
+        defaultFactory=widget_utils.default_widget_types,
+        missing_value=(),
         required=False
     )
 
@@ -42,7 +45,7 @@ class IAde25WidgetsControlPanel(Interface):
         description=_(u"Widget configuration registry storing a string "
                       u"representation of a valid JSON settings array"),
         required=False,
-        default=widget_utils.default_widget_configuration()
+        defaultFactory=widget_utils.default_widget_configuration
     )
 
 
