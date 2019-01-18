@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 """Module providing views for the folderish content page type"""
+import uuid as uuid_tool
 from Acquisition import aq_inner
 from Products.Five.browser import BrowserView
 
@@ -24,7 +25,24 @@ class ContentWidgetView(BrowserView):
         return self.render()
 
     def render(self):
-        return self.rendered_widget()
+        return self.index()
+
+    @property
+    def edit_mode(self):
+        if self.params['widget_mode'] == 'edit':
+            return True
+        return False
+
+    @property
+    def record(self):
+        return self.params['widget_data']
+
+    def widget_uid(self):
+        try:
+            widget_id = self.record['id']
+        except (KeyError, TypeError):
+            widget_id = str(uuid_tool.uuid4())
+        return widget_id
 
     def rendered_widget(self):
         context = aq_inner(self.context)
