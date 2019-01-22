@@ -1,32 +1,15 @@
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
-      xmlns:tal="http://xml.zope.org/namespaces/tal"
-      xmlns:metal="http://xml.zope.org/namespaces/metal"
-      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
-      lang="en"
-      metal:use-macro="context/main_template/macros/master"
-      i18n:domain="ade25.widgets">
-<body>
-
-<metal:main fill-slot="main">
-  <metal:content-core define-macro="main">
-
-    <div class="app-page-header">
-      <div class="app-page-title">
-          <h1 class="app-page-headline" tal:content="context/Title">
-            Widget View
-          </h1>
-      </div>
-      <p class="app-page-abstract" tal:condition="context/Description">
-          Reusable general purpose proxy view that resolves the widgets view
-          attribute to an embeddable content snippet
-      </p>
+<div class="c-widget c-widget--text-block c-widget__text-block c-widget--${view/widget_uid}"
+         tal:define="settings python:view.params"
+    tal:attributes="class python:'c-widget c-widget--' + settings['widget_type'] + ' c-widget--' + view.widget_uid()">
+    <div class="c-widget__header c-widget__header--text-block">
+        <div class="c-widget__title">
+            Widget: Text Block
+        </div>
     </div>
-    <div class="app-page-body">
-      <div tal:replace="structure view/rendered_widget" />
+    <div class="c-widget__content">
+        <div tal:replace="structure view/rendered_widget" />
     </div>
+    <div class="c-widget__footer" tal:condition="python:settings['widget_mode'] == 'edit'">
 
-  </metal:content-core>
-</metal:main>
-
-</body>
-</html>
+    </div>
+</div>

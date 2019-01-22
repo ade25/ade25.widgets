@@ -21,6 +21,7 @@ class IContentWidgetSupport(Interface):
 
 
 class IContentWidgets(model.Schema):
+    """ Content annotation storage schema """
 
     if not api.env.debug_mode():
         form.omitted("widgets")
