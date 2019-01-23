@@ -24,4 +24,14 @@
             layer="..interfaces.IAde25WidgetsLayer"
     />
 
+    <!-- Widget: Image Cover -->
+    <browser:page
+            for="*"
+            name="content-widget-image-cover"
+            class="ade25.widgets.widgets.image.WidgetImageCover"
+            template="image-cover.pt"
+            permission="zope2.View"
+            layer="..interfaces.IAde25WidgetsLayer"
+    />
+
 </configure>
