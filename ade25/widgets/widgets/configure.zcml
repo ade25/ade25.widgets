@@ -14,6 +14,25 @@
         layer="..interfaces.IAde25WidgetsLayer"
         />
 
+    <!-- Widget: Separator -->
+    <browser:page
+            for="*"
+            name="content-widget-separator"
+            class="ade25.widgets.widgets.separator.WidgetSeparator"
+            template="separator.pt"
+            permission="zope2.View"
+            layer="..interfaces.IAde25WidgetsLayer"
+    />
+
+    <browser:page
+            for="*"
+            name="content-widget-horizontal-line"
+            class="ade25.widgets.widgets.separator.WidgetHorizontalLine"
+            template="separator-line.pt"
+            permission="zope2.View"
+            layer="..interfaces.IAde25WidgetsLayer"
+    />
+
     <!-- Widget: Text Block -->
     <browser:page
             for="*"
