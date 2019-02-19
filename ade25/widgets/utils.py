@@ -30,24 +30,30 @@ def default_widget_types_available(widget_types=None):
 def default_widget_types(widget_types=None):
     if widget_types is None:
         widget_types = [
-            safe_unicode('Base Widget'),
-            safe_unicode('Placeholder Widget')
+            safe_unicode('Horizontal Line'),
+            safe_unicode('Placeholder Widget'),
+            safe_unicode('Separator')
         ]
     return widget_types
 
 
-def default_widget_configuration():
+def default_widget_configuration(version=None):
     """ Add default widget configuration
 
     Addon packages are expected to add their custom widget configuration
     requirements to the registry during import and initialization
     """
+    if version:
+        template_name = 'widget-settings-{0}.json'.format(version)
+    else:
+        template_name = 'widget-settings.json'
     template = get_filesystem_template(
-        'widget-settings.json',
+        template_name,
         data={
             "id": str(uuid_tool.uuid4()),
             "timestamp": str(int(time.time())),
             "created": datetime.datetime.now().isoformat(),
+            "updated": datetime.datetime.now().isoformat()
         }
     )
     try:

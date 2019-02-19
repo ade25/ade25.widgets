@@ -3,6 +3,7 @@
   "timestamp": "${timestamp}",
   "_runtime": "0.0000059604644775390625",
   "created": "${created}",
+  "updated": "${updated}",
   "title": "Ade25 Widget Settings",
   "items": {
     "text-block": {

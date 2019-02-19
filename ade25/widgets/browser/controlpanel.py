@@ -14,6 +14,42 @@ from ade25.widgets import MessageFactory as _
 
 class IAde25WidgetsControlPanel(Interface):
 
+    content_widgets_header = schema.List(
+        title=_(u"Content Widgets Page Header"),
+        description=_(u"Select Content Widgets that should be available "
+                      u"for the page header section."),
+        value_type=schema.Choice(
+            vocabulary='ade25.widgets.vocabularies.AvailableContentWidgets'
+        ),
+        defaultFactory=widget_utils.default_widget_types_available,
+        missing_value=(),
+        required=False
+    )
+
+    content_widgets_main = schema.List(
+        title=_(u"Content Widgets Main Content Area"),
+        description=_(u"Select Content Widgets that should be available "
+                      u"for the main page content area."),
+        value_type=schema.Choice(
+            vocabulary='ade25.widgets.vocabularies.AvailableContentWidgets'
+        ),
+        defaultFactory=widget_utils.default_widget_types_available,
+        missing_value=(),
+        required=False
+    )
+
+    content_widgets_footer = schema.List(
+        title=_(u"Content Widgets Page Footer"),
+        description=_(u"Select Content Widgets that should be available "
+                      u"for the page header section."),
+        value_type=schema.Choice(
+            vocabulary='ade25.widgets.vocabularies.AvailableContentWidgets'
+        ),
+        defaultFactory=widget_utils.default_widget_types_available,
+        missing_value=(),
+        required=False
+    )
+
     available_widgets = schema.List(
         title=_(u"Activated widgets"),
         description=_(u"Select Content Widgets that should be available "
