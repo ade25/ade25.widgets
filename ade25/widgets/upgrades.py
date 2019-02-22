@@ -18,7 +18,7 @@ def update_widget_settings():
 
     @param site: Plone site
     """
-    settings = widget_utils.default_widget_configuration
+    settings = widget_utils.default_widget_configuration()
     api.portal.set_registry_record(
         name='ade25.widgets.widget_settings',
         value=settings
@@ -26,6 +26,6 @@ def update_widget_settings():
 
 
 def upgrade_1001(setup):
-    setup.runImportStepFromProfile(default_profile, 'registry')
+    setup.runImportStepFromProfile(default_profile, 'plone.app.registry')
     # Update registry settings
     update_widget_settings()
