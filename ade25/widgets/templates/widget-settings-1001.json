@@ -9,21 +9,25 @@
     "text-block": {
       "id": "ade25.widgets.widget.text",
       "name": "Widget Text Block",
+      "title": "Text Block",
       "pkg": "ade25.widgets"
     },
     "separator": {
       "id": "ade25.widgets.widget.separator",
       "name": "Widget Separator",
+      "title": "Separator",
       "pkg": "ade25.widgets"
     },
     "horizontal-line": {
       "id": "ade25.widgets.widget.separator",
       "name": "Widget Horizontal Line",
+      "title": "Horizontal Line",
       "pkg": "ade25.widgets"
     },
     "image": {
       "id": "ade25.widgets.widget.image",
       "name": "Widget Image",
+      "title": "Image Inline",
       "pkg": "ade25.widgets"
     }
   }

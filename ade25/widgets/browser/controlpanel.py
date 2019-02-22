@@ -50,32 +50,6 @@ class IAde25WidgetsControlPanel(Interface):
         required=False
     )
 
-    available_widgets = schema.List(
-        title=_(u"Activated widgets"),
-        description=_(u"Select Content Widgets that should be available "
-                      u"for this site. Allows to enable or disable widgets "
-                      u"provided by external packages."),
-        value_type=schema.Choice(
-            vocabulary='ade25.widgets.vocabularies.AvailableContentWidgets'
-        ),
-        defaultFactory=widget_utils.default_widget_types_available,
-        missing_value=(),
-        required=False
-    )
-
-    widget_types = schema.List(
-        title=_(u"Registered Widget Types"),
-        description=_(u"Widget types registered for this site. Add ons are "
-                      u"required to provide a setup step that adds specific "
-                      u"widgets to this list."),
-        value_type=schema.TextLine(
-            title=_(u"Widget type"),
-        ),
-        defaultFactory=widget_utils.default_widget_types,
-        missing_value=(),
-        required=False
-    )
-
     widget_settings = schema.Text(
         title=_(u"Widget Settings JSON"),
         description=_(u"Widget configuration registry storing a string "
