@@ -3,9 +3,7 @@
 import json
 from binascii import b2a_qp
 
-from bpython.translations import _
 from plone import api
-from plone.app.vocabularies.terms import safe_simpleterm_from_value
 from zope.interface import implementer
 from zope.schema.interfaces import IVocabularyFactory
 from zope.schema.vocabulary import SimpleVocabulary, SimpleTerm
