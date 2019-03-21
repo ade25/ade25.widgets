@@ -46,4 +46,9 @@
             name="ade25.widgets.vocabularies.AvailableContentWidgets"
             component="ade25.widgets.vocabulary.AvailableContentWidgetsVocabulary" />
 
+    <!-- Content Widget Tool -->
+    <utility
+            factory=".tool.ContentWidgetTool"
+            provides=".interfaces.IContentWidgetTool"/>
+
 </configure>

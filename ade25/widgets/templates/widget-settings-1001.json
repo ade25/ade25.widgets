@@ -10,25 +10,29 @@
       "id": "ade25.widgets.widget.text",
       "name": "Widget Text Block",
       "title": "Text Block",
-      "pkg": "ade25.widgets"
+      "pkg": "ade25.widgets",
+      "category": "general"
     },
     "separator": {
       "id": "ade25.widgets.widget.separator",
       "name": "Widget Separator",
       "title": "Separator",
-      "pkg": "ade25.widgets"
+      "pkg": "ade25.widgets",
+      "category": "general"
     },
     "horizontal-line": {
       "id": "ade25.widgets.widget.separator",
       "name": "Widget Horizontal Line",
       "title": "Horizontal Line",
-      "pkg": "ade25.widgets"
+      "pkg": "ade25.widgets",
+      "category": "general"
     },
     "image": {
       "id": "ade25.widgets.widget.image",
       "name": "Widget Image",
       "title": "Image Inline",
-      "pkg": "ade25.widgets"
+      "pkg": "ade25.widgets",
+      "category": "image"
     }
   }
 }

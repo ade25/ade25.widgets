@@ -9,13 +9,13 @@ from string import Template
 
 from Products.CMFPlone.utils import safe_unicode
 
+from ade25.widgets import MessageFactory as _
+from future.backports import OrderedDict
+from plone import api
+
 
 def get_filesystem_template(name, data=dict()):
-    template_file = os.path.join(
-        os.path.dirname(__file__),
-        'templates',
-        name
-    )
+    template_file = os.path.join(os.path.dirname(__file__), "templates", name)
     template = Template(open(template_file).read())
     composed = template.substitute(data)
     return composed
@@ -30,9 +30,9 @@ def default_widget_types_available(widget_types=None):
 def default_widget_types(widget_types=None):
     if widget_types is None:
         widget_types = [
-            safe_unicode('Horizontal Line'),
-            safe_unicode('Placeholder Widget'),
-            safe_unicode('Separator')
+            safe_unicode("Horizontal Line"),
+            safe_unicode("Placeholder Widget"),
+            safe_unicode("Separator"),
         ]
     return widget_types
 
@@ -44,21 +44,50 @@ def default_widget_configuration(version=None):
     requirements to the registry during import and initialization
     """
     if version:
-        template_name = 'widget-settings-{0}.json'.format(version)
+        template_name = "widget-settings-{0}.json".format(version)
     else:
-        template_name = 'widget-settings.json'
+        template_name = "widget-settings.json"
     template = get_filesystem_template(
         template_name,
         data={
             "id": str(uuid_tool.uuid4()),
             "timestamp": str(int(time.time())),
             "created": datetime.datetime.now().isoformat(),
-            "updated": datetime.datetime.now().isoformat()
-        }
+            "updated": datetime.datetime.now().isoformat(),
+        },
     )
     try:
         widget_settings = json.loads(template)
         settings = json.dumps(widget_settings)
     except ValueError:
-        settings = '{}'
+        settings = "{}"
     return safe_unicode(settings)
+
+
+def widget_categories():
+    categories = {
+        "general": _(u"General"),
+        "image": _(u"Image"),
+        "gallery": _(u"Gallery"),
+        "summary": _(u"Summary"),
+        "more": _(u"More")
+    }
+    return OrderedDict(categories)
+
+
+def available_widgets_for_section(section_name="main"):
+    section_configuration = OrderedDict()
+    registry_key = 'ade25.widgets.content_widgets_{0}'.format(
+        section_name
+    )
+    widgets_for_section = api.portal.get_registry_record(
+        name=registry_key,
+    )
+    for key, value in widget_categories().items():
+        section_configuration['key'] = {
+            "section_id": key,
+            "section_title": value,
+            "items": []
+        }
+    import pdb; pdb.set_trace()
+    return section_configuration
