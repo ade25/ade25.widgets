@@ -64,7 +64,18 @@ def default_widget_configuration(version=None):
     return safe_unicode(settings)
 
 
-def widget_categories():
+def content_widget_types():
+    types = [
+        'general',
+        'image',
+        'gallery',
+        'summary',
+        'more'
+    ]
+    return types
+
+
+def content_widget_types_details():
     categories = {
         "general": _(u"General"),
         "image": _(u"Image"),
@@ -72,22 +83,4 @@ def widget_categories():
         "summary": _(u"Summary"),
         "more": _(u"More")
     }
-    return OrderedDict(categories)
-
-
-def available_widgets_for_section(section_name="main"):
-    section_configuration = OrderedDict()
-    registry_key = 'ade25.widgets.content_widgets_{0}'.format(
-        section_name
-    )
-    widgets_for_section = api.portal.get_registry_record(
-        name=registry_key,
-    )
-    for key, value in widget_categories().items():
-        section_configuration['key'] = {
-            "section_id": key,
-            "section_title": value,
-            "items": []
-        }
-    import pdb; pdb.set_trace()
-    return section_configuration
+    return categories
