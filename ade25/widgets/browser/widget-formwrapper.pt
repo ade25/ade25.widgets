@@ -1,0 +1,68 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      xmlns:xlink="http://www.w3.org/1999/xlink"
+      lang="en"
+         metal:use-macro="context/main_template/macros/master"
+         i18n:domain="ade25.sitecontent">
+<body>
+
+<metal:main fill-slot="main">
+    <metal:content-core define-macro="main">
+
+        <div class="c-panel-editor c-panel-editor--centered">
+        <div class="c-panel-editor__header">
+            <div class="c-toolbar">
+                <div class="c-toolbar__content">
+                    <div class="c-toolbar__item">
+                        <div class="c-toolbar__title">
+                            Content Widget
+                        </div>
+                    </div>
+                    <div class="c-toolbar__item">
+                        <div class="c-toolbar__actions">
+                            <a class="c-toolbar__action c-button c-button--default" href="/@@panels-cancel"
+                                     tal:attributes="href python:context.absolute_url() + '/@@panel-page-view'" i18n:translate="">
+                                Cancel
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="o-page__main">
+
+            <div class="c-widget-editor">
+                <div class="c-widget-editor__item">
+                    <div class="c-widget-editor__item-aside">
+                        <svg class="o-icon o-icon--size-3 o-icon__ui--dots-dims">
+                            <use xlink:href="/assets/symbol/svg/sprite.symbol.svg#ui--dots"></use>
+                        </svg>
+                    </div>
+                    <div class="c-widget-editor__item-main">
+                        <h5 class="c-widget-editor__item-title">Widget Default</h5>
+                        <small>last modified: 12.04.2019</small>
+                    </div>
+                    <div class="c-widget-editor__item-actions">
+                        <svg class="o-icon o-icon--md o-icon__ui--pen-dims">
+                            <use xlink:href="/assets/symbol/svg/sprite.symbol.svg#ui--pen"></use>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+
+            <section class="o-page__section">
+                <span tal:replace="structure view/contents" />
+            </section>
+        </div>
+        </div>
+
+
+    </metal:content-core>
+</metal:main>
+
+</body>
+</html>
+

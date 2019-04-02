@@ -1,0 +1,8 @@
+{
+  "pkg": "ade25.widgets",
+  "id": "ade25.widgets.widget.separator",
+  "name": "Widget Horizontal Line",
+  "title": "Horizontal Line",
+  "category": "general",
+  "type": "base"
+}

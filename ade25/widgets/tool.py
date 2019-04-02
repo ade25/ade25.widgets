@@ -8,6 +8,7 @@ import uuid as uuid_tool
 import time
 
 from ade25.base.utils import get_filesystem_template
+from ade25.widgets.interfaces import IContentWidgets
 from babel.dates import format_datetime
 from Products.CMFPlone.utils import safe_unicode
 from future.backports import OrderedDict
@@ -29,6 +30,28 @@ SESSION_KEY = "Uh53dAfH2JPzI/lIhBvN72RJzZVv6zk5"
 
 class ContentWidgetTool(object):
     """ Utility providing management for content widgets """
+
+    @staticmethod
+    def widget_storage(uuid):
+        context = api.content.get(UID=uuid)
+        return IContentWidgets(context)
+
+    def widget_create(self, uuid, widget_id):
+        storage = self.widget_storage(uuid)
+        storage.create_widget(widget_id)
+
+    def widget_read(self, uuid, widget_id):
+        widget_data = {
+            'widget_id': widget_id,
+            'data': {
+                'state': 'draft',
+                'content': dict()
+            }
+        }
+        storage = self.widget_storage(uuid)
+        if storage.has_widgets():
+            widget_data['data'] = storage.read_widget(widget_id)
+        return widget_data
 
     @property
     def widget_categories(self):

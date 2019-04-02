@@ -10,6 +10,7 @@
     <!-- Include configuration for dependencies listed in setup.py -->
     <includeDependencies package="." />
 
+    <include package=".behavior" />
     <include package=".browser" />
 
     <include package=".widgets" />
@@ -45,6 +46,10 @@
     <utility
             name="ade25.widgets.vocabularies.AvailableContentWidgets"
             component="ade25.widgets.vocabulary.AvailableContentWidgetsVocabulary" />
+
+    <utility
+            name="ade25.widgets.vocabularies.ContentWidgetDisplayOptions"
+            component="ade25.widgets.vocabulary.ContentWidgetDisplayVocabulary" />
 
     <!-- Content Widget Tool -->
     <utility
