@@ -7,6 +7,7 @@ from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from plone.autoform.form import AutoExtensibleForm
 from plone.supermodel import model
 from plone.z3cform import layout
+from plone.z3cform.layout import FormWrapper
 from z3c.form import form
 from z3c.form import button
 
@@ -50,14 +51,7 @@ class ContentWidgetForm(AutoExtensibleForm, form.Form):
     submitted = False
 
     def settings(self):
-        request = self.request
-        request_parameter = {
-            'widget_name': getattr(request, 'identifier', None),
-            'widget_type': getattr(request, 'widget_type', 'base'),
-            'widget_mode': getattr(request, 'widget_mode', 'view'),
-            'widget_data': getattr(request, 'widget_date', dict())
-        }
-        return request_parameter
+        return self.params
 
     @property
     def edit_mode(self):
@@ -110,16 +104,10 @@ class ContentWidgetForm(AutoExtensibleForm, form.Form):
         self.status = "Thank you very much!"
 
 
-ContentWidgetFormView = layout.wrap_form(
-    ContentWidgetForm
-)
+class ContentWidgetFormView(FormWrapper):
 
+    form = ContentWidgetForm
 
-class ContentWidgetView(BrowserView):
-    """ Default widget view
-
-    Renders the provided template and view by the widget in question
-    """
     def __call__(self,
                  widget_type='base',
                  identifier=None,
@@ -132,20 +120,21 @@ class ContentWidgetView(BrowserView):
             'widget_mode': widget_mode,
             'widget_data': data_set
         }
+        self.update()
         return self.render()
 
-    def render(self):
-        return self.index()
+    def settings(self):
+        return self.params
 
     @property
     def edit_mode(self):
-        if self.params['widget_mode'] == 'edit':
+        if self.settings()['widget_mode'] == 'edit':
             return True
         return False
 
     @property
     def record(self):
-        return self.params['widget_data']
+        return self.settings()['widget_data']
 
     def widget_uid(self):
         try:
@@ -156,33 +145,15 @@ class ContentWidgetView(BrowserView):
 
     def rendered_widget(self):
         context = aq_inner(self.context)
-        if self.params['widget_type']:
+        if self.settings()['widget_type']:
             view_name = '@@content-widget-{0}'.format(
-                self.params['widget_type']
+                self.settings()['widget_type']
             )
             rendered_widget = context.restrictedTraverse(view_name)(
-                widget_mode=self.params['widget_mode'],
-                widget_data=self.params['widget_data']
+                widget_mode=self.settings()['widget_mode'],
+                widget_data=self.settings()['widget_data']
             )
         else:
             view_name = '@@content-widget-base'
             rendered_widget = context.restrictedTraverse(view_name)()
         return rendered_widget
-
-    def widget_form(self):
-        """ Create a form instance.
-
-        @return: z3c.form wrapped for Plone 3 view
-        """
-
-        context = aq_inner(self.context)
-        # Create a compact version of the contact form
-        # (not all fields visible)
-        widget_form = ContentWidgetFormView(context, self.request)
-
-        # Wrap a form in Plone view
-        view = ContentWidgetView(context, self.request)
-        view = view.__of__(context)  # Make sure acquisition chain is respected
-        view.form_instance = widget_form
-        return view
-

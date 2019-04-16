@@ -24,20 +24,20 @@
 
     <browser:page
             for="*"
-            name="content-widget"
-            class=".widget.ContentWidgetFormView"
-            template="widget-formwrapper.pt"
+            name="content-widget-form"
+            class=".widget.ContentWidgetForm"
             permission="zope2.View"
             layer="..interfaces.IAde25WidgetsLayer"
     />
 
-    <!--<browser:page
+    <browser:page
             for="*"
-            name="content-widget-form"
+            name="content-widget"
             class=".widget.ContentWidgetFormView"
+            template="widget.pt"
             permission="zope2.View"
             layer="..interfaces.IAde25WidgetsLayer"
-    />-->
+    />
 
 
 

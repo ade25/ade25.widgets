@@ -53,6 +53,10 @@ class ContentWidgetTool(object):
             widget_data['data'] = storage.read_widget(widget_id)
         return widget_data
 
+    def widget_setup(self, widget_name):
+        settings = self.widget_settings
+        return self._widget_information(widget_name, settings[widget_name])
+
     @property
     def widget_categories(self):
         return widget_utils.content_widget_types_details()

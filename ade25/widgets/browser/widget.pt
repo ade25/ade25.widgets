@@ -9,11 +9,12 @@
     <div class="c-alert c-alert--success">
         <div class="c-alert__title" i18n:translate="">Congratulations. This content widget has successfully been updated</div>
     </div>
-    <div class="c-widget__content">
-        <!--<div tal:replace="structure view/rendered_widget" />-->
+    <div class="c-widget__content" tal:condition="python:settings['widget_mode'] == 'view'">
+        <div tal:replace="structure view/rendered_widget" />
     </div>
-    <div class="c-widget__footer" tal:condition="python:settings['widget_mode'] == 'edit'">
-        <div class="o-page__section">
+    <div class="c-widget__content" tal:condition="python:settings['widget_mode'] == 'edit'">
+        <div class="o-page__section" tal:define="form python:view.form">
+            <pre tal:replace="structure python:view.contents" />
         </div>
     </div>
 </div>

@@ -33,7 +33,7 @@
         </div>
 
         <div class="o-page__main">
-
+            <pre tal:content="python:view.settings()"></pre>
             <div class="c-widget-editor">
                 <div class="c-widget-editor__item">
                     <div class="c-widget-editor__item-aside">
@@ -51,6 +51,10 @@
                         </svg>
                     </div>
                 </div>
+            </div>
+
+            <div class="c-widget__content">
+                <div tal:replace="structure view/rendered_widget" />
             </div>
 
             <section class="o-page__section">
