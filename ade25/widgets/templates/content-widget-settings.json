@@ -1,0 +1,9 @@
+{
+  "pkg": "${widget:pkg}",
+  "id": "${widget:dotted_name}",
+  "interface": "${widget:interface}",
+  "name": "${widget:name}",
+  "title": "${widget:title}",
+  "category": "more",
+  "type": "${widget:type}"
+}

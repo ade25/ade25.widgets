@@ -1,6 +1,6 @@
 <div class="c-widget c-widget--text-block c-widget__text-block c-widget--${view/widget_uid}"
          tal:define="settings python:view.params"
-    tal:attributes="class python:'c-widget c-widget--' + settings['widget_type'] + ' c-widget--' + view.widget_uid()">
+         tal:attributes="class python:'c-widget c-widget--' + settings['widget_type'] + ' c-widget--' + view.widget_uid()">
     <div class="c-widget__header c-widget__header--text-block">
         <div class="c-widget__title">
             Widget: Text Block
@@ -10,6 +10,5 @@
         <div tal:replace="structure view/rendered_widget" />
     </div>
     <div class="c-widget__footer" tal:condition="python:settings['widget_mode'] == 'edit'">
-
     </div>
 </div>

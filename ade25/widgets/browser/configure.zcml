@@ -22,4 +22,23 @@
       layer="..interfaces.IAde25WidgetsLayer"
       />
 
+    <browser:page
+            for="*"
+            name="content-widget-form"
+            class=".widget.ContentWidgetForm"
+            permission="zope2.View"
+            layer="..interfaces.IAde25WidgetsLayer"
+    />
+
+    <browser:page
+            for="*"
+            name="content-widget"
+            class=".widget.ContentWidgetFormView"
+            template="widget.pt"
+            permission="zope2.View"
+            layer="..interfaces.IAde25WidgetsLayer"
+    />
+
+
+
 </configure>

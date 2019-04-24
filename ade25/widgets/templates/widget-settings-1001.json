@@ -3,27 +3,40 @@
   "timestamp": "${timestamp}",
   "_runtime": "0.0000059604644775390625",
   "created": "${created}",
+  "updated": "${updated}",
   "title": "Ade25 Widget Settings",
   "items": {
     "text-block": {
       "id": "ade25.widgets.widget.text",
       "name": "Widget Text Block",
-      "pkg": "ade25.widgets"
+      "title": "Text Block",
+      "pkg": "ade25.widgets",
+      "category": "general",
+      "type": "base"
     },
     "separator": {
       "id": "ade25.widgets.widget.separator",
       "name": "Widget Separator",
-      "pkg": "ade25.widgets"
+      "title": "Separator",
+      "pkg": "ade25.widgets",
+      "category": "general",
+      "type": "base"
     },
     "horizontal-line": {
       "id": "ade25.widgets.widget.separator",
       "name": "Widget Horizontal Line",
-      "pkg": "ade25.widgets"
+      "title": "Horizontal Line",
+      "pkg": "ade25.widgets",
+      "category": "general",
+      "type": "base"
     },
     "image": {
       "id": "ade25.widgets.widget.image",
       "name": "Widget Image",
-      "pkg": "ade25.widgets"
+      "title": "Image Inline",
+      "pkg": "ade25.widgets",
+      "category": "image",
+      "type": "content-item"
     }
   }
 }

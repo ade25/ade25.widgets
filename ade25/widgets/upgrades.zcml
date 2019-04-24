@@ -1,0 +1,27 @@
+<configure
+        xmlns="http://namespaces.zope.org/zope"
+        xmlns:i18n="http://namespaces.zope.org/i18n"
+        xmlns:genericsetup="http://namespaces.zope.org/genericsetup"
+        i18n_domain="ade25.widget">
+
+    <genericsetup:upgradeStep
+            title="Update and cleanup widget registration"
+            description="Update control panel and add widget default settings'"
+            source="1"
+            destination="1001"
+            profile="ade25.widgets:default"
+            handler="ade25.widgets.upgrades.upgrade_1001"
+            sortkey="1"
+    />
+    <genericsetup:upgradeStep
+            title="Add asset repository"
+            description="Update widget settings and add asset management setup"
+            source="1001"
+            destination="1002"
+            profile="ade25.widgets:default"
+            handler="ade25.widgets.upgrades.upgrade_1001"
+            sortkey="1"
+    />
+
+
+</configure>
