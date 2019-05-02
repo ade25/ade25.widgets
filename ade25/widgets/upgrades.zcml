@@ -19,7 +19,7 @@
             source="1001"
             destination="1002"
             profile="ade25.widgets:default"
-            handler="ade25.widgets.upgrades.upgrade_1001"
+            handler="ade25.widgets.upgrades.upgrade_1002"
             sortkey="1"
     />
 
