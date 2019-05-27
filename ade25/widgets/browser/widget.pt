@@ -11,15 +11,11 @@
         <div tal:replace="structure view/rendered_widget" />
     </div>
     <div class="c-widget__content" tal:condition="python:settings['widget_mode'] == 'edit'">
-        <div class="c-alert c-alert--warning">
-            <div class="c-alert__title" i18n:translate="">
-                <strong>Info:</strong> This ist the content widgets default edit form. This view is not production ready and is missing implementation details.
-            </div>
-        </div>
+
         <tal:block tal:condition="python:configuration['type'] == 'base'">
             <div class="c-widget-editor__item">
                 <div class="c-widget-editor__item-aside">
-                    <svg class="o-icon o-icon--size-3 o-icon__ui--dots-dims">
+                    <svg class="o-icon o-icon--size-2 o-icon__ui--dots-dims">
                         <use xlink:href="/assets/symbol/svg/sprite.symbol.svg#ui--dots"></use>
                     </svg>
                 </div>

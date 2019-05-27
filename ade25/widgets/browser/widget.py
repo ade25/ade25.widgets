@@ -2,12 +2,10 @@
 """Module providing widget editor and view"""
 import uuid as uuid_tool
 from Acquisition import aq_inner
-from Products.Five import BrowserView
-from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
+from ade25.panelpage.interfaces import IContentPanelSettings
 from ade25.widgets.interfaces import IContentWidgetTool
 from plone.autoform.form import AutoExtensibleForm
 from plone.supermodel import model
-from plone.z3cform import layout
 from plone.z3cform.layout import FormWrapper
 from z3c.form import form
 from z3c.form import button
@@ -41,7 +39,7 @@ class ContentWidgetForm(AutoExtensibleForm, form.Form):
     search criteria.
     """
 
-    schema = IContentWidgetSettings
+    schema = IContentPanelSettings
     ignoreContext = True
     css_class = 'o-form o-form--widget'
 
@@ -87,15 +85,25 @@ class ContentWidgetForm(AutoExtensibleForm, form.Form):
             rendered_widget = context.restrictedTraverse(view_name)()
         return rendered_widget
 
+    @property
+    def action(self):
+        """ Rewrite HTTP POST action.
+#        If the form is rendered embedded on the others pages we
+        make sure the form is posted through the same view always,
+        instead of making HTTP POST to the page where the form was rendered.
+        """
+        return self.context.absolute_url() + "/@@content-widget-form"
+
     def applyChanges(self, data):
         # TODO: Implement data storage via widget tool
-        pass
+        context = aq_inner(self.context)
+        next_url = '{0}/@@panel-page'.format(context.absolute_url())
+        return self.request.response.redirect(next_url)
 
     @button.buttonAndHandler(_(u'cancel'), name='cancel')
     def handleCancel(self, action):
         context = aq_inner(self.context)
         next_url = '{0}/@@panel-page'.format(context.absolute_url())
-        self.status = "Widget update has been cancelled."
         return self.request.response.redirect(next_url)
 
     @button.buttonAndHandler(_(u'Update'), name='update')
@@ -111,6 +119,11 @@ class ContentWidgetForm(AutoExtensibleForm, form.Form):
             self.submitted = True
             self.applyChanges(data)
         self.status = "Thank you very much!"
+
+    def updateActions(self):
+        super(ContentWidgetForm, self).updateActions()
+        self.actions["update"].addClass("c-button--primary")
+        self.actions["cancel"].addClass("c-button--default")
 
 
 class ContentWidgetFormView(FormWrapper):
