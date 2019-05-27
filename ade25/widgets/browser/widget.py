@@ -4,6 +4,7 @@ import uuid as uuid_tool
 from Acquisition import aq_inner
 from Products.Five import BrowserView
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
+from ade25.widgets.interfaces import IContentWidgetTool
 from plone.autoform.form import AutoExtensibleForm
 from plone.supermodel import model
 from plone.z3cform import layout
@@ -13,6 +14,7 @@ from z3c.form import button
 
 from ade25.widgets import MessageFactory as _
 from zope import schema
+from zope.component import getUtility
 from zope.interface import implementer
 from zope.publisher.interfaces import IPublishTraverse
 
@@ -89,6 +91,13 @@ class ContentWidgetForm(AutoExtensibleForm, form.Form):
         # TODO: Implement data storage via widget tool
         pass
 
+    @button.buttonAndHandler(_(u'cancel'), name='cancel')
+    def handleCancel(self, action):
+        context = aq_inner(self.context)
+        next_url = '{0}/@@panel-page'.format(context.absolute_url())
+        self.status = "Widget update has been cancelled."
+        return self.request.response.redirect(next_url)
+
     @button.buttonAndHandler(_(u'Update'), name='update')
     def handleApply(self, action):
         request = self.request
@@ -142,6 +151,33 @@ class ContentWidgetFormView(FormWrapper):
         except (KeyError, TypeError):
             widget_id = str(uuid_tool.uuid4())
         return widget_id
+
+    def widget_settings(self):
+        widget_identifier = self.settings()['widget_type']
+        widget_tool = getUtility(IContentWidgetTool)
+        try:
+            settings = widget_tool.widget_setup(widget_identifier)
+        except KeyError:
+            settings = {}
+        return settings
+
+    def widget_configuration(self):
+        widget_tool = getUtility(IContentWidgetTool)
+        widget_id = self.settings()['widget_type']
+        try:
+            configuration = widget_tool.widget_setup(
+                widget_id
+            )
+        except KeyError:
+            configuration = {
+                "pkg": "PKG Undefined",
+                "id": widget_id,
+                "name": widget_id.replace('-', ' ').title(),
+                "title": widget_id.replace('-', ' ').title(),
+                "category": "more",
+                "type": "base"
+            }
+        return configuration
 
     def rendered_widget(self):
         context = aq_inner(self.context)

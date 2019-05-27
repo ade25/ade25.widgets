@@ -1,15 +1,12 @@
 # -*- coding: utf-8 -*-
 # Module providing version specific upgrade steps
-import json
-
-from plone import api
-
 import logging
+from ade25.widgets import utils as widget_utils
+from plone import api
 
 default_profile = 'profile-ade25.widgets:default'
 logger = logging.getLogger(__name__)
 
-from ade25.widgets import utils as widget_utils
 
 
 def update_widget_settings(version=None):

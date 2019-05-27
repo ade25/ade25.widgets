@@ -1,20 +1,122 @@
 <div class="c-widget c-widget--text-block c-widget__text-block c-widget--${view/widget_uid}"
-         tal:define="settings python:view.settings()"
-         tal:attributes="class python:'c-widget c-widget--' + settings['widget_type'] + ' c-widget--' + view.widget_uid()">
+     tal:define="settings python:view.settings(); configuration python:view.widget_configuration()"
+     tal:attributes="class python:'c-widget c-widget--' + settings['widget_type'] + ' c-widget--' + view.widget_uid()"
+     xmlns:xlink="http://www.w3.org/1999/xlink">
     <div class="c-widget__header c-widget__header--text-block">
         <div class="c-widget__title">
             Widget: Text Block
         </div>
     </div>
-    <div class="c-alert c-alert--success">
-        <div class="c-alert__title" i18n:translate="">Congratulations. This content widget has successfully been updated</div>
-    </div>
     <div class="c-widget__content" tal:condition="python:settings['widget_mode'] == 'view'">
         <div tal:replace="structure view/rendered_widget" />
     </div>
     <div class="c-widget__content" tal:condition="python:settings['widget_mode'] == 'edit'">
-        <div class="o-page__section" tal:define="form python:view.form">
-            <pre tal:replace="structure python:view.contents" />
+        <div class="c-alert c-alert--warning">
+            <div class="c-alert__title" i18n:translate="">
+                <strong>Info:</strong> This ist the content widgets default edit form. This view is not production ready and is missing implementation details.
+            </div>
         </div>
+        <tal:block tal:condition="python:configuration['type'] == 'base'">
+            <div class="c-widget-editor__item">
+                <div class="c-widget-editor__item-aside">
+                    <svg class="o-icon o-icon--size-3 o-icon__ui--dots-dims">
+                        <use xlink:href="/assets/symbol/svg/sprite.symbol.svg#ui--dots"></use>
+                    </svg>
+                </div>
+                <div class="c-widget-editor__item-main">
+                    <h5 class="c-widget-editor__item-title">
+                        <span tal:content="python:configuration['title']"></span>
+                    </h5>
+                    <small>last modified: 12.04.2019</small>
+                </div>
+                <div class="c-widget-editor__item-actions">
+                    <a class="c-button c-button--default c-widget-editor__item-link"
+                             tal:attributes="href python:context.absolute_url() + '/@@panel-delete'">
+                        <svg class="o-icon o-icon--md o-icon__ui--trash-dims">
+                            <use xlink:href="/assets/symbol/svg/sprite.symbol.svg#ui--trash"></use>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+            <div class="c-alert c-alert--default">
+                <div class="c-alert__title" i18n:translate="">
+                    This content widget does not have any configurable options or editable content
+                </div>
+            </div>
+        </tal:block>
+        <tal:block tal:condition="python:configuration['type'] == 'content-item'">
+            <div class="c-widget-editor__item">
+                <div class="c-widget-editor__item-aside">
+                    <svg class="o-icon o-icon--size-3 o-icon__ui--dots-dims">
+                        <use xlink:href="/assets/symbol/svg/sprite.symbol.svg#ui--dots"></use>
+                    </svg>
+                </div>
+                <div class="c-widget-editor__item-main">
+                    <h5 class="c-widget-editor__item-title">
+                        <span tal:content="python:configuration['title']"></span>
+                    </h5>
+                    <small>last modified: 12.04.2019</small>
+                </div>
+                <div class="c-widget-editor__item-actions">
+                    <a class="c-button c-button--default c-widget-editor__item-link"
+                             tal:attributes="href python:context.absolute_url() + '/@@panel-delete'">
+                        <svg class="o-icon o-icon--md o-icon__ui--trash-dims">
+                            <use xlink:href="/assets/symbol/svg/sprite.symbol.svg#ui--trash"></use>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+            <div class="o-page__section" tal:define="form python:view.form">
+                <pre tal:replace="structure python:view.contents" />
+            </div>
+        </tal:block>
+        <tal:block tal:condition="python:configuration['type'] == 'collection'">
+            <div class="c-widget-editor__item">
+                <div class="c-widget-editor__item-aside">
+                    <svg class="o-icon o-icon--size-3 o-icon__ui--dots-dims">
+                        <use xlink:href="/assets/symbol/svg/sprite.symbol.svg#ui--dots"></use>
+                    </svg>
+                </div>
+                <div class="c-widget-editor__item-main">
+                    <h5 class="c-widget-editor__item-title">
+                        <span tal:content="python:configuration['title']"></span>
+                    </h5>
+                    <small>last modified: 12.04.2019</small>
+                </div>
+                <div class="c-widget-editor__item-actions">
+                    <a class="c-button c-button--default c-widget-editor__item-link"
+                             tal:attributes="href python:context.absolute_url() + '/@@content-widget-edit-child'">
+                        <svg class="o-icon o-icon--md o-icon__ui--add-dims">
+                            <use xlink:href="/assets/symbol/svg/sprite.symbol.svg#ui--add"></use>
+                        </svg>
+                    </a>
+                    <a class="c-button c-button--default c-widget-editor__item-link"
+                             tal:attributes="href python:context.absolute_url() + '/@@content-widget'">
+                        <svg class="o-icon o-icon--md o-icon__ui--pen-dims">
+                            <use xlink:href="/assets/symbol/svg/sprite.symbol.svg#ui--pen"></use>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+            <div class="c-widget-editor__item c-widget-editor__item--secondary">
+                <div class="c-widget-editor__item-aside">
+                    <svg class="o-icon o-icon--size-3 o-icon__ui--dots-dims">
+                        <use xlink:href="/assets/symbol/svg/sprite.symbol.svg#ui--dots"></use>
+                    </svg>
+                </div>
+                <div class="c-widget-editor__item-main">
+                    <h5 class="c-widget-editor__item-title">01 - Child Element 1</h5>
+                </div>
+                <div class="c-widget-editor__item-actions">
+                    <a class="c-button c-button--default c-widget-editor__item-link"
+                             tal:attributes="href python:context.absolute_url() + '/@@content-widget-edit'">
+                        <svg class="o-icon o-icon--md o-icon__ui--pen-dims">
+                            <use xlink:href="/assets/symbol/svg/sprite.symbol.svg#ui--pen"></use>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        </tal:block>
+
     </div>
 </div>
