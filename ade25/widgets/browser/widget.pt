@@ -1,5 +1,5 @@
 <div class="c-widget c-widget--text-block c-widget__text-block c-widget--${view/widget_uid}"
-     tal:define="settings python:view.settings(); configuration python:view.widget_configuration()"
+     tal:define="settings python:view.settings(); configuration python:view.widget_configuration(); panel python:view.widget_context()"
      tal:attributes="class python:'c-widget c-widget--' + settings['widget_type'] + ' c-widget--' + view.widget_uid()"
      xmlns:xlink="http://www.w3.org/1999/xlink">
     <div class="c-widget__header c-widget__header--text-block">
@@ -27,7 +27,13 @@
                 </div>
                 <div class="c-widget-editor__item-actions">
                     <a class="c-button c-button--default c-widget-editor__item-link"
-                             tal:attributes="href python:context.absolute_url() + '/@@panel-delete'">
+                             tal:attributes="href python:context.absolute_url() + '/@@panel-settings?section=' + panel['panel_page_section'] + '&panel=' + panel['panel_page_item']">
+                        <svg class="o-icon o-icon--md o-icon__ui--pen-dims">
+                            <use xlink:href="/assets/symbol/svg/sprite.symbol.svg#ui--pen"></use>
+                        </svg>
+                    </a>
+                    <a class="c-button c-button--default c-widget-editor__item-link"
+                             tal:attributes="href python:context.absolute_url() + '/@@panel-delete?section=' + panel['panel_page_section'] + '&panel=' + panel['panel_page_item']">
                         <svg class="o-icon o-icon--md o-icon__ui--trash-dims">
                             <use xlink:href="/assets/symbol/svg/sprite.symbol.svg#ui--trash"></use>
                         </svg>
@@ -36,7 +42,7 @@
             </div>
             <div class="c-alert c-alert--default">
                 <div class="c-alert__title" i18n:translate="">
-                    This content widget does not have any configurable options or editable content
+                    This content widget does not have any editable content
                 </div>
             </div>
         </tal:block>

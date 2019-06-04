@@ -1,35 +1,37 @@
 # -*- coding: utf-8 -*-
 """Module providing widget editor and view"""
+import hashlib
+import uuid
 import uuid as uuid_tool
+
 from Acquisition import aq_inner
-from ade25.panelpage.interfaces import IContentPanelSettings
-from ade25.widgets.interfaces import IContentWidgetTool
+from ade25.panelpage.interfaces import IPanelEditor
+from plone import api
 from plone.autoform.form import AutoExtensibleForm
+from plone.namedfile.interfaces import INamedBlobImage
 from plone.supermodel import model
 from plone.z3cform.layout import FormWrapper
-from z3c.form import form
 from z3c.form import button
-
-from ade25.widgets import MessageFactory as _
+from z3c.form import form
 from zope import schema
 from zope.component import getUtility
+from zope.dottedname.resolve import resolve
 from zope.interface import implementer
 from zope.publisher.interfaces import IPublishTraverse
 
 
+from ade25.widgets.interfaces import IContentWidgetTool, IContentWidgets
+from ade25.widgets import MessageFactory as _
+
+
 class IContentWidgetSettings(model.Schema):
 
-    custom_class = schema.TextLine(
-        title=_(u"Additional CSS Classes"),
-        description=_(u"Enter optional css classes that should be applied to "
-                      u"the default widget class."),
+    is_public = schema.Bool(
+        title=_(u"Public"),
+        description=_(u"Select if this widget should be visible in the view "
+                      u"or remain in a draft version."),
+        default=True,
         required=False
-    )
-    widget_display = schema.Choice(
-        title=_(u"Widget Display"),
-        description=_(u"Select responsive behavior for widget"),
-        required=False,
-        vocabulary='ade25.widgets.vocabularies.ContentWidgetDisplayOptions'
     )
 
 
@@ -39,7 +41,7 @@ class ContentWidgetForm(AutoExtensibleForm, form.Form):
     search criteria.
     """
 
-    schema = IContentPanelSettings
+    schema = IContentWidgetSettings
     ignoreContext = True
     css_class = 'o-form o-form--widget'
 
@@ -49,6 +51,19 @@ class ContentWidgetForm(AutoExtensibleForm, form.Form):
     formErrorsMessage = _(u'There were errors.')
 
     submitted = False
+
+    @property
+    def panel_editor(self):
+        tool = getUtility(IPanelEditor)
+        return tool.get()
+
+    @property
+    def additionalSchemata(self):
+        context = aq_inner(self.context)
+        editor_data = self.panel_editor[context.UID()]
+        schema_interface = resolve(editor_data['widget_settings']['schema'])
+        schemata = (schema_interface,)
+        return schemata
 
     def settings(self):
         return self.params
@@ -94,9 +109,50 @@ class ContentWidgetForm(AutoExtensibleForm, form.Form):
         """
         return self.context.absolute_url() + "/@@content-widget-form"
 
+    @staticmethod
+    def prettify_key(entry_key):
+        try:
+            clean_key = entry_key.split(".")[-1]
+            return clean_key
+        except:
+            return entry_key
+
+    @staticmethod
+    def generate_hash_from_filename(file_name):
+        return hashlib.sha1(str(uuid.uuid4()) + file_name).hexdigest()
+
+    def _process_image_asset(self, field_key, field_value):
+        portal = api.portal.get()
+        asset_repository = portal['asset-repository']
+        widget_file = api.content.create(
+            container=asset_repository,
+            type="Image",
+            title="Widget Asset {0}".format(
+                self.generate_hash_from_filename(field_value.filename)
+            )
+        )
+        return widget_file.UID()
+
     def applyChanges(self, data):
         # TODO: Implement data storage via widget tool
         context = aq_inner(self.context)
+        editor_data = self.panel_editor[context.UID()]
+        storage = IContentWidgets(context)
+        widget_content = dict()
+        for key, value in data.items():
+            entry_key = self.prettify_key(key)
+            if INamedBlobImage.providedBy(value):
+                # TODO: handle file upload to dedicated asset object
+                image_uid = self._process_image_asset(entry_key, value)
+                widget_content[entry_key] = image_uid
+            else:
+                widget_content[entry_key] = value
+        import pdb; pdb.set_trace()
+        storage.store_widget(
+            editor_data['widget_id'],
+            widget_content,
+            self.request
+        )
         next_url = '{0}/@@panel-page'.format(context.absolute_url())
         return self.request.response.redirect(next_url)
 
@@ -157,6 +213,18 @@ class ContentWidgetFormView(FormWrapper):
     @property
     def record(self):
         return self.settings()['widget_data']
+
+    def widget_context(self):
+        try:
+            panel_section = self.record['page_section']
+            panel_item = self.record['page_panel']
+        except (KeyError, TypeError):
+            panel_section = 'main'
+            panel_item = '0'
+        return {
+            'panel_page_section': panel_section,
+            'panel_page_item': panel_item
+        }
 
     def widget_uid(self):
         try:
