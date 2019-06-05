@@ -17,6 +17,7 @@ from zope import schema
 from zope.component import getUtility
 from zope.dottedname.resolve import resolve
 from zope.interface import implementer
+from zope.lifecycleevent import modified
 from zope.publisher.interfaces import IPublishTraverse
 
 
@@ -61,9 +62,12 @@ class ContentWidgetForm(AutoExtensibleForm, form.Form):
     def additionalSchemata(self):
         context = aq_inner(self.context)
         editor_data = self.panel_editor[context.UID()]
-        schema_interface = resolve(editor_data['widget_settings']['schema'])
-        schemata = (schema_interface,)
-        return schemata
+        try:
+            schema_interface = resolve(editor_data['widget_settings']['schema'])
+            schemata = (schema_interface,)
+            return schemata
+        except ValueError:
+            return ()
 
     def settings(self):
         return self.params
@@ -114,7 +118,7 @@ class ContentWidgetForm(AutoExtensibleForm, form.Form):
         try:
             clean_key = entry_key.split(".")[-1]
             return clean_key
-        except:
+        except IndexError:
             return entry_key
 
     @staticmethod
@@ -131,6 +135,8 @@ class ContentWidgetForm(AutoExtensibleForm, form.Form):
                 self.generate_hash_from_filename(field_value.filename)
             )
         )
+        modified(widget_file)
+        widget_file.reindexObject(idxs='modified')
         return widget_file.UID()
 
     def applyChanges(self, data):
@@ -147,7 +153,6 @@ class ContentWidgetForm(AutoExtensibleForm, form.Form):
                 widget_content[entry_key] = image_uid
             else:
                 widget_content[entry_key] = value
-        import pdb; pdb.set_trace()
         storage.store_widget(
             editor_data['widget_id'],
             widget_content,

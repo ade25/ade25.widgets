@@ -1,4 +1,5 @@
 # encoding=utf-8
+import json
 from hashlib import sha256
 from uuid import UUID
 
@@ -55,7 +56,10 @@ class ContentWidgets(object):
     def store_widget(self, widget, widget_data, request):
         widget_id = self.validate_uuid4(widget)
         self.annotations['widget_hashes'].append(
-            self._hash(request, widget_data)
+            self._hash(
+                request,
+                json.dumps(widget_data)
+            )
         )
         stored_widgets = self.annotations['widgets']
         stored_widgets[widget_id] = widget_data
@@ -80,7 +84,10 @@ class ContentWidgets(object):
         return len(self.annotations.get('widgets', [])) != 0
 
     def is_update(self, request, widget_data):
-        widget_hash = self._hash(request, widget_data)
+        widget_hash = self._hash(
+            request,
+            json.dumps(widget_data)
+        )
         return widget_hash in self.annotations['widget_hashes']
 
     def read(self):
