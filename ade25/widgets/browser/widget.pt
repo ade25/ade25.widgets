@@ -87,15 +87,21 @@
                 </div>
                 <div class="c-widget-editor__item-actions">
                     <a class="c-button c-button--default c-widget-editor__item-link"
-                             tal:attributes="href python:context.absolute_url() + '/@@content-widget-edit-child'">
+                             tal:attributes="href python:context.absolute_url() + '/@@widget-collection-add'">
                         <svg class="o-icon o-icon--md o-icon__ui--add-dims">
                             <use xlink:href="/assets/symbol/svg/sprite.symbol.svg#ui--add"></use>
                         </svg>
                     </a>
                     <a class="c-button c-button--default c-widget-editor__item-link"
-                             tal:attributes="href python:context.absolute_url() + '/@@content-widget'">
+                             tal:attributes="href python:context.absolute_url() + '/@@panel-settings?section=' + panel['panel_page_section'] + '&panel=' + panel['panel_page_item']">
                         <svg class="o-icon o-icon--md o-icon__ui--pen-dims">
                             <use xlink:href="/assets/symbol/svg/sprite.symbol.svg#ui--pen"></use>
+                        </svg>
+                    </a>
+                    <a class="c-button c-button--default c-widget-editor__item-link"
+                             tal:attributes="href python:context.absolute_url() + '/@@panel-delete?section=' + panel['panel_page_section'] + '&panel=' + panel['panel_page_item']">
+                        <svg class="o-icon o-icon--md o-icon__ui--trash-dims">
+                            <use xlink:href="/assets/symbol/svg/sprite.symbol.svg#ui--trash"></use>
                         </svg>
                     </a>
                 </div>
@@ -107,13 +113,19 @@
                     </svg>
                 </div>
                 <div class="c-widget-editor__item-main">
-                    <h5 class="c-widget-editor__item-title">01 - Child Element 1</h5>
+                    <h5 class="c-widget-editor__item-title">01 - Collection Item</h5>
                 </div>
                 <div class="c-widget-editor__item-actions">
                     <a class="c-button c-button--default c-widget-editor__item-link"
-                             tal:attributes="href python:context.absolute_url() + '/@@content-widget-edit'">
+                             tal:attributes="href python:context.absolute_url() + '/@@widget-collection-item-edit?section=' + panel['panel_page_section'] + '&panel=' + panel['panel_page_item']">
                         <svg class="o-icon o-icon--md o-icon__ui--pen-dims">
                             <use xlink:href="/assets/symbol/svg/sprite.symbol.svg#ui--pen"></use>
+                        </svg>
+                    </a>
+                    <a class="c-button c-button--default c-widget-editor__item-link"
+                             tal:attributes="href python:context.absolute_url() + '/@@widget-collection-item-delete?section=' + panel['panel_page_section'] + '&panel=' + panel['panel_page_item']">
+                        <svg class="o-icon o-icon--md o-icon__ui--trash-dims">
+                            <use xlink:href="/assets/symbol/svg/sprite.symbol.svg#ui--trash"></use>
                         </svg>
                     </a>
                 </div>

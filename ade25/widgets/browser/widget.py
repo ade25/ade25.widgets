@@ -23,6 +23,7 @@ from zope.publisher.interfaces import IPublishTraverse
 
 from ade25.widgets.interfaces import IContentWidgetTool, IContentWidgets
 from ade25.widgets import MessageFactory as _
+from zope.schema import getFieldsInOrder
 
 
 class IContentWidgetSettings(model.Schema):
@@ -43,7 +44,7 @@ class ContentWidgetForm(AutoExtensibleForm, form.Form):
     """
 
     schema = IContentWidgetSettings
-    ignoreContext = True
+    ignoreContext = False
     css_class = 'o-form o-form--widget'
 
     label = _(u'Content Widget')
@@ -68,6 +69,29 @@ class ContentWidgetForm(AutoExtensibleForm, form.Form):
             return schemata
         except ValueError:
             return ()
+
+    def getContent(self):
+        context = aq_inner(self.context)
+        editor_data = self.panel_editor[context.UID()]
+        storage = IContentWidgets(context)
+        stored_widget_data = storage.read_widget(editor_data['widget_id'])
+        widget_content = dict()
+        if stored_widget_data:
+            schemata = self.additionalSchemata + (self.schema, )
+            for widget_schema in schemata:
+                fields = getFieldsInOrder(widget_schema)
+                for key, value in fields:
+                    if key == "image":
+                        image_uid = stored_widget_data.get("image", None)
+                        if image_uid:
+                            asset = api.content.get(UID=image_uid)
+                            widget_content[key] = getattr(asset, key, value)
+                    else:
+                        widget_content[key] = stored_widget_data.get(
+                            key,
+                            value.title
+                        )
+        return widget_content
 
     def settings(self):
         return self.params
@@ -132,8 +156,9 @@ class ContentWidgetForm(AutoExtensibleForm, form.Form):
             container=asset_repository,
             type="Image",
             title="Widget Asset {0}".format(
-                self.generate_hash_from_filename(field_value.filename)
-            )
+                self.generate_hash_from_filename(field_value.filename),
+            ),
+            image=field_value
         )
         modified(widget_file)
         widget_file.reindexObject(idxs='modified')
@@ -205,6 +230,11 @@ class ContentWidgetFormView(FormWrapper):
         }
         self.update()
         return self.render()
+
+    def getContent(self):
+        data = {}
+        data['title'] = "Some title"
+        return data
 
     def settings(self):
         return self.params
