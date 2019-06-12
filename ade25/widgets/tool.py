@@ -74,6 +74,21 @@ class ContentWidgetTool(object):
         widget_data['widget'] = widget_name
         return widget_data
 
+    @staticmethod
+    def widget_action_details(widget,
+                              action_name,
+                              widget_type,
+                              is_current=False):
+        configuration = widget_utils.widget_actions_configuration(widget)
+        details = configuration[action_name]
+        if action_name == "create" and widget_type == "collection":
+            details["display"] = True
+        if action_name == "update" and widget_type == "collection-item":
+            details["css_class"] = "c-button--action"
+        if is_current:
+            details["css_class"] = "c-button--active-action"
+        return details
+
     def widget_information(self, widget_category, widget_data):
         settings = self.widget_settings
         info = [

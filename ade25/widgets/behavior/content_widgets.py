@@ -54,34 +54,37 @@ class ContentWidgets(object):
         return widget_hash.hexdigest()
 
     def store_widget(self, widget, widget_data, request):
-        widget_id = self.validate_uuid4(widget)
-        self.annotations['widget_hashes'].append(
-            self._hash(
-                request,
-                json.dumps(widget_data)
+        if self.validate_uuid4(widget):
+            widget_id = widget
+            self.annotations['widget_hashes'].append(
+                self._hash(
+                    request,
+                    json.dumps(widget_data)
+                )
             )
-        )
-        stored_widgets = self.annotations['widgets']
-        stored_widgets[widget_id] = widget_data
+            stored_widgets = self.annotations['widgets']
+            stored_widgets[widget_id] = widget_data
 
     def read_widget(self, widget):
-        widget_id = self.validate_uuid4(widget)
-        stored_widgets = self.annotations['widgets']
-        if widget_id in stored_widgets:
-            return stored_widgets[widget_id]
+        if self.validate_uuid4(widget):
+            widget_id = widget
+            stored_widgets = self.annotations['widgets']
+            if widget_id in stored_widgets:
+                return stored_widgets[widget_id]
 
     def delete_widget(self, widget):
-        widget_id = self.validate_uuid4(widget)
-        stored_widgets = self.annotations['widgets']
-        if widget_id in stored_widgets:
-            del stored_widgets[widget_id]
+        if self.validate_uuid4(widget):
+            widget_id = widget
+            stored_widgets = self.annotations['widgets']
+            if widget_id in stored_widgets:
+                del stored_widgets[widget_id]
 
     def widget_index(self):
-        records = self.annotations['widgets']
+        records = self.annotations.get('widgets', [])
         return len(records)
 
     def has_widgets(self):
-        return len(self.annotations.get('widgets', [])) != 0
+        return self.widget_index() > 0
 
     def is_update(self, request, widget_data):
         widget_hash = self._hash(

@@ -9,6 +9,7 @@ from ade25.panelpage.interfaces import IPanelEditor
 from plone import api
 from plone.autoform.form import AutoExtensibleForm
 from plone.namedfile.interfaces import INamedBlobImage
+from plone.protect.utils import addTokenToUrl
 from plone.supermodel import model
 from plone.z3cform.layout import FormWrapper
 from z3c.form import button
@@ -165,7 +166,6 @@ class ContentWidgetForm(AutoExtensibleForm, form.Form):
         return widget_file.UID()
 
     def applyChanges(self, data):
-        # TODO: Implement data storage via widget tool
         context = aq_inner(self.context)
         editor_data = self.panel_editor[context.UID()]
         storage = IContentWidgets(context)
@@ -173,7 +173,6 @@ class ContentWidgetForm(AutoExtensibleForm, form.Form):
         for key, value in data.items():
             entry_key = self.prettify_key(key)
             if INamedBlobImage.providedBy(value):
-                # TODO: handle file upload to dedicated asset object
                 image_uid = self._process_image_asset(entry_key, value)
                 widget_content[entry_key] = image_uid
             else:
@@ -230,11 +229,6 @@ class ContentWidgetFormView(FormWrapper):
         }
         self.update()
         return self.render()
-
-    def getContent(self):
-        data = {}
-        data['title'] = "Some title"
-        return data
 
     def settings(self):
         return self.params
@@ -294,6 +288,36 @@ class ContentWidgetFormView(FormWrapper):
                 "type": "base"
             }
         return configuration
+
+    @staticmethod
+    def widget_actions(content_type="default"):
+        actions = [
+            "create",
+            "update",
+            "delete",
+            "settings",
+        ]
+        if content_type == "collection-item":
+            actions = [
+                "update",
+                "delete",
+                "reorder"
+            ]
+        return actions
+
+    def widget_action(self, action_name, widget_type="base"):
+        context = aq_inner(self.context)
+        widget_tool = getUtility(IContentWidgetTool)
+        action_details = widget_tool.widget_action_details(
+            context,
+            action_name,
+            widget_type
+        )
+        return action_details
+
+    @staticmethod
+    def widget_action_url(action_url):
+        return addTokenToUrl(action_url)
 
     def rendered_widget(self):
         context = aq_inner(self.context)

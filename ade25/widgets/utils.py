@@ -7,6 +7,7 @@ import time
 import uuid as uuid_tool
 from string import Template
 
+from Acquisition import aq_inner
 from Products.CMFPlone.utils import safe_unicode
 
 from ade25.widgets import MessageFactory as _
@@ -84,3 +85,67 @@ def content_widget_types_details():
         "more": _(u"More")
     }
     return categories
+
+
+def widget_actions():
+    actions = {
+        "base": [
+            "create"
+            "update",
+            "delete",
+            "settings",
+            "reorder"
+        ],
+        "content-item": [
+            "update",
+            "delete",
+            "settings"
+        ],
+        "collection": [
+            "delete",
+            "settings"
+        ],
+        "collection-item": [
+            "update",
+            "delete",
+            "settings",
+            "reorder"
+        ]
+    }
+
+
+def widget_actions_configuration(widget):
+    context = widget
+    actions = {
+        "create": {
+            "url": '{0}/@@content-widget-item-add'.format(context.absolute_url()),
+            "icon": "add",
+            "css_class": "c-button--action",
+            "display": False
+        },
+        "update": {
+            "url": '{0}/@@content-widget-item'.format(context.absolute_url()),
+            "icon": "pen",
+            "css_class": "c-button--active-action",
+            "display": True
+        },
+        "delete": {
+            "url": '{0}/@@panel-delete'.format(context.absolute_url()),
+            "icon": "trash",
+            "css_class": "c-button--action",
+            "display": True
+        },
+        "settings": {
+            "url": '{0}/@@panel-settings'.format(context.absolute_url()),
+            "icon": "more-vertical",
+            "css_class": "c-button--action",
+            "display": True
+        },
+        "reorder": {
+            "url": '{0}/@@content-widget-reorder'.format(context.absolute_url()),
+            "icon": "reorder",
+            "css_class": "c-button--disabled",
+            "display": True
+        },
+    }
+    return actions
