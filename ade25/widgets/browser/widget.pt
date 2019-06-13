@@ -79,6 +79,15 @@
             </div>
         </div>
 
+        <div class="c-alert c-alert--danger"
+            tal:condition="python:configuration['type'] == 'collection'">
+            <div class="c-alert__title" i18n:translate="">
+                <strong>Warning:</strong> The widget collection child item
+                editor is not yet available and the collection item displayed is
+                merely a placeholder
+            </div>
+        </div>
+
         <tal:block tal:condition="python:configuration['type'] == 'base'">
             <div class="c-alert c-alert--default">
                 <div class="c-alert__title" i18n:translate="">

@@ -126,7 +126,7 @@ def widget_actions_configuration(widget):
         "update": {
             "url": '{0}/@@content-widget-item'.format(context.absolute_url()),
             "icon": "pen",
-            "css_class": "c-button--active-action",
+            "css_class": "c-button--action",
             "display": True
         },
         "delete": {

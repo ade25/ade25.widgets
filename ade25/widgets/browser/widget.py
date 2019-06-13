@@ -308,10 +308,14 @@ class ContentWidgetFormView(FormWrapper):
     def widget_action(self, action_name, widget_type="base"):
         context = aq_inner(self.context)
         widget_tool = getUtility(IContentWidgetTool)
+        is_current = False
+        if action_name == "update":
+            is_current = True
         action_details = widget_tool.widget_action_details(
             context,
             action_name,
-            widget_type
+            widget_type,
+            is_current
         )
         return action_details
 
