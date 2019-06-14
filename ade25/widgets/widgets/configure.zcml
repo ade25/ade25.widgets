@@ -4,6 +4,8 @@
         xmlns:z3c="http://namespaces.zope.org/z3c"
         i18n_domain="ade25.widgets">
 
+    <include package=".general" />
+    <include package=".image" />
 
     <browser:page
         for="*"
@@ -13,44 +15,5 @@
         permission="zope2.View"
         layer="..interfaces.IAde25WidgetsLayer"
         />
-
-    <!-- Widget: Separator -->
-    <browser:page
-            for="*"
-            name="content-widget-separator"
-            class="ade25.widgets.widgets.separator.WidgetSeparator"
-            template="separator.pt"
-            permission="zope2.View"
-            layer="..interfaces.IAde25WidgetsLayer"
-    />
-
-    <browser:page
-            for="*"
-            name="content-widget-horizontal-line"
-            class="ade25.widgets.widgets.separator.WidgetHorizontalLine"
-            template="separator-line.pt"
-            permission="zope2.View"
-            layer="..interfaces.IAde25WidgetsLayer"
-    />
-
-    <!-- Widget: Text Block -->
-    <browser:page
-            for="*"
-            name="content-widget-text-block"
-            class="ade25.widgets.widgets.text.WidgetText"
-            template="text.pt"
-            permission="zope2.View"
-            layer="..interfaces.IAde25WidgetsLayer"
-    />
-
-    <!-- Widget: Image Cover -->
-    <browser:page
-            for="*"
-            name="content-widget-image-cover"
-            class="ade25.widgets.widgets.image.WidgetImageCover"
-            template="image-cover.pt"
-            permission="zope2.View"
-            layer="..interfaces.IAde25WidgetsLayer"
-    />
 
 </configure>

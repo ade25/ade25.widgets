@@ -1,0 +1,17 @@
+<configure
+        xmlns="http://namespaces.zope.org/zope"
+        xmlns:browser="http://namespaces.zope.org/browser"
+        xmlns:z3c="http://namespaces.zope.org/z3c"
+        i18n_domain="ade25.widgets">
+
+    <!-- Widget: Image Cover -->
+    <browser:page
+            for="*"
+            name="content-widget-image-cover"
+            class="ade25.widgets.widgets.image.image.WidgetImageCover"
+            template="image-cover.pt"
+            permission="zope2.View"
+            layer="...interfaces.IAde25WidgetsLayer"
+    />
+
+</configure>

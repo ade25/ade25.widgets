@@ -1,0 +1,47 @@
+<configure
+        xmlns="http://namespaces.zope.org/zope"
+        xmlns:browser="http://namespaces.zope.org/browser"
+        xmlns:z3c="http://namespaces.zope.org/z3c"
+        i18n_domain="ade25.widgets">
+
+
+    <!-- Widget: Separator -->
+    <browser:page
+            for="*"
+            name="content-widget-separator"
+            class="ade25.widgets.widgets.general.separator.WidgetSeparator"
+            template="separator.pt"
+            permission="zope2.View"
+            layer="...interfaces.IAde25WidgetsLayer"
+    />
+
+    <browser:page
+            for="*"
+            name="content-widget-horizontal-line"
+            class="ade25.widgets.widgets.general.separator.WidgetHorizontalLine"
+            template="separator-line.pt"
+            permission="zope2.View"
+            layer="...interfaces.IAde25WidgetsLayer"
+    />
+
+    <!-- Widget: Text Block -->
+    <browser:page
+            for="*"
+            name="content-widget-text-block"
+            class="ade25.widgets.widgets.general.text.WidgetText"
+            template="text.pt"
+            permission="zope2.View"
+            layer="...interfaces.IAde25WidgetsLayer"
+    />
+
+    <!-- Widget: Text Formatted -->
+    <browser:page
+            for="*"
+            name="content-widget-text-formatted"
+            class="ade25.widgets.widgets.general.text.WidgetTextFormatted"
+            template="text-formatted.pt"
+            permission="zope2.View"
+            layer="...interfaces.IAde25WidgetsLayer"
+    />
+
+</configure>
