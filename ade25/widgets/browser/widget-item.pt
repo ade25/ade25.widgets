@@ -1,0 +1,30 @@
+<div class="c-widget-editor__item c-widget-editor__item--secondary"
+    xmlns:xlink="http://www.w3.org/1999/xlink">
+    <div class="c-widget-editor__item-aside">
+        <svg class="o-icon o-icon--size-3 o-icon__ui--dots-dims">
+            <use xlink:href="/assets/symbol/svg/sprite.symbol.svg#ui--dots"></use>
+        </svg>
+    </div>
+    <div class="c-widget-editor__item-main">
+        <h5 class="c-widget-editor__item-title">01 - Collection Item</h5>
+        <small>Static temporary placeholder block</small>
+    </div>
+    <div class="c-widget-editor__item-actions">
+        <tal:actions tal:repeat="action_name python:view.widget_item_actions()">
+            <tal:action
+                     tal:define="action python:view.widget_item_action(action_name, widget_type='collection-item')"
+                     tal:condition="python:action['display']">
+                <a tal:define="action_url python:view.widget_action_url(action['url']);
+                        action_icon python:action['icon'];
+                        action_class python:action['css_class']"
+                         tal:attributes="class python:'c-button c-button--default ' + action_class + ' c-widget-editor__item-link';href action_url">
+                    <svg class="o-icon o-icon-widget-text-block-dims"
+                             tal:attributes="class python:'o-icon o-icon--md o-icon-ui--' + action_icon + '-dims'">
+                        <use xlink:href="/assets/symbol/svg/sprite.symbol.svg#icon--{action_icon}-block"
+                                 tal:attributes="xlink:href python:'/assets/symbol/svg/sprite.symbol.svg#ui--' + action_icon"></use>
+                    </svg>
+                </a>
+            </tal:action>
+        </tal:actions>
+    </div>
+</div>

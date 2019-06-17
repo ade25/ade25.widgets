@@ -39,6 +39,32 @@
             layer="..interfaces.IAde25WidgetsLayer"
     />
 
+    <browser:page
+            for="*"
+            name="content-widget-item"
+            class=".widgetitem.ContentWidgetItemFormView"
+            template="widget-item.pt"
+            permission="zope2.View"
+            layer="..interfaces.IAde25WidgetsLayer"
+    />
+
+    <browser:page
+            for="*"
+            name="content-widget-item-edit"
+            class=".widgetitem.ContentWidgetItemFormView"
+            template="widget-item-form.pt"
+            permission="zope2.View"
+            layer="..interfaces.IAde25WidgetsLayer"
+    />
+
+    <browser:page
+            for="*"
+            name="content-widget-item-form"
+            class=".widgetitem.ContentWidgetItemForm"
+            permission="zope2.View"
+            layer="..interfaces.IAde25WidgetsLayer"
+    />
+
 
 
 </configure>
