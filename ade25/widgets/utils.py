@@ -149,3 +149,25 @@ def widget_actions_configuration(widget):
         },
     }
     return actions
+
+
+def content_widget_settings(widget_data):
+    template_name = "content-widget-settings.json"
+    template = get_filesystem_template(
+        template_name,
+        data={
+            "id": widget_data["id"],
+            "pkg": widget_data["pkg"],
+            "name": widget_data["name"],
+            "title": widget_data["title"],
+            "category": widget_data["category"],
+            "type": widget_data["type"],
+            "schema": widget_data["schema"]
+        },
+    )
+    try:
+        widget_settings = json.loads(template)
+        settings = json.dumps(widget_settings)
+    except ValueError:
+        settings = "{}"
+    return safe_unicode(settings)

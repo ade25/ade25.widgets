@@ -8,7 +8,6 @@ default_profile = 'profile-ade25.widgets:default'
 logger = logging.getLogger(__name__)
 
 
-
 def update_widget_settings(version=None):
     """Run custom add-on package installation code to modify Plone
        site object and others

@@ -124,7 +124,9 @@ class ContentWidgetItemForm(AutoExtensibleForm, form.Form):
         context = aq_inner(self.context)
         editor_data = self.panel_editor[context.UID()]
         try:
-            schema_interface = resolve(editor_data['widget_settings']['schema'])
+            schema_interface = resolve(
+                editor_data['widget_settings']['node']['schema']
+            )
             schemata = (schema_interface,)
             return schemata
         except ValueError:
@@ -275,19 +277,14 @@ class ContentWidgetItemFormView(FormWrapper):
     form = ContentWidgetItemForm
 
     def __call__(self,
-                 widget_type='base',
-                 identifier=None,
-                 data_set=None,
-                 widget_mode='view',
+                 nid=None,
                  debug='off',
                  **kw):
         self.params = {
-            'widget_name': identifier,
-            'widget_type': widget_type,
-            'widget_mode': widget_mode,
-            'widget_data': data_set,
+            'node_id': nid,
             'debug_mode': debug
         }
+        self._update_panel_editor(self.params)
         self.update()
         return self.render()
 
@@ -405,6 +402,16 @@ class ContentWidgetItemFormView(FormWrapper):
     @staticmethod
     def widget_action_url(action_url):
         return addTokenToUrl(action_url)
+
+    def _update_panel_editor(self, settings):
+        context = aq_inner(self.context)
+        tool = getUtility(IPanelEditor)
+        editor_data = tool.get()[context.UID()]
+        editor_data["widget_node"] = settings["node_id"]
+        return tool.update(
+            key=context.UID(),
+            data=editor_data
+        )
 
     def rendered_widget(self):
         context = aq_inner(self.context)
