@@ -47,46 +47,43 @@
                 </tal:actions>
             </div>
         </div>
-
-        <div class="c-widget-editor__item c-widget-editor__item--secondary"
-            tal:condition="python:configuration['type'] == 'collection'">
-            <div class="c-widget-editor__item-aside">
-                <svg class="o-icon o-icon--size-3 o-icon__ui--dots-dims">
-                    <use xlink:href="/assets/symbol/svg/sprite.symbol.svg#ui--dots"></use>
-                </svg>
-            </div>
-            <div class="c-widget-editor__item-main">
-                <h5 class="c-widget-editor__item-title">01 - Collection Item</h5>
-                <small>Static temporary placeholder block</small>
-            </div>
-            <div class="c-widget-editor__item-actions">
-                <tal:actions tal:repeat="action_name python:view.widget_actions(content_type='collection-item')">
-                    <tal:action
-                             tal:define="action python:view.widget_action(action_name, widget_type='collection-item')"
-                             tal:condition="python:action['display']">
-                        <a tal:define="action_url python:view.widget_action_url(action['url']);
-                                action_icon python:action['icon'];
-                                action_class python:action['css_class']"
-                                 tal:attributes="class python:'c-button c-button--default ' + action_class + ' c-widget-editor__item-link';href action_url">
-                            <svg class="o-icon o-icon-widget-text-block-dims"
-                                     tal:attributes="class python:'o-icon o-icon--md o-icon-ui--' + action_icon + '-dims'">
-                                <use xlink:href="/assets/symbol/svg/sprite.symbol.svg#icon--{action_icon}-block"
-                                         tal:attributes="xlink:href python:'/assets/symbol/svg/sprite.symbol.svg#ui--' + action_icon"></use>
-                            </svg>
-                        </a>
-                    </tal:action>
-                </tal:actions>
-            </div>
-        </div>
-
-        <div class="c-alert c-alert--danger"
-            tal:condition="python:configuration['type'] == 'collection'">
-            <div class="c-alert__title" i18n:translate="">
-                <strong>Warning:</strong> The widget collection child item
-                editor is not yet available and the collection item displayed is
-                merely a placeholder
-            </div>
-        </div>
+        <tal:widget-nodes tal:condition="python:configuration['type'] == 'collection' and view.has_widget_item_nodes()">
+            <tal:nodes tal:repeat="widget_node python:view.widget_item_nodes()">
+                <div class="c-widget-editor__item c-widget-editor__item--secondary"
+                         tal:define="widget_settings python:view.configuration['widget_settings']; node_settings python:widget_settings['node']">
+                    <div class="c-widget-editor__item-aside">
+                        <svg class="o-icon o-icon--size-3 o-icon__ui--dots-dims">
+                            <use xlink:href="/assets/symbol/svg/sprite.symbol.svg#ui--dots"></use>
+                        </svg>
+                    </div>
+                    <div class="c-widget-editor__item-main c-widget-editor__item-main--centered">
+                        <h5 class="c-widget-editor__item-title">
+                            <span tal:replace="repeat/widget_node/number"></span> -
+                            <span tal:content="python:node_settings['title']"></span>
+                        </h5>
+                        <!-- <small>Static temporary placeholder block</small>-->
+                    </div>
+                    <div class="c-widget-editor__item-actions">
+                        <tal:actions tal:repeat="action_name python:view.widget_actions(content_type='collection-item')">
+                            <tal:action
+                                     tal:define="action python:view.widget_item_action(action_name, widget_type='collection-item')"
+                                     tal:condition="python:action['display']">
+                                <a tal:define="action_base_url python:action['url'] + '?nid=' + widget_node; action_url python:view.widget_action_url(action_base_url);
+                                        action_icon python:action['icon'];
+                                        action_class python:action['css_class']"
+                                         tal:attributes="class python:'c-button c-button--default ' + action_class + ' c-widget-editor__item-link';href action_url">
+                                    <svg class="o-icon o-icon-widget-text-block-dims"
+                                             tal:attributes="class python:'o-icon o-icon--md o-icon-ui--' + action_icon + '-dims'">
+                                        <use xlink:href="/assets/symbol/svg/sprite.symbol.svg#icon--{action_icon}-block"
+                                                 tal:attributes="xlink:href python:'/assets/symbol/svg/sprite.symbol.svg#ui--' + action_icon"></use>
+                                    </svg>
+                                </a>
+                            </tal:action>
+                        </tal:actions>
+                    </div>
+                </div>
+            </tal:nodes>
+        </tal:widget-nodes>
 
         <tal:block tal:condition="python:configuration['type'] == 'base'">
             <div class="c-alert c-alert--default">

@@ -233,6 +233,16 @@ class ContentWidgetFormView(FormWrapper):
     def settings(self):
         return self.params
 
+    @staticmethod
+    def panel_editor():
+        tool = getUtility(IPanelEditor)
+        return tool.get()
+
+    @property
+    def configuration(self):
+        context = aq_inner(self.context)
+        return self.panel_editor()[context.UID()]
+
     @property
     def edit_mode(self):
         if self.settings()['widget_mode'] == 'edit':
@@ -300,7 +310,7 @@ class ContentWidgetFormView(FormWrapper):
         if content_type == "collection-item":
             actions = [
                 "update",
-                "delete",
+                "remove",
                 "reorder"
             ]
         return actions
@@ -319,9 +329,37 @@ class ContentWidgetFormView(FormWrapper):
         )
         return action_details
 
+    def widget_item_action(self, action_name, widget_type="base"):
+        context = aq_inner(self.context)
+        widget_tool = getUtility(IContentWidgetTool)
+        is_current = False
+        if action_name == "update":
+            is_current = False
+        action_details = widget_tool.widget_action_details(
+            context,
+            action_name,
+            widget_type,
+            is_current
+        )
+        return action_details
+
     @staticmethod
     def widget_action_url(action_url):
         return addTokenToUrl(action_url)
+
+    def widget_item_nodes(self):
+        context = aq_inner(self.context)
+        ordered_nodes = list()
+        storage = IContentWidgets(context)
+        stored_widget = storage.read_widget(
+            self.configuration['widget_id']
+        )
+        if stored_widget:
+            ordered_nodes = stored_widget["item_order"]
+        return ordered_nodes
+
+    def has_widget_item_nodes(self):
+        return len(self.widget_item_nodes()) > 0
 
     def rendered_widget(self):
         context = aq_inner(self.context)

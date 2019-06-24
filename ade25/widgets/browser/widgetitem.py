@@ -76,24 +76,27 @@ class ContentWidgetItemForm(AutoExtensibleForm, form.Form):
     def getContent(self):
         context = aq_inner(self.context)
         editor_data = self.panel_editor[context.UID()]
+        widget_node_id = editor_data["widget_node"]
         storage = IContentWidgets(context)
         stored_widget_data = storage.read_widget(editor_data['widget_id'])
         widget_content = dict()
         if stored_widget_data:
-            schemata = self.additionalSchemata + (self.schema, )
-            for widget_schema in schemata:
-                fields = getFieldsInOrder(widget_schema)
-                for key, value in fields:
-                    if key == "image":
-                        image_uid = stored_widget_data.get("image", None)
-                        if image_uid:
-                            asset = api.content.get(UID=image_uid)
-                            widget_content[key] = getattr(asset, key, value)
-                    else:
-                        widget_content[key] = stored_widget_data.get(
-                            key,
-                            value.title
-                        )
+            widget_node = stored_widget_data.get(widget_node_id, None)
+            if widget_node:
+                schemata = self.additionalSchemata + (self.schema, )
+                for widget_schema in schemata:
+                    fields = getFieldsInOrder(widget_schema)
+                    for key, value in fields:
+                        if key == "image":
+                            image_uid = widget_node.get("image", None)
+                            if image_uid:
+                                asset = api.content.get(UID=image_uid)
+                                widget_content[key] = getattr(asset, key, value)
+                        else:
+                            widget_content[key] = widget_node.get(
+                                key,
+                                value.title
+                            )
         return widget_content
 
     def settings(self):
@@ -219,7 +222,7 @@ class ContentWidgetItemForm(AutoExtensibleForm, form.Form):
         self.actions["cancel"].addClass("c-button--default")
 
 
-class ContentWidgetItemFormView(FormWrapper):
+class ContentWidgetItemEdit(FormWrapper):
 
     form = ContentWidgetItemForm
 
@@ -305,15 +308,28 @@ class ContentWidgetItemFormView(FormWrapper):
             }
         return configuration
 
+    def widget_item_nodes(self):
+        context = aq_inner(self.context)
+        ordered_nodes = list()
+        storage = IContentWidgets(context)
+        stored_widget = storage.read_widget(
+            self.configuration['widget_id']
+        )
+        if stored_widget:
+            ordered_nodes = stored_widget["item_order"]
+        return ordered_nodes
+
     def widget_item_content(self):
         context = aq_inner(self.context)
         item_content = dict()
-        editor_data = self.panel_editor[context.UID()]
         storage = IContentWidgets(context)
-        stored_widget = storage.read_widget(editor_data['widget_id'])
+        stored_widget = storage.read_widget(
+            self.configuration['widget_id']
+        )
         if stored_widget:
             content_items = stored_widget["items"]
-            item_content = content_items[self.params["widget_item_uid"]]
+            if content_items:
+                item_content = content_items[self.params["nid"]]
         return item_content
 
     @staticmethod
@@ -336,7 +352,7 @@ class ContentWidgetItemFormView(FormWrapper):
         context = aq_inner(self.context)
         widget_tool = getUtility(IContentWidgetTool)
         is_current = False
-        if action_name == "create":
+        if action_name == "update":
             is_current = True
         action_details = widget_tool.widget_action_details(
             context,
@@ -368,7 +384,7 @@ class ContentWidgetItemFormView(FormWrapper):
             section=editor_data["content_section"],
             panel=editor_data["content_section_panel"]
         )
-        return self.request.response.redirect(next_url)
+        return addTokenToUrl(next_url)
 
     def rendered_widget(self):
         context = aq_inner(self.context)
@@ -386,8 +402,8 @@ class ContentWidgetItemFormView(FormWrapper):
         return rendered_widget
 
 
-class ContentWidgetItemFactory(BrowserView):
-    """ Content widget item fatory
+class ContentWidgetItemCreate(BrowserView):
+    """ Content widget item create view
 
     Adds  a single instance of a content collection widget
     """
@@ -416,6 +432,30 @@ class ContentWidgetItemFactory(BrowserView):
         context = aq_inner(self.context)
         return self.panel_editor()[context.UID()]
 
+    def widget_item_nodes(self):
+        context = aq_inner(self.context)
+        ordered_nodes = list()
+        storage = IContentWidgets(context)
+        stored_widget = storage.read_widget(
+            self.configuration['widget_id']
+        )
+        if stored_widget:
+            ordered_nodes = stored_widget["item_order"]
+        return ordered_nodes
+
+    def widget_item_content(self):
+        context = aq_inner(self.context)
+        item_content = dict()
+        storage = IContentWidgets(context)
+        stored_widget = storage.read_widget(
+            self.configuration['widget_id']
+        )
+        if stored_widget:
+            content_items = stored_widget["items"]
+            if content_items:
+                item_content = content_items[self.params["nid"]]
+        return item_content
+
     def _content_widget_factory(self):
         context = aq_inner(self.context)
         tool = getUtility(IPanelEditor)
@@ -427,15 +467,19 @@ class ContentWidgetItemFactory(BrowserView):
             data=editor_data
         )
         storage = IContentWidgets(context)
-        widget_content = {
-            "items": dict(),
-            "item_order": list()
-        }
-        storage.store_widget(
-            editor_data['widget_id'],
-            widget_content,
-            self.request
+        stored_widget = storage.read_widget(
+            self.configuration['widget_id']
         )
+        if not stored_widget:
+            widget_content = {
+                "items": dict(),
+                "item_order": list()
+            }
+            storage.store_widget(
+                editor_data['widget_id'],
+                widget_content,
+                self.request
+            )
         return node_uid
 
     def render(self):
@@ -446,3 +490,34 @@ class ContentWidgetItemFactory(BrowserView):
             node_uid
         )
         return self.request.response.redirect(addTokenToUrl(next_url))
+
+
+class ContentWidgetItemDelete(BrowserView):
+    """ Content widget item deletion
+
+    Remove a single instance of a content widget node
+    """
+
+    def __call__(self,
+                 nid=None,
+                 debug='off',
+                 **kw):
+        self.params = {
+            'node_id': nid,
+            'debug_mode': debug
+        }
+        return self.render()
+
+    @property
+    def settings(self):
+        return self.params
+
+    @staticmethod
+    def panel_editor():
+        tool = getUtility(IPanelEditor)
+        return tool.get()
+
+    @property
+    def configuration(self):
+        context = aq_inner(self.context)
+        return self.panel_editor()[context.UID()]

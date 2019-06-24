@@ -107,7 +107,7 @@ def widget_actions():
         ],
         "collection-item": [
             "update",
-            "delete",
+            "remove",
             "settings",
             "reorder"
         ]
@@ -118,14 +118,24 @@ def widget_actions_configuration(widget):
     context = widget
     actions = {
         "create": {
-            "url": '{0}/@@content-widget-item-create'.format(context.absolute_url()),
+            "url": '{0}/@@content-widget-item-create'.format(
+                context.absolute_url()),
             "icon": "add",
             "css_class": "c-button--action",
             "display": False
         },
         "update": {
-            "url": '{0}/@@content-widget-item-edit'.format(context.absolute_url()),
+            "url": '{0}/@@content-widget-item-edit'.format(
+                context.absolute_url()),
             "icon": "pen",
+            "css_class": "c-button--action",
+            "display": True
+        },
+        "remove": {
+            "url": '{0}/@@content-widget-item-remove'.format(
+                context.absolute_url()
+            ),
+            "icon": "trash",
             "css_class": "c-button--action",
             "display": True
         },
@@ -142,7 +152,8 @@ def widget_actions_configuration(widget):
             "display": True
         },
         "reorder": {
-            "url": '{0}/@@content-widget-reorder'.format(context.absolute_url()),
+            "url": '{0}/@@content-widget-reorder'.format(
+                context.absolute_url()),
             "icon": "reorder",
             "css_class": "c-button--disabled",
             "display": True

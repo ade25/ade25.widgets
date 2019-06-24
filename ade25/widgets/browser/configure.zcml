@@ -42,7 +42,16 @@
     <browser:page
             for="*"
             name="content-widget-item-create"
-            class=".widgetitem.ContentWidgetItemFactory"
+            class=".widgetitem.ContentWidgetItemCreate"
+            permission="cmf.ModifyPortalContent"
+            layer="..interfaces.IAde25WidgetsLayer"
+    />
+
+    <browser:page
+            for="*"
+            name="content-widget-item-delete"
+            class=".widgetitem.ContentWidgetItemCreate"
+            template="widget-item-delete.pt"
             permission="cmf.ModifyPortalContent"
             layer="..interfaces.IAde25WidgetsLayer"
     />
@@ -50,7 +59,7 @@
     <browser:page
             for="*"
             name="content-widget-item-edit"
-            class=".widgetitem.ContentWidgetItemFormView"
+            class=".widgetitem.ContentWidgetItemEdit"
             template="widget-item-form.pt"
             permission="cmf.ModifyPortalContent"
             layer="..interfaces.IAde25WidgetsLayer"
