@@ -41,10 +41,9 @@
 
     <browser:page
             for="*"
-            name="content-widget-item"
-            class=".widgetitem.ContentWidgetItemFormView"
-            template="widget-item.pt"
-            permission="zope2.View"
+            name="content-widget-item-create"
+            class=".widgetitem.ContentWidgetItemFactory"
+            permission="cmf.ModifyPortalContent"
             layer="..interfaces.IAde25WidgetsLayer"
     />
 
@@ -53,7 +52,7 @@
             name="content-widget-item-edit"
             class=".widgetitem.ContentWidgetItemFormView"
             template="widget-item-form.pt"
-            permission="zope2.View"
+            permission="cmf.ModifyPortalContent"
             layer="..interfaces.IAde25WidgetsLayer"
     />
 
@@ -61,7 +60,7 @@
             for="*"
             name="content-widget-item-form"
             class=".widgetitem.ContentWidgetItemForm"
-            permission="zope2.View"
+            permission="cmf.ModifyPortalContent"
             layer="..interfaces.IAde25WidgetsLayer"
     />
 

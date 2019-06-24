@@ -28,65 +28,6 @@ from ade25.widgets import MessageFactory as _
 from zope.schema import getFieldsInOrder
 
 
-class ContentWidgetItem(BrowserView):
-    """ Content widget item
-
-    Renders a single item of a content collection widget
-    """
-    def __call__(self,
-                 identifier=None,
-                 **kw):
-        self.params = {
-            'widget_item_uid': identifier,
-        }
-        return self.render()
-
-    def render(self):
-        return self.index()
-
-    @property
-    def panel_editor(self):
-        tool = getUtility(IPanelEditor)
-        return tool.get()
-
-    def widget_item_content(self):
-        context = aq_inner(self.context)
-        item_content = dict()
-        editor_data = self.panel_editor[context.UID()]
-        storage = IContentWidgets(context)
-        stored_widget = storage.read_widget(editor_data['widget_id'])
-        if stored_widget:
-            content_items = stored_widget["items"]
-            item_content = content_items[self.params["widget_item_uid"]]
-        return item_content
-
-    @staticmethod
-    def widget_item_actions():
-        return [
-            "update",
-            "delete",
-            "reorder"
-        ]
-
-    def widget_item_action(self, action_name, widget_type="collection-item"):
-        context = aq_inner(self.context)
-        widget_tool = getUtility(IContentWidgetTool)
-        is_current = False
-        if action_name == "delete":
-            is_current = True
-        action_details = widget_tool.widget_action_details(
-            context,
-            action_name,
-            widget_type,
-            is_current
-        )
-        return action_details
-
-    @staticmethod
-    def widget_action_url(action_url):
-        return addTokenToUrl(action_url)
-
-
 class IContentWidgetItemSettings(model.Schema):
 
     is_public = schema.Bool(
@@ -175,21 +116,6 @@ class ContentWidgetItemForm(AutoExtensibleForm, form.Form):
             widget_id = str(uuid_tool.uuid4())
         return widget_id
 
-    def rendered_widget(self):
-        context = aq_inner(self.context)
-        if self.settings()['widget_type']:
-            view_name = '@@content-widget-{0}'.format(
-                self.settings()['widget_type']
-            )
-            rendered_widget = context.restrictedTraverse(view_name)(
-                widget_mode=self.settings()['widget_mode'],
-                widget_data=self.settings()['widget_data']
-            )
-        else:
-            view_name = '@@content-widget-base'
-            rendered_widget = context.restrictedTraverse(view_name)()
-        return rendered_widget
-
     @property
     def action(self):
         """ Rewrite HTTP POST action.
@@ -197,7 +123,7 @@ class ContentWidgetItemForm(AutoExtensibleForm, form.Form):
         make sure the form is posted through the same view always,
         instead of making HTTP POST to the page where the form was rendered.
         """
-        return self.context.absolute_url() + "/@@content-widget-form"
+        return self.context.absolute_url() + "/@@content-widget-item-form"
 
     @staticmethod
     def prettify_key(entry_key):
@@ -230,27 +156,48 @@ class ContentWidgetItemForm(AutoExtensibleForm, form.Form):
         context = aq_inner(self.context)
         editor_data = self.panel_editor[context.UID()]
         storage = IContentWidgets(context)
-        widget_content = dict()
+        widget_content = editor_data["widget_content"]
+        widget_item = dict()
+        widget_item_node = editor_data["widget_node"]
         for key, value in data.items():
             entry_key = self.prettify_key(key)
             if INamedBlobImage.providedBy(value):
                 image_uid = self._process_image_asset(entry_key, value)
-                widget_content[entry_key] = image_uid
+                widget_item[entry_key] = image_uid
             else:
-                widget_content[entry_key] = value
+                widget_item[entry_key] = value
+        widget_content["items"] = {
+            widget_item_node: widget_item
+        }
+        if widget_item_node in widget_content["item_order"]:
+            widget_content["items"][widget_item_node] = widget_item
+        else:
+            widget_content["items"] = {
+                widget_item_node: widget_item
+            }
+            widget_content["item_order"].append(widget_item_node)
         storage.store_widget(
             editor_data['widget_id'],
             widget_content,
             self.request
         )
-        next_url = '{0}/@@panel-page'.format(context.absolute_url())
+        next_url = '{url}/@@panel-edit?section={section}&panel={panel}'.format(
+            url=context.absolute_url(),
+            section=editor_data["content_section"],
+            panel=editor_data["content_section_panel"]
+        )
         return self.request.response.redirect(next_url)
 
     @button.buttonAndHandler(_(u'cancel'), name='cancel')
     def handleCancel(self, action):
         context = aq_inner(self.context)
-        next_url = '{0}/@@panel-page'.format(context.absolute_url())
-        return self.request.response.redirect(next_url)
+        editor_data = self.panel_editor[context.UID()]
+        next_url = '{url}/@@panel-edit?section={section}&panel={panel}'.format(
+            url=context.absolute_url(),
+            section=editor_data["content_section"],
+            panel=editor_data["content_section_panel"]
+        )
+        return self.request.response.redirect(addTokenToUrl(next_url))
 
     @button.buttonAndHandler(_(u'Update'), name='update')
     def handleApply(self, action):
@@ -389,7 +336,7 @@ class ContentWidgetItemFormView(FormWrapper):
         context = aq_inner(self.context)
         widget_tool = getUtility(IContentWidgetTool)
         is_current = False
-        if action_name == "update":
+        if action_name == "create":
             is_current = True
         action_details = widget_tool.widget_action_details(
             context,
@@ -413,6 +360,16 @@ class ContentWidgetItemFormView(FormWrapper):
             data=editor_data
         )
 
+    def panel_editor_close(self):
+        context = aq_inner(self.context)
+        editor_data = self.panel_editor()[context.UID()]
+        next_url = '{url}/@@panel-edit?section={section}&panel={panel}'.format(
+            url=context.absolute_url(),
+            section=editor_data["content_section"],
+            panel=editor_data["content_section_panel"]
+        )
+        return self.request.response.redirect(next_url)
+
     def rendered_widget(self):
         context = aq_inner(self.context)
         if self.settings['widget_type']:
@@ -427,3 +384,65 @@ class ContentWidgetItemFormView(FormWrapper):
             view_name = '@@content-widget-base'
             rendered_widget = context.restrictedTraverse(view_name)()
         return rendered_widget
+
+
+class ContentWidgetItemFactory(BrowserView):
+    """ Content widget item fatory
+
+    Adds  a single instance of a content collection widget
+    """
+
+    def __call__(self,
+                 nid=None,
+                 debug='off',
+                 **kw):
+        self.params = {
+            'node_id': nid,
+            'debug_mode': debug
+        }
+        return self.render()
+
+    @property
+    def settings(self):
+        return self.params
+
+    @staticmethod
+    def panel_editor():
+        tool = getUtility(IPanelEditor)
+        return tool.get()
+
+    @property
+    def configuration(self):
+        context = aq_inner(self.context)
+        return self.panel_editor()[context.UID()]
+
+    def _content_widget_factory(self):
+        context = aq_inner(self.context)
+        tool = getUtility(IPanelEditor)
+        editor_data = tool.get()[context.UID()]
+        node_uid = str(uuid_tool.uuid4())
+        editor_data["widget_node"] = node_uid
+        tool.update(
+            key=context.UID(),
+            data=editor_data
+        )
+        storage = IContentWidgets(context)
+        widget_content = {
+            "items": dict(),
+            "item_order": list()
+        }
+        storage.store_widget(
+            editor_data['widget_id'],
+            widget_content,
+            self.request
+        )
+        return node_uid
+
+    def render(self):
+        context = aq_inner(self.context)
+        node_uid = self._content_widget_factory()
+        next_url = '{0}/@@content-widget-item-edit?nid={1}'.format(
+            context.absolute_url(),
+            node_uid
+        )
+        return self.request.response.redirect(addTokenToUrl(next_url))

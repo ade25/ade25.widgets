@@ -118,13 +118,13 @@ def widget_actions_configuration(widget):
     context = widget
     actions = {
         "create": {
-            "url": '{0}/@@content-widget-item-edit'.format(context.absolute_url()),
+            "url": '{0}/@@content-widget-item-create'.format(context.absolute_url()),
             "icon": "add",
             "css_class": "c-button--action",
             "display": False
         },
         "update": {
-            "url": '{0}/@@content-widget-item'.format(context.absolute_url()),
+            "url": '{0}/@@content-widget-item-edit'.format(context.absolute_url()),
             "icon": "pen",
             "css_class": "c-button--action",
             "display": True

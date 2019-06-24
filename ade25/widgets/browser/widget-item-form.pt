@@ -15,7 +15,7 @@
                  tal:define="settings python:view.settings;configuration python:view.configuration">
             <div class="c-panel-overlay__content">
                 <a class="c-panel-overlay__action" href="@@panel-page"
-                         tal:attributes="href python:context.absolute_url() + '/@@panel-page'">
+                         tal:attributes="href python:view.panel_editor_close()">
                     <svg class="o-icon o-icon--size-3 o-icon--circle o-icon__ui--close-dims">
                         <use xlink:href="/assets/symbol/svg/sprite.symbol.svg#ui--close"></use>
                     </svg>
@@ -46,8 +46,7 @@
                                         <span tal:content="widget_title"></span>
                                     </h5>
                                     <small>
-                                        <span i18n:translate="">last modified:</span>
-                                        12.04.2019
+                                        <span i18n:translate="">Add content item</span>
                                     </small>
                                 </div>
                                 <div class="c-widget-editor__item-actions">
