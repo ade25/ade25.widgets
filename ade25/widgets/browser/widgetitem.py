@@ -8,6 +8,7 @@ from Acquisition import aq_inner
 from Products.Five import BrowserView
 from ade25.panelpage.interfaces import IPanelEditor
 from plone import api
+from plone.app.textfield import IRichTextValue
 from plone.autoform.form import AutoExtensibleForm
 from plone.namedfile.interfaces import INamedBlobImage
 from plone.protect.utils import addTokenToUrl
@@ -81,7 +82,10 @@ class ContentWidgetItemForm(AutoExtensibleForm, form.Form):
         stored_widget_data = storage.read_widget(editor_data['widget_id'])
         widget_content = dict()
         if stored_widget_data:
-            widget_node = stored_widget_data.get(widget_node_id, None)
+            widget_node = stored_widget_data["items"].get(
+                widget_node_id,
+                None
+            )
             if widget_node:
                 schemata = self.additionalSchemata + (self.schema, )
                 for widget_schema in schemata:
@@ -167,11 +171,12 @@ class ContentWidgetItemForm(AutoExtensibleForm, form.Form):
             if INamedBlobImage.providedBy(value):
                 image_uid = self._process_image_asset(entry_key, value)
                 widget_item[entry_key] = image_uid
+            elif IRichTextValue.providedBy(value):
+                # Handle rich text value that is not serializable
+                text_value = value.output
+                widget_item[entry_key] = text_value
             else:
                 widget_item[entry_key] = value
-        widget_content["items"] = {
-            widget_item_node: widget_item
-        }
         if widget_item_node in widget_content["item_order"]:
             widget_content["items"][widget_item_node] = widget_item
         else:
@@ -492,7 +497,7 @@ class ContentWidgetItemCreate(BrowserView):
         return self.request.response.redirect(addTokenToUrl(next_url))
 
 
-class ContentWidgetItemDelete(BrowserView):
+class ContentWidgetItemRemove(BrowserView):
     """ Content widget item deletion
 
     Remove a single instance of a content widget node

@@ -3,6 +3,7 @@ import json
 from hashlib import sha256
 from uuid import UUID
 
+import jsonpickle
 from persistent.dict import PersistentDict
 from persistent.list import PersistentList
 from zope.annotation.interfaces import IAnnotations
@@ -59,7 +60,7 @@ class ContentWidgets(object):
             self.annotations['widget_hashes'].append(
                 self._hash(
                     request,
-                    json.dumps(widget_data)
+                    jsonpickle.encode(widget_data)
                 )
             )
             stored_widgets = self.annotations['widgets']

@@ -49,9 +49,9 @@
 
     <browser:page
             for="*"
-            name="content-widget-item-delete"
-            class=".widgetitem.ContentWidgetItemCreate"
-            template="widget-item-delete.pt"
+            name="content-widget-item-remove"
+            class=".widgetitem.ContentWidgetItemRemove"
+            template="widget-item-remove.pt"
             permission="cmf.ModifyPortalContent"
             layer="..interfaces.IAde25WidgetsLayer"
     />
