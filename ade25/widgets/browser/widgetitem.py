@@ -163,7 +163,12 @@ class ContentWidgetItemForm(AutoExtensibleForm, form.Form):
         context = aq_inner(self.context)
         editor_data = self.panel_editor[context.UID()]
         storage = IContentWidgets(context)
-        widget_content = editor_data["widget_content"]
+        record = storage.read_widget(editor_data["widget_id"])
+        item_order = record["item_order"]
+        if item_order:
+            widget_content = record["items"]
+        else:
+            widget_content = editor_data["widget_content"]
         widget_item = dict()
         widget_item_node = editor_data["widget_node"]
         for key, value in data.items():
@@ -177,16 +182,18 @@ class ContentWidgetItemForm(AutoExtensibleForm, form.Form):
                 widget_item[entry_key] = text_value
             else:
                 widget_item[entry_key] = value
-        if widget_item_node in widget_content["item_order"]:
-            widget_content["items"][widget_item_node] = widget_item
+        if widget_item_node in item_order:
+            widget_content[widget_item_node] = widget_item
         else:
-            widget_content["items"] = {
+            widget_content.update({
                 widget_item_node: widget_item
-            }
-            widget_content["item_order"].append(widget_item_node)
+            })
+            item_order.append(widget_item_node)
+            record["item_order"] = item_order
+            record["items"] = widget_content
         storage.store_widget(
             editor_data['widget_id'],
-            widget_content,
+            record,
             self.request
         )
         next_url = '{url}/@@panel-edit?section={section}&panel={panel}'.format(
@@ -456,9 +463,7 @@ class ContentWidgetItemCreate(BrowserView):
             self.configuration['widget_id']
         )
         if stored_widget:
-            content_items = stored_widget["items"]
-            if content_items:
-                item_content = content_items[self.params["nid"]]
+            item_content = stored_widget["items"]
         return item_content
 
     def _content_widget_factory(self):
@@ -472,10 +477,7 @@ class ContentWidgetItemCreate(BrowserView):
             data=editor_data
         )
         storage = IContentWidgets(context)
-        stored_widget = storage.read_widget(
-            self.configuration['widget_id']
-        )
-        if not stored_widget:
+        if not self.widget_item_nodes():
             widget_content = {
                 "items": dict(),
                 "item_order": list()
