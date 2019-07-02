@@ -76,10 +76,6 @@
                                 </div>
                             </section>
                             <div class="o-form__actions">
-                                <a class="c-button c-button--default" href=""
-                                         tal:attributes="href python:context.absolute_url() + '/@@panel-edit?section=' + configuration['content_section'] + '&panel=' + configuration['content_section_panel']">
-                                    Cancel
-                                </a>
                                 <button class="c-button c-button--danger c-widget-editor__item-link"
                                         type="submit"
                                         name="form.button.Submit"
@@ -87,6 +83,10 @@
                                          i18n:translate="">
                                     Delete
                                 </button>
+                                <a class="c-button c-button--default" href=""
+                                         tal:attributes="href python:context.absolute_url() + '/@@panel-edit?section=' + configuration['content_section'] + '&panel=' + configuration['content_section_panel']">
+                                    Cancel
+                                </a>
                             </div>
                         </div>
                     </div>

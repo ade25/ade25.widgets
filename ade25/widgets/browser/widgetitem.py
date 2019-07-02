@@ -4,7 +4,9 @@ import hashlib
 import uuid
 import uuid as uuid_tool
 
+from AccessControl import Unauthorized
 from Acquisition import aq_inner
+from Products.CMFPlone.utils import safe_unicode
 from Products.Five import BrowserView
 from ade25.panelpage.interfaces import IPanelEditor
 from plone import api
@@ -17,7 +19,7 @@ from plone.z3cform.layout import FormWrapper
 from z3c.form import button
 from z3c.form import form
 from zope import schema
-from zope.component import getUtility
+from zope.component import getUtility, getMultiAdapter
 from zope.dottedname.resolve import resolve
 from zope.interface import implementer
 from zope.lifecycleevent import modified
@@ -169,6 +171,8 @@ class ContentWidgetItemForm(AutoExtensibleForm, form.Form):
             widget_content = record["items"]
         else:
             widget_content = editor_data["widget_content"]
+        if not widget_content:
+            widget_content = dict()
         widget_item = dict()
         widget_item_node = editor_data["widget_node"]
         for key, value in data.items():
@@ -203,17 +207,6 @@ class ContentWidgetItemForm(AutoExtensibleForm, form.Form):
         )
         return self.request.response.redirect(next_url)
 
-    @button.buttonAndHandler(_(u'cancel'), name='cancel')
-    def handleCancel(self, action):
-        context = aq_inner(self.context)
-        editor_data = self.panel_editor[context.UID()]
-        next_url = '{url}/@@panel-edit?section={section}&panel={panel}'.format(
-            url=context.absolute_url(),
-            section=editor_data["content_section"],
-            panel=editor_data["content_section_panel"]
-        )
-        return self.request.response.redirect(addTokenToUrl(next_url))
-
     @button.buttonAndHandler(_(u'Update'), name='update')
     def handleApply(self, action):
         request = self.request
@@ -227,6 +220,17 @@ class ContentWidgetItemForm(AutoExtensibleForm, form.Form):
             self.submitted = True
             self.applyChanges(data)
         self.status = "Thank you very much!"
+
+    @button.buttonAndHandler(_(u'cancel'), name='cancel')
+    def handleCancel(self, action):
+        context = aq_inner(self.context)
+        editor_data = self.panel_editor[context.UID()]
+        next_url = '{url}/@@panel-edit?section={section}&panel={panel}'.format(
+            url=context.absolute_url(),
+            section=editor_data["content_section"],
+            panel=editor_data["content_section_panel"]
+        )
+        return self.request.response.redirect(addTokenToUrl(next_url))
 
     def updateActions(self):
         super(ContentWidgetItemForm, self).updateActions()
@@ -504,6 +508,7 @@ class ContentWidgetItemRemove(BrowserView):
 
     Remove a single instance of a content widget node
     """
+    errors = dict()
 
     def __call__(self,
                  nid=None,
@@ -528,3 +533,85 @@ class ContentWidgetItemRemove(BrowserView):
     def configuration(self):
         context = aq_inner(self.context)
         return self.panel_editor()[context.UID()]
+
+    def _remove_widget(self):
+        return
+
+    def update(self):
+        self.errors = dict()
+        unwanted = ('_authenticator', 'form.button.Submit')
+        required = ('widget_node', )
+        if 'form.button.Submit' in self.request:
+            authenticator = getMultiAdapter((self.context, self.request),
+                                            name=u"authenticator")
+            if not authenticator.verify():
+                raise Unauthorized
+            form = self.request.form
+            form_data = {}
+            form_data.update(self.params)
+            form_errors = {}
+            error_idx = 0
+            for value in form:
+                if value not in unwanted:
+                    form_data[value] = safe_unicode(form[value])
+                    if not form[value] and value in required:
+                        form_errors[value] = self.required_field_error()
+                        error_idx += 1
+                    else:
+                        error = {
+                            'active': False,
+                            'msg': form[value]
+                        }
+                        form_errors[value] = error
+            if error_idx > 0:
+                self.errors = form_errors
+            else:
+                self._remove_widget(form)
+
+    def render(self):
+        self.update()
+        return self.index()
+
+    def panel_editor_close(self):
+        context = aq_inner(self.context)
+        editor_data = self.panel_editor()[context.UID()]
+        next_url = '{url}/@@panel-edit?section={section}&panel={panel}'.format(
+            url=context.absolute_url(),
+            section=editor_data["content_section"],
+            panel=editor_data["content_section_panel"]
+        )
+        return addTokenToUrl(next_url)
+
+    @staticmethod
+    def widget_actions(content_type="default"):
+        actions = [
+            "create",
+            "update",
+            "delete",
+            "settings",
+        ]
+        if content_type == "collection-item":
+            actions = [
+                "update",
+                "delete",
+                "reorder"
+            ]
+        return actions
+
+    def widget_action(self, action_name, widget_type="base"):
+        context = aq_inner(self.context)
+        widget_tool = getUtility(IContentWidgetTool)
+        is_current = False
+        if action_name == "remove":
+            is_current = True
+        action_details = widget_tool.widget_action_details(
+            context,
+            action_name,
+            widget_type,
+            is_current
+        )
+        return action_details
+
+    @staticmethod
+    def widget_action_url(action_url):
+        return addTokenToUrl(action_url)
