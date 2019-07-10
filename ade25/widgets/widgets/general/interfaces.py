@@ -26,3 +26,13 @@ class IAde25WidgetTextFormatted(Interface):
         title=_(u"Text"),
         required=False
     )
+
+
+@provider(IFormFieldProvider)
+class IAde25WidgetTextHtml(Interface):
+    """ Content widget html text """
+
+    text = schema.Text(
+        title=_("HTML Content"),
+        required=False
+    )

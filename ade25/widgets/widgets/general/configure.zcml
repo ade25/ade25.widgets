@@ -44,4 +44,14 @@
             layer="...interfaces.IAde25WidgetsLayer"
     />
 
+    <!-- Widget: Text Formatted -->
+    <browser:page
+            for="*"
+            name="content-widget-text-html"
+            class="ade25.widgets.widgets.general.text.WidgetTextHtml"
+            template="text-html.pt"
+            permission="zope2.View"
+            layer="...interfaces.IAde25WidgetsLayer"
+    />
+
 </configure>

@@ -1,0 +1,12 @@
+<div class="c-text-block c-text-block--html" tal:condition="python:view.has_content()">
+    <tal:block tal:define="widget_content python:view.widget_content()">
+        <div class="c-text-block__main">
+            <div class="c-text-block__content" tal:condition="python:widget_content['text']">
+                <div tal:define="html_text python:widget_content['text']"
+                         tal:replace="structure html_text">
+                    Text Block
+                </div>
+            </div>
+        </div>
+    </tal:block>
+</div>
