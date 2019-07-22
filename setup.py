@@ -32,10 +32,11 @@ setup(
     include_package_data=True,
     zip_safe=False,
     install_requires=[
-        'setuptools',
+        'jsonpickle',
         'plone.app.dexterity [relations]',
         'plone.app.relationfield',
         'plone.namedfile [blobs]',
+        'setuptools',
     ],
     extras_require={
         'test': [
