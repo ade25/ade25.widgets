@@ -46,7 +46,7 @@
                                         <span tal:content="widget_title"></span>
                                     </h5>
                                     <small>
-                                        <span i18n:translate="">Add content item</span>
+                                        <span i18n:translate="">Delete content widget item</span>
                                     </small>
                                 </div>
                                 <div class="c-widget-editor__item-actions">

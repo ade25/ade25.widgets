@@ -33,7 +33,7 @@
                                 </div>
                             </div>
 
-                            <div class="c-widget-editor__item"
+                            <div class="c-widget-editor__item hiddenStructure"
                                      tal:define="widget_title python:configuration['widget_settings']['title'];
                                     widget_type python:configuration['widget_settings']['type']">
                                 <div class="c-widget-editor__item-aside">
@@ -41,13 +41,10 @@
                                         <use xlink:href="/assets/symbol/svg/sprite.symbol.svg#ui--dots"></use>
                                     </svg>
                                 </div>
-                                <div class="c-widget-editor__item-main">
+                                <div class="c-widget-editor__item-main c-widget-editor__item-main--centered">
                                     <h5 class="c-widget-editor__item-title">
                                         <span tal:content="widget_title"></span>
                                     </h5>
-                                    <small>
-                                        <span i18n:translate="">Add content item</span>
-                                    </small>
                                 </div>
                                 <div class="c-widget-editor__item-actions">
                                     <tal:actions tal:repeat="action_name python:view.widget_actions(widget_type)">
@@ -69,17 +66,17 @@
                                 </div>
                             </div>
 
-                            <div class="c-widget-editor__item">
+                            <div class="c-widget-editor__item" tal:define="widget_title python:configuration['widget_settings']['title']">
                                 <div class="c-widget-editor__item-aside">
                                     <svg class="o-icon o-icon--size-3 o-icon__ui--dots-dims">
                                         <use xlink:href="/assets/symbol/svg/sprite.symbol.svg#ui--dots"></use>
                                     </svg>
                                 </div>
                                 <div class="c-widget-editor__item-main">
-                                    <h5 class="c-widget-editor__item-title" i18n:translate="">
-                                        Add Content Panel
+                                    <h5 class="c-widget-editor__item-title">
+                                        <span tal:content="widget_title"></span>
                                     </h5>
-                                    <small i18n:translate="">Please select content widget for this page section</small>
+                                    <small><span tal:replace="python:configuration['widget_settings']['node']['title']" /></small>
                                 </div>
                                 <div class="c-widget-editor__item-actions">
                                     <tal:actions tal:repeat="action_name python:view.widget_actions(content_type='collection-item')">

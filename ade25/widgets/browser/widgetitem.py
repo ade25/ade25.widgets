@@ -207,6 +207,17 @@ class ContentWidgetItemForm(AutoExtensibleForm, form.Form):
         )
         return self.request.response.redirect(next_url)
 
+    @button.buttonAndHandler(_(u'cancel'), name='cancel')
+    def handleCancel(self, action):
+        context = aq_inner(self.context)
+        editor_data = self.panel_editor[context.UID()]
+        next_url = '{url}/@@panel-edit?section={section}&panel={panel}'.format(
+            url=context.absolute_url(),
+            section=editor_data["content_section"],
+            panel=editor_data["content_section_panel"]
+        )
+        return self.request.response.redirect(addTokenToUrl(next_url))
+
     @button.buttonAndHandler(_(u'Update'), name='update')
     def handleApply(self, action):
         request = self.request
@@ -221,21 +232,11 @@ class ContentWidgetItemForm(AutoExtensibleForm, form.Form):
             self.applyChanges(data)
         self.status = "Thank you very much!"
 
-    @button.buttonAndHandler(_(u'cancel'), name='cancel')
-    def handleCancel(self, action):
-        context = aq_inner(self.context)
-        editor_data = self.panel_editor[context.UID()]
-        next_url = '{url}/@@panel-edit?section={section}&panel={panel}'.format(
-            url=context.absolute_url(),
-            section=editor_data["content_section"],
-            panel=editor_data["content_section_panel"]
-        )
-        return self.request.response.redirect(addTokenToUrl(next_url))
-
     def updateActions(self):
         super(ContentWidgetItemForm, self).updateActions()
+        self.actions["cancel"].addClass(
+            "c-button--default c-button--cancel c-button--panel")
         self.actions["update"].addClass("c-button--primary")
-        self.actions["cancel"].addClass("c-button--default")
 
 
 class ContentWidgetItemEdit(FormWrapper):

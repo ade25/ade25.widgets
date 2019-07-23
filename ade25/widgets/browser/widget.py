@@ -207,8 +207,8 @@ class ContentWidgetForm(AutoExtensibleForm, form.Form):
 
     def updateActions(self):
         super(ContentWidgetForm, self).updateActions()
-        self.actions["update"].addClass("c-button--primary")
         self.actions["cancel"].addClass("c-button--default")
+        self.actions["update"].addClass("c-button--primary")
 
 
 class ContentWidgetFormView(FormWrapper):
