@@ -568,7 +568,6 @@ class ContentWidgetItemRemove(BrowserView):
             records = self.widget_item_records()
             widget_nodes_content = records.get('items', dict())
             del widget_nodes_content[widget_node_id]
-            widget_nodes_content.remove(widget_node_id)
             records["item_order"] = widget_nodes
             editor_data['widget_content']['item_order'] = widget_nodes
             records["items"] = widget_nodes_content
