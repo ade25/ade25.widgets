@@ -535,8 +535,52 @@ class ContentWidgetItemRemove(BrowserView):
         context = aq_inner(self.context)
         return self.panel_editor()[context.UID()]
 
-    def _remove_widget(self):
-        return
+    def widget_item_records(self):
+        context = aq_inner(self.context)
+        storage = IContentWidgets(context)
+        records = storage.read_widget(
+            self.configuration['widget_id']
+        )
+        return records
+
+    def widget_item_nodes(self):
+        ordered_nodes = list()
+        stored_widget = self.widget_item_records()
+        if stored_widget:
+            ordered_nodes = stored_widget["item_order"]
+        return ordered_nodes
+
+    def _update_panel_editor(self, editor_data):
+        context = aq_inner(self.context)
+        tool = getUtility(IPanelEditor)
+        return tool.update(
+            key=context.UID(),
+            data=editor_data
+        )
+
+    def _remove_widget(self, form_data):
+        context = aq_inner(self.context)
+        editor_data = self.panel_editor()
+        storage = IContentWidgets(context)
+        widget_node_id = form_data.get('nid', None)
+        widget_nodes = self.widget_item_nodes()
+        if widget_node_id and widget_node_id in widget_nodes:
+            records = self.widget_item_records()
+            widget_nodes_content = records.get('items', dict())
+            del widget_nodes_content[widget_node_id]
+            widget_nodes_content.remove(widget_node_id)
+            records["item_order"] = widget_nodes
+            editor_data['widget_content']['item_order'] = widget_nodes
+            records["items"] = widget_nodes_content
+            editor_data['widget_content']['items'] = widget_nodes_content
+            storage.store_widget(
+                editor_data['widget_id'],
+                records,
+                self.request
+            )
+            self._update_panel_editor(editor_data)
+        next_url = self.panel_editor_close()
+        return self.request.response.redirect(next_url)
 
     def update(self):
         self.errors = dict()

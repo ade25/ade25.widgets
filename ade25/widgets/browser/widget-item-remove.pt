@@ -75,19 +75,25 @@
                                     <p>Deleting a content node will remove all associated data from the widget storage.</p>
                                 </div>
                             </section>
-                            <div class="o-form__actions">
-                                <button class="c-button c-button--danger c-widget-editor__item-link"
-                                        type="submit"
-                                        name="form.button.Submit"
-                                        id="form.button.Submit"
-                                         i18n:translate="">
-                                    Delete
-                                </button>
-                                <a class="c-button c-button--default" href=""
-                                         tal:attributes="href python:context.absolute_url() + '/@@panel-edit?section=' + configuration['content_section'] + '&panel=' + configuration['content_section_panel']">
-                                    Cancel
-                                </a>
-                            </div>
+                            <form class="o-form o-form--widget"
+                                  id="form-widget-item-remove"
+                                  method="post"
+                                     tal:attributes="action request/URL">
+                                    <input type="hidden" name="nid" id="nid" tal:attributes="value request/nid | nothing" />
+                                    <div class="o-form__actions">
+                                        <a class="c-button c-button--default" href=""
+                                                 tal:attributes="href python:context.absolute_url() + '/@@panel-edit?section=' + configuration['content_section'] + '&panel=' + configuration['content_section_panel']">
+                                            Cancel
+                                        </a>
+                                        <button class="c-button c-button--danger c-widget-editor__item-link"
+                                                type="submit"
+                                                name="form.button.Submit"
+                                                id="form.button.Submit"
+                                                 i18n:translate="">
+                                            Delete
+                                        </button>
+                                    </div>
+                            </form>
                         </div>
                     </div>
                 </section>
