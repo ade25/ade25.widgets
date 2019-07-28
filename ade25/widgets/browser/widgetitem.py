@@ -560,14 +560,22 @@ class ContentWidgetItemRemove(BrowserView):
 
     def _remove_widget(self, form_data):
         context = aq_inner(self.context)
-        editor_data = self.panel_editor()
+        editor_data = self.panel_editor()[context.UID()]
         storage = IContentWidgets(context)
         widget_node_id = form_data.get('nid', None)
         widget_nodes = self.widget_item_nodes()
         if widget_node_id and widget_node_id in widget_nodes:
             records = self.widget_item_records()
             widget_nodes_content = records.get('items', dict())
-            del widget_nodes_content[widget_node_id]
+            try:
+                del widget_nodes_content[widget_node_id]
+            except KeyError:
+                # TODO: add logger for edge case behavior
+                pass
+            try:
+                widget_nodes.remove(widget_node_id)
+            except ValueError:
+                pass
             records["item_order"] = widget_nodes
             editor_data['widget_content']['item_order'] = widget_nodes
             records["items"] = widget_nodes_content
