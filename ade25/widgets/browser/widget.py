@@ -320,7 +320,7 @@ class ContentWidgetFormView(FormWrapper):
         widget_tool = getUtility(IContentWidgetTool)
         is_current = False
         if action_name == "update":
-            is_current = True
+            is_current = False
         action_details = widget_tool.widget_action_details(
             context,
             action_name,

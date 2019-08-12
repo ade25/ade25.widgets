@@ -155,7 +155,7 @@ def widget_actions_configuration(widget):
             "url": '{0}/@@content-widget-reorder'.format(
                 context.absolute_url()),
             "icon": "reorder",
-            "css_class": "c-button--disabled",
+            "css_class": "c-button--reorder js-sortable-handle",
             "display": True
         },
     }

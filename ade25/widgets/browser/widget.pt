@@ -44,9 +44,11 @@
             </div>
         </div>
         <tal:widget-nodes tal:condition="python:configuration['type'] == 'collection' and view.has_widget_item_nodes()">
+            <div class="c-widget-editor__nodes js-sortable">
             <tal:nodes tal:repeat="widget_node python:view.widget_item_nodes()">
                 <div class="c-widget-editor__item c-widget-editor__item--secondary"
-                         tal:define="widget_settings python:view.configuration['widget_settings']; node_settings python:widget_settings['node']">
+                         tal:define="widget_settings python:view.configuration['widget_settings']; node_settings python:widget_settings['node']"
+                        tal:attributes="data-id python:widget_node">
                     <div class="c-widget-editor__item-aside">
                         <svg class="o-icon o-icon--size-3 o-icon__ui--dots-dims">
                             <use xlink:href="/assets/symbol/svg/sprite.symbol.svg#ui--dots"></use>
@@ -79,6 +81,7 @@
                     </div>
                 </div>
             </tal:nodes>
+            </div>
         </tal:widget-nodes>
 
         <tal:block tal:condition="python:configuration['type'] == 'base'">
