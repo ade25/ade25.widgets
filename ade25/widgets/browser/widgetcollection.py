@@ -7,6 +7,7 @@ import uuid as uuid_tool
 from Acquisition import aq_inner
 from ade25.panelpage.interfaces import IPanelEditor
 from plone import api
+from plone.app.textfield import IRichTextValue
 from plone.autoform.form import AutoExtensibleForm
 from plone.namedfile.interfaces import INamedBlobImage
 from plone.protect.utils import addTokenToUrl
@@ -27,7 +28,7 @@ from ade25.widgets import MessageFactory as _
 from zope.schema import getFieldsInOrder
 
 
-class IContentWidgetSettings(model.Schema):
+class IContentWidgetCollectionSettings(model.Schema):
 
     is_public = schema.Bool(
         title=_(u"This widget is public and will be displayed in the page "
@@ -38,17 +39,16 @@ class IContentWidgetSettings(model.Schema):
 
 
 @implementer(IPublishTraverse)
-class ContentWidgetForm(AutoExtensibleForm, form.Form):
+class ContentWidgetCollectionForm(AutoExtensibleForm, form.Form):
     """This search form enables you to find users by specifying one or more
     search criteria.
     """
 
-    schema = IContentWidgetSettings
+    schema = IContentWidgetCollectionSettings
     ignoreContext = False
     css_class = 'o-form o-form--widget'
 
     label = _(u'Content Widget')
-    #template = ViewPageTemplateFile('widget.pt')
     enableCSRFProtection = True
     formErrorsMessage = _(u'There were errors.')
 
@@ -135,7 +135,7 @@ class ContentWidgetForm(AutoExtensibleForm, form.Form):
         make sure the form is posted through the same view always,
         instead of making HTTP POST to the page where the form was rendered.
         """
-        return self.context.absolute_url() + "/@@content-widget-form"
+        return self.context.absolute_url() + "/@@content-widget-collection-form"
 
     @staticmethod
     def prettify_key(entry_key):
@@ -168,27 +168,47 @@ class ContentWidgetForm(AutoExtensibleForm, form.Form):
         context = aq_inner(self.context)
         editor_data = self.panel_editor[context.UID()]
         storage = IContentWidgets(context)
-        widget_content = dict()
+        record = storage.read_widget(editor_data["widget_id"])
+        item_order = record["item_order"]
+        if item_order:
+            widget_content = record
+        else:
+            widget_content = editor_data["widget_content"]
+        if not widget_content:
+            widget_content = dict()
         for key, value in data.items():
             entry_key = self.prettify_key(key)
             if INamedBlobImage.providedBy(value):
                 image_uid = self._process_image_asset(entry_key, value)
                 widget_content[entry_key] = image_uid
+            elif IRichTextValue.providedBy(value):
+                # Handle rich text value that is not serializable
+                text_value = value.output
+                widget_content[entry_key] = text_value
             else:
                 widget_content[entry_key] = value
         storage.store_widget(
             editor_data['widget_id'],
-            widget_content,
+            record,
             self.request
         )
-        next_url = '{0}/@@panel-page'.format(context.absolute_url())
+        next_url = '{url}/@@panel-edit?section={section}&panel={panel}'.format(
+            url=context.absolute_url(),
+            section=editor_data["content_section"],
+            panel=editor_data["content_section_panel"]
+        )
         return self.request.response.redirect(next_url)
 
     @button.buttonAndHandler(_(u'cancel'), name='cancel')
     def handleCancel(self, action):
         context = aq_inner(self.context)
-        next_url = '{0}/@@panel-page'.format(context.absolute_url())
-        return self.request.response.redirect(next_url)
+        editor_data = self.panel_editor[context.UID()]
+        next_url = '{url}/@@panel-edit?section={section}&panel={panel}'.format(
+            url=context.absolute_url(),
+            section=editor_data["content_section"],
+            panel=editor_data["content_section_panel"]
+        )
+        return self.request.response.redirect(addTokenToUrl(next_url))
 
     @button.buttonAndHandler(_(u'Update'), name='update')
     def handleApply(self, action):
@@ -205,26 +225,28 @@ class ContentWidgetForm(AutoExtensibleForm, form.Form):
         self.status = "Thank you very much!"
 
     def updateActions(self):
-        super(ContentWidgetForm, self).updateActions()
+        super(ContentWidgetCollectionForm, self).updateActions()
         self.actions["cancel"].addClass("c-button--default")
         self.actions["update"].addClass("c-button--primary")
 
 
-class ContentWidgetFormView(FormWrapper):
+class ContentWidgetCollectionFormView(FormWrapper):
 
-    form = ContentWidgetForm
+    form = ContentWidgetCollectionForm
 
     def __call__(self,
                  widget_type='base',
                  identifier=None,
                  data_set=None,
                  widget_mode='view',
+                 debug="off",
                  **kw):
         self.params = {
             'widget_name': identifier,
             'widget_type': widget_type,
             'widget_mode': widget_mode,
-            'widget_data': data_set
+            'widget_data': data_set,
+            'debug_mode': debug
         }
         self.update()
         return self.render()
@@ -306,11 +328,11 @@ class ContentWidgetFormView(FormWrapper):
             "delete",
             "settings",
         ]
-        if content_type == "collection-item":
+        if content_type == "collection":
             actions = [
                 "update",
                 "remove",
-                "reorder"
+                "settings"
             ]
         return actions
 
@@ -319,7 +341,7 @@ class ContentWidgetFormView(FormWrapper):
         widget_tool = getUtility(IContentWidgetTool)
         is_current = False
         if action_name == "update":
-            is_current = False
+            is_current = True
         action_details = widget_tool.widget_action_details(
             context,
             action_name,
@@ -345,6 +367,16 @@ class ContentWidgetFormView(FormWrapper):
     @staticmethod
     def widget_action_url(action_url):
         return addTokenToUrl(action_url)
+
+    def panel_editor_close(self):
+        context = aq_inner(self.context)
+        editor_data = self.panel_editor()[context.UID()]
+        next_url = '{url}/@@panel-edit?section={section}&panel={panel}'.format(
+            url=context.absolute_url(),
+            section=editor_data["content_section"],
+            panel=editor_data["content_section_panel"]
+        )
+        return addTokenToUrl(next_url)
 
     def widget_item_nodes(self):
         context = aq_inner(self.context)

@@ -83,6 +83,10 @@ class ContentWidgetTool(object):
         details = configuration[action_name]
         if action_name == "create" and widget_type == "collection":
             details["display"] = True
+        if action_name == "update" and widget_type == "collection":
+            details["url"] = "{0}/@@content-widget-collection-edit".format(
+                widget.absolute_url()
+            )
         if action_name == "update" and widget_type == "collection-item":
             details["css_class"] = "c-button--action"
         if is_current:
