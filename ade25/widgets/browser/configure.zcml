@@ -39,6 +39,23 @@
             layer="..interfaces.IAde25WidgetsLayer"
     />
 
+    <!-- Collection widget custom edit form -->
+    <browser:page
+            for="*"
+            name="content-widget-collection-edit"
+            class=".widgetcollection.ContentWidgetCollectionFormView"
+            template="widget-collection.pt"
+            permission="zope2.View"
+            layer="..interfaces.IAde25WidgetsLayer"
+    />
+    <browser:page
+            for="*"
+            name="content-widget-collection-form"
+            class=".widgetcollection.ContentWidgetCollectionForm"
+            permission="cmf.ModifyPortalContent"
+            layer="..interfaces.IAde25WidgetsLayer"
+    />
+
     <browser:page
             for="*"
             name="content-widget-item-create"
