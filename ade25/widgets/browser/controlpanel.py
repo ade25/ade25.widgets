@@ -12,6 +12,13 @@ from ade25.widgets import utils as widget_utils
 from ade25.widgets import MessageFactory as _
 
 
+def widgetSettingsDefaultValue():
+    settings = widget_utils.default_widget_configuration(
+        version=1001
+    )
+    return settings
+
+
 class IAde25WidgetsControlPanel(Interface):
 
     content_widgets_header = schema.List(
@@ -55,9 +62,7 @@ class IAde25WidgetsControlPanel(Interface):
         description=_(u"Widget configuration registry storing a string "
                       u"representation of a valid JSON settings array"),
         required=False,
-        defaultFactory=widget_utils.default_widget_configuration(
-            version=1001
-        )
+        defaultFactory=widgetSettingsDefaultValue
     )
 
 
