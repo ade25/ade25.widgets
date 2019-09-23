@@ -182,7 +182,7 @@ class ContentWidgetItemForm(AutoExtensibleForm, form.Form):
                 widget_item[entry_key] = image_uid
             elif IRichTextValue.providedBy(value):
                 # Handle rich text value that is not serializable
-                text_value = value.output
+                text_value = value
                 widget_item[entry_key] = text_value
             else:
                 widget_item[entry_key] = value
