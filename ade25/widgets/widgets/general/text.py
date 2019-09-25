@@ -5,6 +5,7 @@ import uuid as uuid_tool
 from Acquisition import aq_inner
 from Products.Five import BrowserView
 from ade25.widgets.interfaces import IContentWidgets
+from plone.app.textfield.interfaces import ITransformer, IRichTextValue
 
 
 class WidgetText(BrowserView):
