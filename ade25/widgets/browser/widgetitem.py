@@ -144,7 +144,7 @@ class ContentWidgetItemForm(AutoExtensibleForm, form.Form):
 
     @staticmethod
     def generate_hash_from_filename(file_name):
-        return hashlib.sha1(str(uuid.uuid4()) + file_name).hexdigest()
+        return hashlib.sha1((str(uuid.uuid4()) + file_name).encode("utf-8")).hexdigest()
 
     def _process_image_asset(self, field_key, field_value):
         portal = api.portal.get()

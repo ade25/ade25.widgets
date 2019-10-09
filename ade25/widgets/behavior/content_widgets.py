@@ -51,7 +51,7 @@ class ContentWidgets(object):
         """
         widget_hash = sha256()
         #
-        widget_hash.update(widget_data)
+        widget_hash.update(widget_data.encode("utf-8"))
         return widget_hash.hexdigest()
 
     def store_widget(self, widget, widget_data, request):
