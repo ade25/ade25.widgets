@@ -44,7 +44,8 @@
             </div>
         </div>
         <tal:widget-nodes tal:condition="python:configuration['type'] == 'collection' and view.has_widget_item_nodes()">
-            <div class="c-widget-editor__nodes js-sortable">
+            <div class="c-widget-editor__nodes js-sortable"
+                tal:attributes="data-storage python:view.widget_reorder_handler()">
             <tal:nodes tal:repeat="widget_node python:view.widget_item_nodes()">
                 <div class="c-widget-editor__item c-widget-editor__item--secondary"
                          tal:define="widget_settings python:view.configuration['widget_settings']; node_settings python:widget_settings['node']"

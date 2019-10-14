@@ -58,6 +58,14 @@
 
     <browser:page
             for="*"
+            name="content-widget-collection-reorder"
+            class=".widgetcollection.ContentWidgetCollectionReorder"
+            permission="zope2.View"
+            layer="..interfaces.IAde25WidgetsLayer"
+    />
+
+    <browser:page
+            for="*"
             name="content-widget-item-create"
             class=".widgetitem.ContentWidgetItemCreate"
             permission="cmf.ModifyPortalContent"

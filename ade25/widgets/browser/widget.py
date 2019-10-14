@@ -361,6 +361,21 @@ class ContentWidgetFormView(FormWrapper):
     def has_widget_item_nodes(self):
         return len(self.widget_item_nodes()) > 0
 
+    def widget_reorder_handler(self):
+        context = aq_inner(self.context)
+        context_url = context.absolute_url()
+        reorder_view = '@@content-widget-collection-reorder'
+        widget_identifier = 'section={0}&panel={1}'.format(
+            self.widget_context()['panel_page_section'],
+            self.widget_context()['panel_page_item']
+        )
+        reorder_handler = '{base_url}/{view}?{parameter}'.format(
+            base_url=context_url,
+            view=reorder_view,
+            parameter=widget_identifier
+        )
+        return reorder_handler
+
     def rendered_widget(self):
         context = aq_inner(self.context)
         if self.settings()['widget_type']:

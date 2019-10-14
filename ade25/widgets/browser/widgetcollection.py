@@ -1,15 +1,18 @@
 # -*- coding: utf-8 -*-
 """Module providing widget editor and view"""
 import hashlib
+import json
 import uuid
 import uuid as uuid_tool
 
 from Acquisition import aq_inner
+from Products.Five import BrowserView
 from ade25.panelpage.interfaces import IPanelEditor
 from plone import api
 from plone.app.textfield import IRichTextValue
 from plone.autoform.form import AutoExtensibleForm
 from plone.namedfile.interfaces import INamedBlobImage
+from plone.protect.interfaces import IDisableCSRFProtection
 from plone.protect.utils import addTokenToUrl
 from plone.supermodel import model
 from plone.z3cform.layout import FormWrapper
@@ -18,7 +21,7 @@ from z3c.form import form
 from zope import schema
 from zope.component import getUtility
 from zope.dottedname.resolve import resolve
-from zope.interface import implementer
+from zope.interface import implementer, alsoProvides
 from zope.lifecycleevent import modified
 from zope.publisher.interfaces import IPublishTraverse
 
@@ -406,3 +409,145 @@ class ContentWidgetCollectionFormView(FormWrapper):
             view_name = '@@content-widget-base'
             rendered_widget = context.restrictedTraverse(view_name)()
         return rendered_widget
+
+
+class ContentWidgetCollectionReorder(BrowserView):
+    """ Base widget used as placeholder """
+
+    def __call__(self,
+                 widget_type='base',
+                 identifier=None,
+                 data_set=None,
+                 widget_mode='view',
+                 debug="off",
+                 **kw):
+        self.params = {
+            'widget_name': identifier,
+            'widget_type': widget_type,
+            'widget_mode': widget_mode,
+            'widget_data': data_set,
+            'debug_mode': debug
+        }
+        self.params.update(kw)
+        self.payload = dict()
+        self.update()
+        alsoProvides(self.request, IDisableCSRFProtection)
+        return self.render()
+
+    def update(self):
+        if "order" in self.request.form:
+            node_order = self.request.form['order']
+            self.payload['node-order'] = json.loads(node_order)
+
+    def settings(self):
+        return self.params
+
+    @staticmethod
+    def panel_editor():
+        tool = getUtility(IPanelEditor)
+        return tool.get()
+
+    @property
+    def configuration(self):
+        context = aq_inner(self.context)
+        return self.panel_editor()[context.UID()]
+
+    @property
+    def edit_mode(self):
+        if self.settings()['widget_mode'] == 'edit':
+            return True
+        return False
+
+    @property
+    def record(self):
+        return self.settings()['widget_data']
+
+    def widget_context(self):
+        try:
+            panel_section = self.record['page_section']
+            panel_item = self.record['page_panel']
+        except (KeyError, TypeError):
+            panel_section = 'main'
+            panel_item = '0'
+        return {
+            'panel_page_section': panel_section,
+            'panel_page_item': panel_item
+        }
+
+    def widget_uid(self):
+        try:
+            widget_id = self.record['id']
+        except (KeyError, TypeError):
+            widget_id = str(uuid_tool.uuid4())
+        return widget_id
+
+    def widget_settings(self):
+        widget_identifier = self.settings()['widget_type']
+        widget_tool = getUtility(IContentWidgetTool)
+        try:
+            settings = widget_tool.widget_setup(widget_identifier)
+        except KeyError:
+            settings = {}
+        return settings
+
+    def widget_configuration(self):
+        widget_tool = getUtility(IContentWidgetTool)
+        widget_id = self.settings()['widget_type']
+        try:
+            configuration = widget_tool.widget_setup(
+                widget_id
+            )
+        except KeyError:
+            configuration = {
+                "pkg": "PKG Undefined",
+                "id": widget_id,
+                "name": widget_id.replace('-', ' ').title(),
+                "title": widget_id.replace('-', ' ').title(),
+                "category": "more",
+                "type": "base"
+            }
+        return configuration
+
+    def handle_widget_collection_reorder(self):
+        """ Update widget node ordering
+
+        Should also update the stored session details to allow for smooth
+        panel page editor workflow
+        """
+        # TODO: implement order storage
+        context = aq_inner(self.context)
+        payload = self.payload
+        editor = self.panel_editor()
+        editor_data = editor[context.UID()]
+        storage = IContentWidgets(context)
+        record = storage.read_widget(editor_data["widget_id"])
+        item_order = record["item_order"]
+        if item_order:
+            updated_order = payload['node-order']
+            if not isinstance(updated_order, list):
+                updated_order = list()
+            record["item_order"] = updated_order
+            storage.store_widget(
+                editor_data['widget_id'],
+                record,
+                self.request
+            )
+        msg = _(u"Collection node order updated")
+        data = {
+            "success": True,
+            "message": msg
+        }
+        return data
+
+    def render(self):
+        msg = _(u"Panel configuration data not available")
+        data = {
+            "success": False,
+            "message": msg
+        }
+        settings = self.handle_widget_collection_reorder()
+        if settings:
+            data = settings
+        self.request.response.setHeader('Content-Type',
+                                        'application/json; charset=utf-8')
+        return json.dumps(data)
