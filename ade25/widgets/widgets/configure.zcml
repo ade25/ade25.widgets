@@ -6,6 +6,7 @@
 
     <include package=".general" />
     <include package=".image" />
+    <include package=".partial" />
 
     <browser:page
         for="*"

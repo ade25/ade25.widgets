@@ -6,28 +6,28 @@ from plone.namedfile import field as named_file
 from zope import schema
 from zope.interface import Interface, provider
 
-from ade25.widgets import MessageFactory as _
+from ade25.panelpage import MessageFactory as _
 
 
 @provider(IFormFieldProvider)
-class IAde25WidgetImageCover(Interface):
-    """ Content widget image cover """
+class IHPHWidgetSlider(Interface):
+    """ Content Widget Slider """
+    pass
 
 
 @provider(IFormFieldProvider)
-class IAde25WidgetImagePoster(Interface):
-    """ Content widget image poster """
+class IHPHWidgetSliderItem(Interface):
+    """ Slide """
 
+    text = RichText(
+        title=_(u"Text"),
+        required=False
+    )
     image = named_file.NamedBlobImage(
-        title=_(u"Poster Image"),
+        title=_(u"Slide Image"),
         required=True
     )
     image_caption = schema.TextLine(
-        title=_(u"Poster Image Copyright Information"),
+        title=_(u"Image Copyright Information"),
         required=False
-    )
-    text = RichText(
-        title=_(u"Text"),
-        required=False,
-        allowed_mime_types=('text/html', ),
     )

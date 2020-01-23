@@ -87,3 +87,35 @@ class ContentWidgetDisplayVocabularyFactory(object):
 
 ContentWidgetDisplayVocabulary = ContentWidgetDisplayVocabularyFactory()
 
+
+@implementer(IVocabularyFactory)
+class ContentWidgetLayoutVocabularyFactory(object):
+
+    def __call__(self, context):
+        widgets = self.get_display_options()
+        terms = [
+            self.generate_simple_term(widget_key, widget_term)
+            for widget_key, widget_term in widgets.items()
+        ]
+        return SimpleVocabulary(terms)
+
+    @staticmethod
+    def generate_simple_term(widget, widget_term):
+        term = SimpleTerm(
+            value=widget,
+            token=b2a_qp(widget.encode('utf-8')),
+            title=_(widget_term)
+        )
+        return term
+
+    @staticmethod
+    def get_display_options():
+        display_options = {
+            'width-50': _(u'2 card per row'),
+            'width-33': _(u'3 cards per row (default)'),
+            'width-25': _(u'4 cards per row')
+        }
+        return display_options
+
+
+ContentWidgetLayoutVocabulary = ContentWidgetLayoutVocabularyFactory()

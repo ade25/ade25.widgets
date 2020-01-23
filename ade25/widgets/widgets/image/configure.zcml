@@ -11,7 +11,17 @@
             class="ade25.widgets.widgets.image.image.WidgetImageCover"
             template="image-cover.pt"
             permission="zope2.View"
-            layer="...interfaces.IAde25WidgetsLayer"
+            layer="ade25.widgets.interfaces.IAde25WidgetsLayer"
+    />
+
+    <!-- Content widget Image Poster -->
+    <browser:page
+            for="*"
+            name="content-widget-image-poster"
+            class="ade25.widgets.widgets.image.poster.WidgetImagePoster"
+            template="poster.pt"
+            permission="zope2.View"
+            layer="ade25.widgets.interfaces.IAde25WidgetsLayer"
     />
 
 </configure>
