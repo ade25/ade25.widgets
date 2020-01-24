@@ -19,8 +19,18 @@ class IAde25WidgetListing(Interface):
     )
     display_limit = schema.TextLine(
         title=_(u"Display Limit"),
-        description=_(u"Select maximum number of cards to display. Leave "
-                      u"empty for keeping the default of 20 items."),
+        description=_(u"Select maximum number of snippets to display. Leave "
+                      u"empty when the widget should list all content items."),
+        required=False,
+        default='20'
+    )
+    display_batch = schema.Bool(
+        title=_(u"Display Pagination"),
+        description=_(u"When selected the listing will show the contents divided "
+                      u"into pages and display batch navigation. The configured "
+                      u"display limit will refer to the maximum number of items"
+                      u" per page and the widget will always show all content."),
+        default=False,
         required=False
     )
     display_images = schema.Bool(
@@ -43,7 +53,17 @@ class IAde25WidgetListingCards(Interface):
     display_limit = schema.TextLine(
         title=_(u"Display Limit"),
         description=_(u"Select maximum number of snippets to display. Leave "
-                      u"empty for keeping the default of 20 items."),
+                      u"empty when the widget should list all content items."),
+        required=False,
+        default='20'
+    )
+    display_batch = schema.Bool(
+        title=_(u"Display Pagination"),
+        description=_(u"When selected the listing will show the contents divided "
+                      u"into pages and display batch navigation. The configured "
+                      u"display limit will refer to the maximum number of items"
+                      u" per page and the widget will always show all content."),
+        default=False,
         required=False
     )
     display_images = schema.Bool(

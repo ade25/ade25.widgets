@@ -4,5 +4,25 @@
         xmlns:z3c="http://namespaces.zope.org/z3c"
         i18n_domain="ade25.widgets">
 
+    <!-- Content widget listing -->
+    <browser:page
+            for="*"
+            name="content-widget-listing"
+            class="ade25.widgets.widgets.summary.listing.WidgetContentListing"
+            template="listing.pt"
+            permission="zope2.View"
+            layer="ade25.widgets.interfaces.IAde25WidgetsLayer"
+    />
+
+    <!-- Content widget listing -->
+    <browser:page
+            for="*"
+            name="content-widget-listing-cards"
+            class="ade25.widgets.widgets.summary.listing.WidgetContentListingCards"
+            template="listing-cards.pt"
+            permission="zope2.View"
+            layer="ade25.widgets.interfaces.IAde25WidgetsLayer"
+    />
+
 
 </configure>

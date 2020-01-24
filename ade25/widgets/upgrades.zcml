@@ -22,6 +22,15 @@
             handler="ade25.widgets.upgrades.upgrade_1002"
             sortkey="1"
     />
+    <genericsetup:upgradeStep
+            title="Add default content widget"
+            description="Setup generally usable content widgets"
+            source="1002"
+            destination="1003"
+            profile="ade25.widgets:default"
+            handler="ade25.widgets.upgrades.upgrade_1003"
+            sortkey="1"
+    />
 
 
 </configure>

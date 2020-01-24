@@ -8,10 +8,10 @@
     <browser:page
             for="*"
             name="content-widget-slider"
-            class=".slider.WidgetSlider"
+            class="ade25.widgets.widgets.gallery.slider.slider.WidgetSlider"
             template="slider.pt"
             permission="zope2.View"
-            layer="ade25.widgets.interfaces.IHphWidgetsLayer"
+            layer="ade25.widgets.interfaces.IAde25WidgetsLayer"
     />
 
 </configure>

@@ -8,19 +8,19 @@
     <browser:page
             for="*"
             name="content-widget-content-card"
-            class="ade25.widgets.widgets.base.WidgetContentCard"
+            class="ade25.widgets.widgets.partials.base.WidgetContentCard"
             template="base-card.pt"
             permission="zope2.View"
-            layer="ade25.widgets.interfaces.IHphWidgetsLayer"
+            layer="ade25.widgets.interfaces.IAde25WidgetsLayer"
     />
 
     <browser:page
             for="*"
             name="content-widget-content-snippet"
-            class="ade25.widgets.widgets.base.WidgetContentSnippet"
+            class="ade25.widgets.widgets.partials.base.WidgetContentSnippet"
             template="base-snippet.pt"
             permission="zope2.View"
-            layer="ade25.widgets.interfaces.IHphWidgetsLayer"
+            layer="ade25.widgets.interfaces.IAde25WidgetsLayer"
     />
 
 
@@ -28,37 +28,37 @@
     <browser:page
             for="*"
             name="content-widget-news-card"
-            class="ade25.widgets.widgets.news.WidgetNewsCard"
+            class="ade25.widgets.widgets.partials.news.WidgetNewsCard"
             template="news-card.pt"
             permission="zope2.View"
-            layer="ade25.widgets.interfaces.IHphWidgetsLayer"
+            layer="ade25.widgets.interfaces.IAde25WidgetsLayer"
     />
 
     <browser:page
             for="*"
             name="content-widget-event-tile"
-            class="ade25.widgets.widgets.event.WidgetEventTile"
+            class="ade25.widgets.widgets.partials.event.WidgetEventTile"
             template="event-tile.pt"
             permission="zope2.View"
-            layer="ade25.widgets.interfaces.IHphWidgetsLayer"
+            layer="ade25.widgets.interfaces.IAde25WidgetsLayer"
     />
 
     <browser:page
             for="*"
             name="content-widget-event-snippet"
-            class="ade25.widgets.widgets.event.WidgetEventSnippet"
+            class="ade25.widgets.widgets.partials.event.WidgetEventSnippet"
             template="event-snippet.pt"
             permission="zope2.View"
-            layer="ade25.widgets.interfaces.IHphWidgetsLayer"
+            layer="ade25.widgets.interfaces.IAde25WidgetsLayer"
     />
 
     <browser:page
             for="*"
             name="content-widget-event-card"
-            class="ade25.widgets.widgets.event.WidgetEventCard"
+            class="ade25.widgets.widgets.partials.event.WidgetEventCard"
             template="event-card.pt"
             permission="zope2.View"
-            layer="ade25.widgets.interfaces.IHphWidgetsLayer"
+            layer="ade25.widgets.interfaces.IAde25WidgetsLayer"
     />
 
 </configure>

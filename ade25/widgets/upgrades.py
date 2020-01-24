@@ -4,11 +4,12 @@ import datetime
 import json
 import logging
 import time
+import six
 
-from ade25.widgets import utils as widget_utils
 from plone import api
 from Products.CMFPlone.utils import safe_unicode
 
+from ade25.widgets import utils as widget_utils
 from ade25.widgets.config import PKG_WIDGETS
 
 default_profile = 'profile-ade25.widgets:default'
@@ -67,3 +68,8 @@ def upgrade_1002(setup):
             type='ade25.widgets.assetsfolder',
             id='asset-repository',
             title=u'Asset Repository')
+
+
+def upgrade_1003(setup):
+    portal = api.portal.get()
+    register_content_widgets(portal)

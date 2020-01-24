@@ -9,7 +9,7 @@ PKG_WIDGETS = {
         "title": "Separator",
         "category": "general",
         "type": "content-item",
-        "schema": "ade25.widgets.widgets.content.interfaces.IAde25WidgetSeparator",  # noqa
+        "schema": "ade25.widgets.widgets.general.interfaces.IAde25WidgetSeparator",  # noqa
         "node": {}
     },
     "horizontal-line": {
@@ -19,7 +19,7 @@ PKG_WIDGETS = {
         "title": "Horizontal Line",
         "category": "general",
         "type": "content-item",
-        "schema": "ade25.widgets.widgets.content.interfaces.IAde25WidgetHorizontalLine",  # noqa
+        "schema": "ade25.widgets.widgets.general.interfaces.IAde25WidgetHorizontalLine",  # noqa
         "node": {}
     },
     "text-block": {
@@ -29,7 +29,7 @@ PKG_WIDGETS = {
         "title": "Text Block",
         "category": "general",
         "type": "content-item",
-        "schema": "ade25.widgets.widgets.content.interfaces.IAde25WidgetTextBlock",  # noqa
+        "schema": "ade25.widgets.widgets.general.interfaces.IAde25WidgetTextBlock",  # noqa
         "node": {}
     },
     "text-formatted": {
@@ -39,7 +39,7 @@ PKG_WIDGETS = {
         "title": "Text Block Formatted",
         "category": "general",
         "type": "content-item",
-        "schema": "ade25.widgets.widgets.content.interfaces.IAde25WidgetTextFormatted",  # noqa
+        "schema": "ade25.widgets.widgets.general.interfaces.IAde25WidgetTextFormatted",  # noqa
         "node": {}
     },
     "text-html": {
@@ -49,7 +49,7 @@ PKG_WIDGETS = {
         "title": "Text Block HTML",
         "category": "general",
         "type": "content-item",
-        "schema": "ade25.widgets.widgets.content.interfaces.IAde25WidgetTextHtml",  # noqa
+        "schema": "ade25.widgets.widgets.general.interfaces.IAde25WidgetTextHtml",  # noqa
         "node": {}
     },
     "image-cover": {
@@ -72,76 +72,50 @@ PKG_WIDGETS = {
         "schema": "ade25.widgets.widgets.image.interfaces.IAde25WidgetImagePoster",  # noqa
         "node": {}
     },
-    "ade25-content-alias": {
+    "slider": {
         "pkg": "ade25.widgets",
-        "id": "ade25-content-alias",
-        "name": "HfPH Content Alias",
-        "title": "Content Alias",
-        "category": "more",
-        "type": "content-item",
-        "schema": "ade25.widgets.widgets.content.interfaces.IAde25WidgetContentAlias",  # noqa
-        "node": {}
-    },
-    "ade25-teaser-events": {
-        "pkg": "ade25.widgets",
-        "id": "ade25-teaser-events",
-        "name": "HfPH Teaser Events",
-        "title": "Teaser Events",
-        "category": "more",
-        "type": "content-item",
-        "schema": "ade25.widgets.widgets.teaser.interfaces.IAde25WidgetTeaserEvents",  # noqa
-        "node": {}
-    },
-    "ade25-teaser-links": {
-        "pkg": "ade25.widgets",
-        "id": "ade25-teaser-links",
-        "name": "HfPH Teaser Links",
-        "title": "Teaser Links Internal",
-        "category": "more",
+        "id": "slider",
+        "name": "Slider",
+        "title": "Slider",
+        "category": "images",
         "type": "collection",
-        "schema": "ade25.widgets.widgets.teaser.interfaces.IAde25WidgetTeaserLinksInternal",  # noqa
+        "schema": "ade25.widgets.widgets.gallery.slider.interfaces.IAde25WidgetSlider",  # noqa
         "node": {
-            "title": "Teaser Internal Link",
-            "schema": "ade25.widgets.widgets.teaser.interfaces.IAde25WidgetLinkInternal"  # noqa
+            "title": "Slide",
+            "schema": "ade25.widgets.widgets.gallery.slider.interfaces.IAde25WidgetSliderItem"  # noqa
         }
     },
-    "ade25-teaser-external": {
+    "listing": {
         "pkg": "ade25.widgets",
-        "id": "ade25-teaser-links-external",
-        "name": "HfPH Teaser Links External",
-        "title": "Teaser Links External",
-        "category": "more",
-        "type": "collection",
-        "schema": "ade25.widgets.widgets.teaser.interfaces.IAde25WidgetTeaserLinksExternal",  # noqa
-        "node": {
-            "title": "External Link",
-            "schema": "ade25.widgets.widgets.teaser.interfaces.IAde25WidgetLinkExternal"  # noqa
-        }
+        "id": "listing",
+        "name": "Content Listing",
+        "title": "Content Listing",
+        "category": "summary",
+        "type": "content-item",
+        "schema": "ade25.widgets.widgets.summary.interfaces.IAde25WidgetListing",  # noqa
+        "node": {}
     },
-    "ade25-base-accordion": {
+    "listing-cards": {
         "pkg": "ade25.widgets",
-        "id": "ade25-accordion",
+        "id": "listing-cards",
+        "name": "Content Cards",
+        "title": "Content Cards",
+        "category": "summary",
+        "type": "content-item",
+        "schema": "ade25.widgets.widgets.summary.interfaces.IAde25WidgetListingCards",  # noqa
+        "node": {}
+    },
+    "accordion": {
+        "pkg": "ade25.widgets",
+        "id": "accordion",
         "name": "HfPH Accordion",
         "title": "Accordion",
         "category": "more",
         "type": "collection",
-        "schema": "ade25.widgets.widgets.accordion.interfaces.IAde25WidgetAccordion",  # noqa
+        "schema": "ade25.widgets.widgets.more.accordion.interfaces.IAde25WidgetAccordion",  # noqa
         "node": {
             "title": "Pane",
-            "schema": "ade25.widgets.widgets.accordion.interfaces.IAde25WidgetAccordionItem"  # noqa
-        }
-    },
-    "ade25-base-slider": {
-        "pkg": "ade25.widgets",
-        "id": "ade25-slider",
-        "name": "HfPH Slider",
-        "title": "Slider",
-        "category": "more",
-        "type": "collection",
-        "schema": "ade25.widgets.widgets.slider.interfaces.IAde25WidgetSlider",  # noqa
-        "node": {
-            "title": "Slide",
-            "schema": "ade25.widgets.widgets.slider.interfaces.IAde25WidgetSliderItem"  # noqa
+            "schema": "ade25.widgets.widgets.more.accordion.interfaces.IAde25WidgetAccordionItem"  # noqa
         }
     }
 }
