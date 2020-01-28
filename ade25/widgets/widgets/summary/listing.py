@@ -5,7 +5,6 @@ from Acquisition import aq_inner, aq_parent
 from Products.CMFCore.interfaces import ISiteRoot
 from Products.Five import BrowserView
 from ade25.panelpage.page import IPage
-from ade25.sitecontent.sectionfolder import ISectionFolder
 from plone import api
 from plone.app.vocabularies.catalog import KeywordsVocabulary
 from plone.i18n.normalizer import IIDNormalizer
