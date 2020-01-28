@@ -1,37 +1,24 @@
 # -*- coding: utf-8 -*-
-# Module providing version specific upgrade steps
+"""Module providing custom setup steps"""
 import datetime
 import json
 import logging
 import time
-import six
 
-from plone import api
+import six
 from Products.CMFPlone.utils import safe_unicode
 
-from ade25.widgets import utils as widget_utils
 from ade25.widgets.config import PKG_WIDGETS
+from plone import api
+from plone.api.exc import InvalidParameterError
 
-default_profile = 'profile-ade25.widgets:default'
 logger = logging.getLogger(__name__)
-
-
-def update_widget_settings(version=None):
-    """Run custom add-on package installation code to modify Plone
-       site object and others
-
-    @param version: Requested base configuration version
-    """
-    settings = widget_utils.default_widget_configuration(version)
-    api.portal.set_registry_record(
-        name='ade25.widgets.widget_settings',
-        value=settings
-    )
 
 
 def register_content_widgets(site):
     """Run custom add-on package installation code to add custom
        site specific content widgets
+
     @param site: Plone site
     """
     content_widgets = PKG_WIDGETS
@@ -52,24 +39,29 @@ def register_content_widgets(site):
     )
 
 
-def upgrade_1001(setup):
-    setup.runImportStepFromProfile(default_profile, 'plone.app.registry')
-    # Update registry settings
-    update_widget_settings(version=1001)
-
-
-def upgrade_1002(setup):
-    setup.runImportStepFromProfile(default_profile, 'typeinfo')
-    portal = api.portal.get()
+def add_assets_repository(site):
     # Create a folder for widget asset management if needed
-    if 'asset-repository' not in portal:
+    if 'asset-repository' not in site:
         api.content.create(
-            container=portal,
+            container=site,
             type='ade25.widgets.assetsfolder',
             id='asset-repository',
             title=u'Asset Repository')
+        api.content.transition(obj=site['asset-repository'], transition='publish')
 
 
-def upgrade_1003(setup):
-    portal = api.portal.get()
+def setup_various(context):
+    """
+    @param context: Products.GenericSetup.context.DirectoryImportContext instance
+    """
+
+    # We check from our GenericSetup context whether we are running
+    # add-on installation for your package or any other
+    if context.readDataFile('ade25.widgets.marker.txt') is None:
+        # Not your add-on
+        return
+
+    portal = context.getSite()
+
     register_content_widgets(portal)
+    add_assets_repository(portal)

@@ -1,0 +1,64 @@
+<configure
+        xmlns="http://namespaces.zope.org/zope"
+        xmlns:browser="http://namespaces.zope.org/browser"
+        xmlns:z3c="http://namespaces.zope.org/z3c"
+        i18n_domain="ade25.widgets">
+
+    <!-- Content preview widgets -->
+    <browser:page
+            for="*"
+            name="content-widget-content-card"
+            class="ade25.widgets.widgets.partials.base.WidgetContentCard"
+            template="base-card.pt"
+            permission="zope2.View"
+            layer="ade25.widgets.interfaces.IAde25WidgetsLayer"
+    />
+
+    <browser:page
+            for="*"
+            name="content-widget-content-snippet"
+            class="ade25.widgets.widgets.partials.base.WidgetContentSnippet"
+            template="base-snippet.pt"
+            permission="zope2.View"
+            layer="ade25.widgets.interfaces.IAde25WidgetsLayer"
+    />
+
+
+    <!-- Content widget News Preview -->
+    <browser:page
+            for="*"
+            name="content-widget-news-card"
+            class="ade25.widgets.widgets.partials.news.WidgetNewsCard"
+            template="news-card.pt"
+            permission="zope2.View"
+            layer="ade25.widgets.interfaces.IAde25WidgetsLayer"
+    />
+
+    <browser:page
+            for="*"
+            name="content-widget-event-tile"
+            class="ade25.widgets.widgets.partials.event.WidgetEventTile"
+            template="event-tile.pt"
+            permission="zope2.View"
+            layer="ade25.widgets.interfaces.IAde25WidgetsLayer"
+    />
+
+    <browser:page
+            for="*"
+            name="content-widget-event-snippet"
+            class="ade25.widgets.widgets.partials.event.WidgetEventSnippet"
+            template="event-snippet.pt"
+            permission="zope2.View"
+            layer="ade25.widgets.interfaces.IAde25WidgetsLayer"
+    />
+
+    <browser:page
+            for="*"
+            name="content-widget-event-card"
+            class="ade25.widgets.widgets.partials.event.WidgetEventCard"
+            template="event-card.pt"
+            permission="zope2.View"
+            layer="ade25.widgets.interfaces.IAde25WidgetsLayer"
+    />
+
+</configure>

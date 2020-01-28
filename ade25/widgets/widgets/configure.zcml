@@ -6,14 +6,17 @@
 
     <include package=".general" />
     <include package=".image" />
+    <include package=".partials" />
+    <include package=".gallery" />
+    <include package=".summary" />
 
     <browser:page
         for="*"
         name="content-widget-base"
-        class=".base.BaseWidgetView"
+        class="ade25.widgets.widgets.base.BaseWidgetView"
         template="base.pt"
         permission="zope2.View"
-        layer="..interfaces.IAde25WidgetsLayer"
+        layer="ade25.widgets.interfaces.IAde25WidgetsLayer"
         />
 
 </configure>

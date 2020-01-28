@@ -4,24 +4,25 @@
         xmlns:z3c="http://namespaces.zope.org/z3c"
         i18n_domain="ade25.widgets">
 
-    <!-- Widget: Image Cover -->
+    <!-- Content widget listing -->
     <browser:page
             for="*"
-            name="content-widget-image-cover"
-            class="ade25.widgets.widgets.image.image.WidgetImageCover"
-            template="image-cover.pt"
+            name="content-widget-listing"
+            class="ade25.widgets.widgets.summary.listing.WidgetContentListing"
+            template="listing.pt"
             permission="zope2.View"
             layer="ade25.widgets.interfaces.IAde25WidgetsLayer"
     />
 
-    <!-- Content widget Image Poster -->
+    <!-- Content widget listing -->
     <browser:page
             for="*"
-            name="content-widget-image-poster"
-            class="ade25.widgets.widgets.image.poster.WidgetImagePoster"
-            template="poster.pt"
+            name="content-widget-listing-cards"
+            class="ade25.widgets.widgets.summary.listing.WidgetContentListingCards"
+            template="listing-cards.pt"
             permission="zope2.View"
             layer="ade25.widgets.interfaces.IAde25WidgetsLayer"
     />
+
 
 </configure>
