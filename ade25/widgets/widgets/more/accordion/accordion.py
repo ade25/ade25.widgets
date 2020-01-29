@@ -15,8 +15,8 @@ class WidgetAccordion(BrowserView):
     """ Slider widget """
 
     def __call__(self,
-                 widget_name='hph-accordion',
-                 widget_type='hph-accordion',
+                 widget_name='accordion',
+                 widget_type='accordion',
                  widget_mode='view',
                  widget_data=None,
                  **kw):

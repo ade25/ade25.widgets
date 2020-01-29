@@ -1,0 +1,19 @@
+<div class="o-read-more o-read-more--default"
+     xmlns:xlink="http://www.w3.org/1999/xlink"
+         tal:define="settings python:view.record"
+         tal:attributes="class python:'o-read-more ' + view.css_classes()"
+         i18n:domain="ade25.widgets">
+    <span class="o-read-more__text"
+          tal:condition="python:settings['read_more_text']"
+            tal:content="python:settings['read_more_text_value']">
+            Read more
+    </span>
+    <span class="o-read-more__icon" tal:condition="python:settings['read_more_symbol']">
+        <svg class="o-icon o-icon-widget-text-block-dims"
+            tal:define="symbol_icon python:settings['read_more_symbol_icon']"
+            tal:attributes="class python:'o-icon o-icon--md o-icon-ui--' + symbol_icon + '-dims'">
+            <use xlink:href="/assets/symbol/svg/sprite.symbol.svg#icon--{symbol_icon}-block"
+                tal:attributes="xlink:href python:'/assets/symbol/svg/sprite.symbol.svg#ui--' + symbol_icon"></use>
+        </svg>
+    </span>
+</div>

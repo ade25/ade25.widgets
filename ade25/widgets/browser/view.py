@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+    # -*- coding: utf-8 -*-
 """Module providing views for the folderish content page type"""
 import uuid as uuid_tool
 from Acquisition import aq_inner

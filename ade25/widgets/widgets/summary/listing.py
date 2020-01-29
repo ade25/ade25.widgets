@@ -5,7 +5,6 @@ from Acquisition import aq_inner, aq_parent
 from Products.CMFCore.interfaces import ISiteRoot
 from Products.Five import BrowserView
 from ade25.panelpage.page import IPage
-from ade25.sitecontent.sectionfolder import ISectionFolder
 from plone import api
 from plone.app.vocabularies.catalog import KeywordsVocabulary
 from plone.i18n.normalizer import IIDNormalizer
@@ -16,10 +15,14 @@ class WidgetContentListing(BrowserView):
     """ Basic context content listing """
 
     def __call__(self,
+                 widget_name='listing',
+                 widget_type='listing',
                  widget_data=None,
                  widget_mode='view',
                  **kw):
         self.params = {
+            'widget_name': widget_name,
+            'widget_type': widget_type,
             'widget_mode': widget_mode,
             'widget_data': widget_data
         }
