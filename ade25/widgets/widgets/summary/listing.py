@@ -15,10 +15,14 @@ class WidgetContentListing(BrowserView):
     """ Basic context content listing """
 
     def __call__(self,
+                 widget_name='listing',
+                 widget_type='listing',
                  widget_data=None,
                  widget_mode='view',
                  **kw):
         self.params = {
+            'widget_name': widget_name,
+            'widget_type': widget_type,
             'widget_mode': widget_mode,
             'widget_data': widget_data
         }

@@ -4,6 +4,17 @@
         xmlns:z3c="http://namespaces.zope.org/z3c"
         i18n_domain="ade25.widgets">
 
+    <!-- Standalone partials -->
+    <browser:page
+            for="*"
+            name="content-widget-read-more"
+            class="ade25.widgets.widgets.partials.base.WidgetContentReadMore"
+            template="base-read-more.pt"
+            permission="zope2.View"
+            layer="ade25.widgets.interfaces.IAde25WidgetsLayer"
+    />
+
+
     <!-- Content preview widgets -->
     <browser:page
             for="*"
