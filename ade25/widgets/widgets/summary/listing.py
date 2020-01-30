@@ -54,7 +54,7 @@ class WidgetContentListing(BrowserView):
 
     def card_list_class(self):
         context = aq_inner(self.context)
-        css_class = 'c-list c-list--gutter c-list--grid c-list--{}'.format(context.UID())
+        css_class = 'c-list c-list--default c-list--{}'.format(context.UID())
         custom_styles = self.custom_styles()
         if custom_styles:
             class_container = custom_styles['class_container']
