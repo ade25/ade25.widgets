@@ -52,8 +52,8 @@
             component="ade25.widgets.vocabulary.ContentWidgetDisplayVocabulary" />
 
     <utility
-            name="ade25.widgets.vocabularies.ContentWidgetLayoutOptions"
-            component="ade25.widgets.vocabulary.ContentWidgetLayoutVocabulary" />
+        name="ade25.widgets.vocabularies.ContentWidgetLayoutOptions"
+        component="ade25.widgets.vocabulary.ContentWidgetLayoutVocabulary" />
 
     <!-- Content Widget Tool -->
     <utility

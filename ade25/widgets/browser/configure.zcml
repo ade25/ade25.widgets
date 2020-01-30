@@ -8,10 +8,20 @@
     <browser:page
             name="ade25-widgets-controlpanel"
             for="Products.CMFPlone.interfaces.IPloneSiteRoot"
-            class=".controlpanel.Ade25WidgetsSettings"
+            class="ade25.widgets.browser.controlpanel.Ade25WidgetsSettings"
             permission="cmf.ManagePortal"
             template="controlpanel.pt"
     />
+
+  <!-- Control panels -->
+  <browser:page
+          name="ade25-widgets-settings-base"
+          for="Products.CMFPlone.interfaces.IPloneSiteRoot"
+          class="ade25.widgets.browser.controlpanel.Ade25WidgetsSettingsBase"
+          template="controlpanel-base.pt"
+          permission="cmf.ManagePortal"
+  />
+
 
   <browser:page
       for="*"

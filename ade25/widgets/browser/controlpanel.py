@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 """Module providing controlpanels"""
+from Products.Five import BrowserView
+from Products.statusmessages.interfaces import IStatusMessage
 from plone.app.registry.browser.controlpanel import RegistryEditForm
 from plone.autoform import form
 from zope import schema
@@ -12,11 +14,17 @@ from ade25.widgets import utils as widget_utils
 from ade25.widgets import MessageFactory as _
 
 
-def widgetSettingsDefaultValue():
-    settings = widget_utils.default_widget_configuration(
-        version=1001
-    )
-    return settings
+class Ade25WidgetsSettings(BrowserView):
+    """ Ade25 settings overview """
+
+    def update(self):
+        if super(Ade25WidgetsSettings, self).update():
+            if 'form.button.setup' in self.request.form:
+                self.processSetup()
+
+    def processSetup(self):
+        IStatusMessage(self.request).addStatusMessage(
+            _(u'Setup initialized.'), 'info')
 
 
 class IAde25WidgetsControlPanel(Interface):
@@ -62,7 +70,6 @@ class IAde25WidgetsControlPanel(Interface):
         description=_(u"Widget configuration registry storing a string "
                       u"representation of a valid JSON settings array"),
         required=False,
-        defaultFactory=widgetSettingsDefaultValue
     )
 
 
@@ -72,7 +79,7 @@ class Ade25WidgetsControlPanelForm(RegistryEditForm):
     label = u'Ade25 Widgets'
 
 
-Ade25WidgetsSettings = layout.wrap_form(
+Ade25WidgetsSettingsBase = layout.wrap_form(
     Ade25WidgetsControlPanelForm,
     ControlPanelFormWrapper
 )

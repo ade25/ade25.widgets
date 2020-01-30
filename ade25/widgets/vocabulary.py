@@ -12,6 +12,39 @@ from ade25.widgets import MessageFactory as _
 
 
 @implementer(IVocabularyFactory)
+class ContentWidgetSectionsVocabularyFactory(object):
+
+    def __call__(self, context):
+        widgets = self.get_display_options()
+        terms = [
+            self.generate_simple_term(widget_key, widget_term)
+            for widget_key, widget_term in widgets.items()
+        ]
+        return SimpleVocabulary(terms)
+
+    @staticmethod
+    def generate_simple_term(widget, widget_term):
+        term = SimpleTerm(
+            value=widget,
+            token=b2a_qp(widget.encode('utf-8')),
+            title=_(widget_term)
+        )
+        return term
+
+    @staticmethod
+    def get_display_options():
+        display_options = {
+            'content-widgets-page-header': _(u'Content Widgets Page Header'),
+            'content-widgets-page-main': _(u'Content Widgets Main Content Area'),
+            'content-widgets-page-footer': _(u'Content Widgets Page Footer')
+        }
+        return display_options
+
+
+ContentWidgetSectionsVocabulary = ContentWidgetSectionsVocabularyFactory()
+
+
+@implementer(IVocabularyFactory)
 class AvailableContentWidgetsVocabularyFactory(object):
 
     def __call__(self, context):
