@@ -139,6 +139,47 @@ class WidgetContentCard(BrowserView):
         }
         return details
 
+    def figure_configuration(self):
+        requested_scale = self.record.get("image_scale", "ratio-4:3")
+        settings = {
+            "scale": requested_scale,
+            "ratio": self._compute_aspect_ratio(requested_scale)
+        }
+        return settings
+
+    @staticmethod
+    def _read_more_text_default():
+        translation_service = api.portal.get_tool(name="translation_service")
+        default_text = translation_service.translate(
+            "Read more",
+            "ade25.widgets",
+            target_language=api.portal.get_default_language(),
+        )
+        return default_text
+
+    def _read_more_symbol(self):
+        layout = self.record.get("read_more_layout", "link")
+        if 'icon' in layout:
+            return True
+        return False
+
+    def read_more_link(self):
+        context = aq_inner(self.context)
+        widget_configuration = dict(
+            read_more_layout=self.record.get("read_more_layout", "link"),
+            read_more_position=self.record.get("read_more_position", "left"),
+            read_more_text=self.record.get("read_more_text", True),
+            read_more_text_value=self.record.get(
+                "read_more_text_value", self._read_more_text_default()
+            ),
+            read_more_symbol=self._read_more_symbol(),
+            read_more_symbol_icon=self.record.get("read_more_symbol_icon", "chevron"),
+        )
+        rendered_widget = context.restrictedTraverse("@@content-widget-read-more")(
+            widget_data=widget_configuration
+        )
+        return rendered_widget
+
 
 class WidgetContentSnippet(BrowserView):
     """ Basic context content snippet """

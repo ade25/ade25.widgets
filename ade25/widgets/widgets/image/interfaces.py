@@ -13,6 +13,15 @@ from ade25.widgets import MessageFactory as _
 class IAde25WidgetImageCover(Interface):
     """ Content widget image cover """
 
+    image = named_file.NamedBlobImage(
+        title=_(u"Cover Image"),
+        required=True
+    )
+    image_caption = schema.TextLine(
+        title=_(u"Cover Image Copyright Information"),
+        required=False
+    )
+
 
 @provider(IFormFieldProvider)
 class IAde25WidgetImagePoster(Interface):

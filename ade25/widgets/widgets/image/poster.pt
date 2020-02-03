@@ -4,11 +4,11 @@
             <span tal:replace="structure python:widget_content['image']" />
         </div>
         <div class="c-poster__main">
-                <div class="c-poster__text" tal:condition="python:widget_content['text']"
-                         tal:define="widget_text python:widget_content['text']"
-                         tal:content="structure widget_text/output">
-                    Poster Teaser Text
-                </div>
+            <div class="c-poster__text" tal:condition="python:widget_content['text']"
+                     tal:define="widget_text python:widget_content['text']"
+                     tal:content="structure widget_text/output">
+                Poster Teaser Text
+            </div>
         </div>
     </tal:block>
 </div>
