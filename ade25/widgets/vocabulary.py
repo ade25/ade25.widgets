@@ -69,8 +69,11 @@ class AvailableContentWidgetsVocabularyFactory(object):
         registry_settings = api.portal.get_registry_record(
             'ade25.widgets.widget_settings'
         )
-        settings = json.loads(registry_settings)
-        available_widgets = settings['items']
+        try:
+            settings = json.loads(registry_settings)
+            available_widgets = settings['items']
+        except TypeError:
+            available_widgets = dict()
         return available_widgets
 
 
