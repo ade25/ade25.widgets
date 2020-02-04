@@ -77,7 +77,7 @@ PKG_WIDGETS = {
         "id": "slider",
         "name": "Slider",
         "title": "Slider",
-        "category": "images",
+        "category": "gallery",
         "type": "collection",
         "schema": "ade25.widgets.widgets.gallery.slider.interfaces.IAde25WidgetSlider",  # noqa
         "node": {

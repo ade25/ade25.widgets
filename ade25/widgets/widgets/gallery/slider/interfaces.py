@@ -10,13 +10,13 @@ from ade25.panelpage import MessageFactory as _
 
 
 @provider(IFormFieldProvider)
-class IHPHWidgetSlider(Interface):
+class IAde25WidgetSlider(Interface):
     """ Content Widget Slider """
     pass
 
 
 @provider(IFormFieldProvider)
-class IHPHWidgetSliderItem(Interface):
+class IAde25WidgetSliderItem(Interface):
     """ Slide """
 
     text = RichText(
