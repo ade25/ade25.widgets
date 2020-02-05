@@ -52,6 +52,16 @@ PKG_WIDGETS = {
         "schema": "ade25.widgets.widgets.general.interfaces.IAde25WidgetTextHtml",  # noqa
         "node": {}
     },
+    "page-header": {
+        "pkg": "ade25.widgets",
+        "id": "page-header",
+        "name": "Page Header",
+        "title": "Page Header",
+        "category": "general",
+        "type": "content-item",
+        "schema": "ade25.widgets.widgets.general.interfaces.IAde25WidgetPageHeader",  # noqa
+        "node": {}
+    },
     "image-cover": {
         "pkg": "ade25.widgets",
         "id": "image-cover",

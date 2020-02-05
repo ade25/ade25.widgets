@@ -1,0 +1,18 @@
+<header class="o-page__header" tal:condition="python:view.has_content()">
+    <tal:block tal:define="widget_content python:view.widget_content()">
+        <div class="o-page__section c-page-header">
+            <div class="c-page-header__title" tal:condition="python:widget_content['headline']">
+                <h1 class="c-page-header__headline">
+                        <span tal:replace="python:widget_content['headline']">
+                            Page Title</span>
+                </h1>
+            </div>
+            <div class="c-page-header__subtitle" tal:condition="python:widget_content['abstract']">
+                <p class="c-page-header__abstract"
+                         tal:content="python:widget_content['abstract']">
+                        Page Description
+                </p>
+            </div>
+        </div>
+    </tal:block>
+</header>

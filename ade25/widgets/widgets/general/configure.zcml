@@ -54,4 +54,15 @@
             layer="...interfaces.IAde25WidgetsLayer"
     />
 
+    <!-- Content Page Header -->
+    <browser:page
+            for="*"
+            name="content-widget-page-header"
+            class="ade25.widgets.widgets.general.page.WidgetPageHeader"
+            template="page-header.pt"
+            permission="zope2.View"
+            layer="...interfaces.IAde25WidgetsLayer"
+    />
+
+
 </configure>

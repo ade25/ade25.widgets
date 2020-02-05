@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
 """Module providing standalone content panel edit forms"""
-from plone.autoform.interfaces import IFormFieldProvider
 from plone.autoform import directives as form
+from plone.autoform.interfaces import IFormFieldProvider
+from Products.CMFPlone.utils import safe_unicode
 from zope import schema
 from zope.interface import Interface, provider
 
@@ -22,7 +23,7 @@ class IAde25WidgetListing(Interface):
         description=_(u"Select maximum number of snippets to display. Leave "
                       u"empty when the widget should list all content items."),
         required=False,
-        default='20'
+        default=safe_unicode('20')
     )
     display_batch = schema.Bool(
         title=_(u"Display Pagination"),
@@ -55,7 +56,7 @@ class IAde25WidgetListingCards(Interface):
         description=_(u"Select maximum number of snippets to display. Leave "
                       u"empty when the widget should list all content items."),
         required=False,
-        default='20'
+        default=safe_unicode('20')
     )
     display_batch = schema.Bool(
         title=_(u"Display Pagination"),

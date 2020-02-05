@@ -310,18 +310,28 @@ class WidgetContentListingCards(BrowserView):
             })
         return results
 
-    def contained_content_items(self):
+    def _base_query(self):
         context = aq_inner(self.context)
-        items = api.content.find(
-            context=context,
-            depth=1,
-            portal_type=[
-                'ade25.sitecontent.contentpage',
-                'ade25.sitecontent.sectionfolder'
-            ],
+        return dict(portal_type=[
+            'ade25.sitecontent.contentpage',
+            'ade25.sitecontent.sectionfolder'
+        ],
+            path=dict(query='/'.join(context.getPhysicalPath()),
+                      depth=1),
             review_state='published',
-            sort_on='getObjPositionInParent'
-        )
+            sort_on='getObjPositionInParent')
+
+    def contained_content_items(self, limit=20):
+        context = aq_inner(self.context)
+        container = context
+        catalog = api.portal.get_tool(name='portal_catalog')
+        query = self._base_query()
+        query['sort_limit'] = limit
+        if IPage.providedBy(container):
+            container = aq_parent(container)
+        query['path'] = dict(query='/'.join(container.getPhysicalPath()),
+                             depth=1)
+        items = catalog.searchResults(query)[:limit]
         return items
 
 
