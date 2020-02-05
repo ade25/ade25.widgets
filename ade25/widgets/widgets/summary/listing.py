@@ -297,7 +297,8 @@ class WidgetContentListingCards(BrowserView):
 
     def content_items(self):
         results = []
-        brains = self.contained_content_items()
+        display_limit = self.widget_stored_data().get('limit', '24')
+        brains = self.contained_content_items(limit=display_limit)
         for brain in brains:
             results.append({
                 'title': brain.Title,
