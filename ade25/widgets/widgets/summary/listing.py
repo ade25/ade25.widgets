@@ -10,6 +10,8 @@ from plone.app.vocabularies.catalog import KeywordsVocabulary
 from plone.i18n.normalizer import IIDNormalizer
 from zope.component import queryUtility
 
+from ade25.widgets.interfaces import IContentWidgets
+
 
 class WidgetContentListing(BrowserView):
     """ Basic context content listing """
@@ -111,10 +113,10 @@ class WidgetContentListing(BrowserView):
 
     def filter_value(self, term):
         vocabulary = self.normalized_keywords()
-        filter_value = "app-tag--undefined"
+        filter_value = "o-tag--undefined"
         for item_index, item_term in vocabulary.items():
             if item_term == term:
-                filter_value = "app-tag--{0}".format(str(item_index))
+                filter_value = "o-tag--{0}".format(str(item_index))
         return filter_value
 
     def content_items(self):
@@ -266,7 +268,7 @@ class WidgetContentListingCards(BrowserView):
         if class_list:
             return " ".join(class_list)
         else:
-            return "app-tag--all"
+            return "o-tag--all"
 
     def available_keywords(self):
         context = aq_inner(self.context)
@@ -287,10 +289,10 @@ class WidgetContentListingCards(BrowserView):
 
     def filter_value(self, term):
         vocabulary = self.normalized_keywords()
-        filter_value = "app-tag--undefined"
+        filter_value = "o-tag--undefined"
         for item_index, item_term in vocabulary.items():
             if item_term == term:
-                filter_value = "app-tag--{0}".format(str(item_index))
+                filter_value = "o-tag--{0}".format(str(item_index))
         return filter_value
 
     def content_items(self):
@@ -303,8 +305,12 @@ class WidgetContentListingCards(BrowserView):
                 'url': brain.getURL(),
                 'timestamp': brain.Date,
                 'uuid': brain.UID,
-                "css_classes": "o-card-list__item--{0} {1}".format(
+                "css_classes": "c-card-list__item--{0} {1} {2}".format(
                     brain.UID,
+                    'c-card-list__item--{0}'.format(
+                        self.widget_stored_data().get(
+                            'display_columns', 'width-100')
+                    ),
                     self.card_css_classes(brain)
                 ),
             })
@@ -333,6 +339,22 @@ class WidgetContentListingCards(BrowserView):
                              depth=1)
         items = catalog.searchResults(query)[:limit]
         return items
+
+    def widget_stored_data(self):
+        context = aq_inner(self.context)
+        storage = IContentWidgets(context)
+        content = storage.read_widget(self.widget_uid())
+        return content
+
+    def widget_content(self):
+        widget_content = self.widget_stored_data()
+        data = {
+            'title': widget_content.get('title', None),
+            'batch': widget_content['display_batch'],
+            'images': widget_content['display_images'],
+            'limit': widget_content.get('display_limit', None)
+        }
+        return data
 
 
 class FilterableCardListingWidget(BrowserView):

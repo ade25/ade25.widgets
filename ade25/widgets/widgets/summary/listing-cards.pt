@@ -1,11 +1,46 @@
-<div class="c-list c-list--grid c-list--gutter c-list--${context/UID}" tal:define="items python:view.content_items"
-         tal:attributes="class python:view.card_list_class()">
-    <tal:items tal:repeat="item items">
-        <div class="c-card-list__item c-card-list__item--width-33" tal:define="item_uuid python:item['uuid'];"
-                 tal:attributes="class python:'c-list__item c-list__item--card ' + item['css_classes']">
-            <div tal:replace="structure python:context.restrictedTraverse('@@content-widget-content-card')(widget_data=dict(uuid=item_uuid, card_layout='default', abstract=True, image=False, image_scale='ratio-4:3', read_more=True, read_more_layout='link-icon', read_more_text_value='weiterlesen'))">
-                Content Preview Card
-            </div>
+<div class="c-listing" tal:define="settings python:view.widget_content()">
+    <pre tal:content="settings"></pre>
+    <div class="c-listing__header" tal:condition="python:settings['title']">
+        <h2 class="c-listing__title" tal:content="python:settings['title']"></h2>
+    </div>
+    <div class="c-listing__main" tal:condition="python:settings['batch']">
+        <div class="c-list c-list--grid c-list--gutter c-list--${context/UID}"
+                 tal:define="settings python:view.widget_content();
+                             items python:view.content_items();
+                             Batch python:modules['Products.CMFPlone'].Batch;
+                             b_size python:int(request.get('b_size', settings['limit']));
+                             b_start python:int(request.get('b_start', 0));
+                             batch python:Batch(items, b_size, b_start);"
+                 tal:attributes="class python:view.card_list_class()">
+
+            <tal:items tal:repeat="item batch">
+                <div class="c-card-list__item c-card-list__item--width-33" tal:define="item_uuid python:item['uuid'];"
+                         tal:attributes="class python:'c-list__item c-list__item--card ' + item['css_classes']">
+                    <div tal:replace="structure python:context.restrictedTraverse('@@content-widget-content-card')(widget_data=dict(uuid=item_uuid, card_layout='default', abstract=True, image=settings['images'], image_scale='ratio-4:3', read_more=True, read_more_layout='link-icon', read_more_text_value='weiterlesen'))">
+                        Content Preview Card
+                    </div>
+                </div>
+            </tal:items>
+
+            <tal:batchnavigation
+                    define="batchnavigation nocall:context/@@batchnavigation"
+                    replace="structure python:batchnavigation(batch)" />
+
         </div>
-    </tal:items>
+    </div>
+    <div class="c-listing__main" tal:condition="python:not settings['batch']">
+        <div class="c-list c-list--grid c-list--gutter c-list--${context/UID}"
+                 tal:define="items python:view.content_items();"
+                 tal:attributes="class python:view.card_list_class()">
+            <tal:items tal:repeat="item items">
+                <div class="c-card-list__item c-card-list__item--width-33" tal:define="item_uuid python:item['uuid'];"
+                         tal:attributes="class python:'c-list__item c-list__item--card ' + item['css_classes']">
+                    <div tal:replace="structure python:context.restrictedTraverse('@@content-widget-content-card')(widget_data=dict(uuid=item_uuid, card_layout='default', abstract=True, image=settings['images'], image_scale='ratio-4:3', read_more=True, read_more_layout='link-icon', read_more_text_value='weiterlesen'))">
+                        Content Preview Card
+                    </div>
+                </div>
+            </tal:items>
+        </div>
+
+    </div>
 </div>

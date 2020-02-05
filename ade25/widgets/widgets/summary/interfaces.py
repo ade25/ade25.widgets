@@ -80,6 +80,25 @@ class IAde25WidgetListingCards(Interface):
                       u"per column if the screen size allows for horizontal "
                       u"alignment."),
         required=False,
-        default='3',
+        default='width-100',
+        vocabulary='ade25.widgets.vocabularies.ContentWidgetLayoutOptions'
+    )
+    display_read_more = schema.Bool(
+        title=_(u"Display Read More Link"),
+        default=True,
+        required=False
+    )
+    read_more_text = schema.TextLine(
+        title=_(u"Read More Text"),
+        description=_(u"Enter displayed text for read more element."),
+        default=safe_unicode(_(u'Read more')),
+        required=False
+    )
+    form.widget('read_more_layout', klass='js-choices-selector')
+    read_more_layout = schema.Choice(
+        title=_(u"Read More Layout"),
+        description=_(u"Select how the card footer link should be displayed."),
+        required=False,
+        default='link',
         vocabulary='ade25.widgets.vocabularies.ContentWidgetLayoutOptions'
     )

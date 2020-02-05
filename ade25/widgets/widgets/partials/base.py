@@ -139,6 +139,12 @@ class WidgetContentCard(BrowserView):
         }
         return details
 
+    @staticmethod
+    def _compute_aspect_ratio(scale_name):
+        if scale_name.startswith('ratio'):
+            return scale_name.split('-')[1].replace(':', '/')
+        return scale_name
+
     def figure_configuration(self):
         requested_scale = self.record.get("image_scale", "ratio-4:3")
         settings = {
