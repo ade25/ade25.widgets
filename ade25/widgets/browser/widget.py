@@ -119,10 +119,14 @@ class ContentWidgetForm(AutoExtensibleForm, form.Form):
             view_name = '@@content-widget-{0}'.format(
                 self.settings()['widget_type']
             )
-            rendered_widget = context.restrictedTraverse(view_name)(
-                widget_mode=self.settings()['widget_mode'],
-                widget_data=self.settings()['widget_data']
-            )
+            try:
+                rendered_widget = context.restrictedTraverse(view_name)(
+                    widget_mode=self.settings()['widget_mode'],
+                    widget_data=self.settings()['widget_data']
+                )
+            except:
+                view_name = '@@content-widget-error'
+                rendered_widget = context.restrictedTraverse(view_name)()
         else:
             view_name = '@@content-widget-base'
             rendered_widget = context.restrictedTraverse(view_name)()
@@ -382,10 +386,14 @@ class ContentWidgetFormView(FormWrapper):
             view_name = '@@content-widget-{0}'.format(
                 self.settings()['widget_type']
             )
-            rendered_widget = context.restrictedTraverse(view_name)(
-                widget_mode=self.settings()['widget_mode'],
-                widget_data=self.settings()['widget_data']
-            )
+            try:
+                rendered_widget = context.restrictedTraverse(view_name)(
+                    widget_mode=self.settings()['widget_mode'],
+                    widget_data=self.settings()['widget_data']
+                )
+            except:
+                view_name = '@@content-widget-error'
+                rendered_widget = context.restrictedTraverse(view_name)()
         else:
             view_name = '@@content-widget-base'
             rendered_widget = context.restrictedTraverse(view_name)()
