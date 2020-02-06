@@ -36,9 +36,43 @@ class IAde25WidgetListing(Interface):
     )
     display_images = schema.Bool(
         title=_(u"Cover Images"),
-        description=_(u"Display lead images in content cards."),
+        description=_(u"Display lead images in content snippets."),
         default=True,
         required=False
+    )
+    display_abstract = schema.Bool(
+        title=_(u"Display Abstract"),
+        description=_(u"Select if the content snippet should also display the "
+                      u"content item summary text next to the title."),
+        default=True,
+        required=False
+    )
+    display_reverse = schema.Bool(
+        title=_(u"Display Columns Reverse"),
+        description=_(u"Select if the content snippet should display the "
+                      u"columns in reverse with the image to the left (if "
+                      u"it ist activated)."),
+        default=True,
+        required=False
+    )
+    display_read_more = schema.Bool(
+        title=_(u"Display Read More Link"),
+        default=True,
+        required=False
+    )
+    read_more_text = schema.TextLine(
+        title=_(u"Read More Text"),
+        description=_(u"Enter displayed text for read more element."),
+        default=_(u'Read more'),
+        required=False
+    )
+    form.widget('read_more_layout', klass='js-choices-selector')
+    read_more_layout = schema.Choice(
+        title=_(u"Read More Layout"),
+        description=_(u"Select how the card footer link should be displayed."),
+        required=False,
+        default='link',
+        vocabulary='ade25.widgets.vocabularies.ContentWidgetReadMeLayoutOptions'
     )
 
 
@@ -73,6 +107,13 @@ class IAde25WidgetListingCards(Interface):
         default=True,
         required=False
     )
+    display_abstract = schema.Bool(
+        title=_(u"Display Abstract"),
+        description=_(u"Select if the preview cards should also display the "
+                      u"content item summary text next to the title."),
+        default=True,
+        required=False
+    )
     form.widget('display_columns', klass='js-choices-selector')
     display_columns = schema.Choice(
         title=_(u"Listing Layout"),
@@ -91,7 +132,7 @@ class IAde25WidgetListingCards(Interface):
     read_more_text = schema.TextLine(
         title=_(u"Read More Text"),
         description=_(u"Enter displayed text for read more element."),
-        default=safe_unicode(_(u'Read more')),
+        default=_(u'Read more'),
         required=False
     )
     form.widget('read_more_layout', klass='js-choices-selector')
@@ -100,5 +141,5 @@ class IAde25WidgetListingCards(Interface):
         description=_(u"Select how the card footer link should be displayed."),
         required=False,
         default='link',
-        vocabulary='ade25.widgets.vocabularies.ContentWidgetLayoutOptions'
+        vocabulary='ade25.widgets.vocabularies.ContentWidgetReadMeLayoutOptions'
     )

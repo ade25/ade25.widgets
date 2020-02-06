@@ -155,3 +155,40 @@ class ContentWidgetLayoutVocabularyFactory(object):
 
 
 ContentWidgetLayoutVocabulary = ContentWidgetLayoutVocabularyFactory()
+
+
+@implementer(IVocabularyFactory)
+class ContentWidgetReadMoreLayoutVocabularyFactory(object):
+
+    def __call__(self, context):
+        widgets = self.get_display_options()
+        terms = [
+            self.generate_simple_term(widget_key, widget_term)
+            for widget_key, widget_term in widgets.items()
+        ]
+        return SimpleVocabulary(terms)
+
+    @staticmethod
+    def generate_simple_term(widget, widget_term):
+        term = SimpleTerm(
+            value=widget,
+            token=b2a_qp(widget.encode('utf-8')),
+            title=_(widget_term)
+        )
+        return term
+
+    @staticmethod
+    def get_display_options():
+        display_options = {
+            "link": _(u'Plain Link'),
+            "link-icon": _(u'Link with icon after the link text'),
+            "link-icon-prefix": _(u'Link with icon before the link text'),
+            "icon": _(u'Icon only'),
+            "button": _(u'Button'),
+            "button-icon": _(u'Button with icon after the link text'),
+            "button-icon-prefix": _(u'Button with icon before the link text'),
+        }
+        return display_options
+
+
+ContentWidgetReadMoreLayoutVocabulary = ContentWidgetReadMoreLayoutVocabularyFactory()

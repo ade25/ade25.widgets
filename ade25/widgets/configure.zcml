@@ -56,6 +56,10 @@
         name="ade25.widgets.vocabularies.ContentWidgetLayoutOptions"
         component="ade25.widgets.vocabulary.ContentWidgetLayoutVocabulary" />
 
+    <utility
+            name="ade25.widgets.vocabularies.ContentWidgetReadMeLayoutOptions"
+            component="ade25.widgets.vocabulary.ContentWidgetReadMoreLayoutVocabulary" />
+
     <!-- Content Widget Tool -->
     <utility
             factory=".tool.ContentWidgetTool"

@@ -122,6 +122,8 @@ class WidgetContentListing(BrowserView):
     def content_items(self):
         results = []
         brains = self.contained_content_items()
+        layout_reverse = self.widget_stored_data().get(
+            'display_reverse', False)
         for brain in brains:
             results.append({
                 'title': brain.Title,
@@ -129,8 +131,11 @@ class WidgetContentListing(BrowserView):
                 'url': brain.getURL(),
                 'timestamp': brain.Date,
                 'uuid': brain.UID,
-                "css_classes": "o-list__item--{0} {1}".format(
+                "css_classes": "o-list__item--{0} {1} {2}".format(
                     brain.UID,
+                    'o-list__item--{0}'.format(
+                        layout_reverse and 'reverse' or 'default'
+                    ),
                     self.card_css_classes(brain)
                 ),
             })
@@ -191,6 +196,28 @@ class WidgetContentListing(BrowserView):
                              depth=1)
         items = catalog.searchResults(query)[:limit]
         return items
+
+    def widget_stored_data(self):
+        context = aq_inner(self.context)
+        storage = IContentWidgets(context)
+        content = storage.read_widget(self.widget_uid())
+        return content
+
+    def widget_content(self):
+        widget_content = self.widget_stored_data()
+        data = {
+            'title': widget_content.get('title', None),
+            'batch': widget_content['display_batch'],
+            'images': widget_content['display_images'],
+            'abstract': widget_content['display_abstract'],
+            'limit': widget_content.get('display_limit', None),
+            'read_more': widget_content.get('display_read_more', True),
+            'read_more_value': widget_content.get('read_more_text', True),
+            'read_more_layout': widget_content.get('read_more_layout', True),
+            'layout': widget_content.get('display_reverse', False),
+            'items': self.content_items()
+        }
+        return data
 
 
 class WidgetContentListingCards(BrowserView):
@@ -297,7 +324,7 @@ class WidgetContentListingCards(BrowserView):
 
     def content_items(self):
         results = []
-        display_limit = self.widget_stored_data().get('limit', '24')
+        display_limit = int(self.widget_stored_data().get('display_limit', '24'))
         brains = self.contained_content_items(limit=display_limit)
         for brain in brains:
             results.append({
@@ -353,7 +380,13 @@ class WidgetContentListingCards(BrowserView):
             'title': widget_content.get('title', None),
             'batch': widget_content['display_batch'],
             'images': widget_content['display_images'],
-            'limit': widget_content.get('display_limit', None)
+            'abstract': widget_content['display_abstract'],
+            'limit': widget_content.get('display_limit', None),
+            'read_more': widget_content.get('display_read_more', True),
+            'read_more_value': widget_content.get('read_more_text', True),
+            'read_more_layout': widget_content.get('read_more_layout', True),
+            'layout': widget_content.get('display_columns', 'width-100'),
+            'items': self.content_items()
         }
         return data
 
