@@ -60,6 +60,10 @@
             name="ade25.widgets.vocabularies.ContentWidgetReadMeLayoutOptions"
             component="ade25.widgets.vocabulary.ContentWidgetReadMoreLayoutVocabulary" />
 
+    <utility
+            name="ade25.widgets.vocabularies.AvailableImageScales"
+            component="ade25.widgets.vocabulary.AvailableImageScalesVocabulary" />
+
     <!-- Content Widget Tool -->
     <utility
             factory=".tool.ContentWidgetTool"

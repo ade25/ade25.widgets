@@ -36,8 +36,6 @@ class IAde25WidgetsControlPanel(Interface):
         value_type=schema.Choice(
             vocabulary='ade25.widgets.vocabularies.AvailableContentWidgets'
         ),
-        # defaultFactory=widget_utils.default_widget_types_available,
-        missing_value=(),
         required=False
     )
 
@@ -48,8 +46,6 @@ class IAde25WidgetsControlPanel(Interface):
         value_type=schema.Choice(
             vocabulary='ade25.widgets.vocabularies.AvailableContentWidgets'
         ),
-        # defaultFactory=widget_utils.default_widget_types_available,
-        missing_value=(),
         required=False
     )
 
@@ -60,7 +56,6 @@ class IAde25WidgetsControlPanel(Interface):
         value_type=schema.Choice(
             vocabulary='ade25.widgets.vocabularies.AvailableContentWidgets'
         ),
-        missing_value=(),
         required=False
     )
 
