@@ -20,7 +20,7 @@ class ContentWidgetView(BrowserView):
             'widget_name': identifier,
             'widget_type': widget_type,
             'widget_mode': widget_mode,
-            'widget_data': data_set
+            'widget_data': data_set,
         }
         return self.render()
 

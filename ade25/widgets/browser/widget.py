@@ -66,6 +66,9 @@ class ContentWidgetForm(AutoExtensibleForm, form.Form):
         try:
             schema_interface = resolve(editor_data['widget_settings']['schema'])
             schemata = (schema_interface,)
+            additional_interfaces = editor_data['widget_settings'].get('interfaces', [])
+            for additional_interface in additional_interfaces:
+                schemata += (resolve(additional_interface),)
             return schemata
         except ValueError:
             return ()

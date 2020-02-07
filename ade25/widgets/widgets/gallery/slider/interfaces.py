@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 """Module providing standalone content panel edit forms"""
 from plone.app.textfield import RichText
+from plone.app.z3cform.widget import LinkFieldWidget
+from plone.autoform import directives as form
 from plone.autoform.interfaces import IFormFieldProvider
 from plone.namedfile import field as named_file
 from zope import schema
@@ -19,10 +21,6 @@ class IAde25WidgetSlider(Interface):
 class IAde25WidgetSliderItem(Interface):
     """ Slide """
 
-    text = RichText(
-        title=_(u"Text"),
-        required=False
-    )
     image = named_file.NamedBlobImage(
         title=_(u"Slide Image"),
         required=True
@@ -30,4 +28,23 @@ class IAde25WidgetSliderItem(Interface):
     image_caption = schema.TextLine(
         title=_(u"Image Copyright Information"),
         required=False
+    )
+
+    headline = schema.TextLine(
+        title=_(u"Headline"),
+        required=False
+    )
+
+    text = RichText(
+        title=_(u"Text"),
+        required=False
+    )
+
+    form.widget(link=LinkFieldWidget)
+    link = schema.TextLine(
+        title=_(u"Link"),
+        description=_(u"Optional internal or external link that will be "
+                      u"used as redirection target when section is accessed."
+                      u"Logged in users will see the target link instead."),
+        required=False,
     )
