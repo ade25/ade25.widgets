@@ -42,10 +42,3 @@ class IAde25WidgetImagePoster(Interface):
         required=False,
         allowed_mime_types=('text/html', ),
     )
-    directives.widget(
-        'text',
-        RichTextWidget,
-        pattern_options={
-            'inline': True
-        }
-    )
