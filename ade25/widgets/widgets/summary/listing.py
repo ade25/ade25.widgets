@@ -11,6 +11,7 @@ from plone.i18n.normalizer import IIDNormalizer
 from zope.component import queryUtility
 
 from ade25.widgets.interfaces import IContentWidgets
+from ade25.widgets import MessageFactory as _
 
 
 class WidgetContentListing(BrowserView):
@@ -208,13 +209,13 @@ class WidgetContentListing(BrowserView):
         widget_content = self.widget_stored_data()
         data = {
             'title': widget_content.get('title', None),
-            'batch': widget_content['display_batch'],
-            'images': widget_content['display_images'],
-            'abstract': widget_content['display_abstract'],
+            'batch': widget_content.get('display_batch', False),
+            'images': widget_content.get('display_images', True),
+            'abstract': widget_content.get('display_abstract', True),
             'limit': widget_content.get('display_limit', None),
             'read_more': widget_content.get('display_read_more', True),
-            'read_more_value': widget_content.get('read_more_text', True),
-            'read_more_layout': widget_content.get('read_more_layout', True),
+            'read_more_value': widget_content.get('read_more_text', _(u'Read more')),
+            'read_more_layout': widget_content.get('read_more_layout', 'width-33'),
             'layout': widget_content.get('display_reverse', False),
             'items': self.content_items()
         }
@@ -371,22 +372,32 @@ class WidgetContentListingCards(BrowserView):
 
     def widget_stored_data(self):
         context = aq_inner(self.context)
-        storage = IContentWidgets(context)
-        content = storage.read_widget(self.widget_uid())
+        translation_service = api.portal.get_tool(name="translation_service")
+        try:
+            storage = IContentWidgets(context)
+            content = storage.read_widget(self.widget_uid())
+        except TypeError:
+            content = {
+                'read_more_value': translation_service.translate(
+                    'Read more',
+                    'ade25.widgets',
+                    target_language=api.portal.get_default_language()
+                ),
+                'read_more_layout': 'width-33'
+            }
         return content
 
     def widget_content(self):
         widget_content = self.widget_stored_data()
         data = {
             'title': widget_content.get('title', None),
-            'batch': widget_content['display_batch'],
-            'images': widget_content['display_images'],
-            'abstract': widget_content['display_abstract'],
+            'batch': widget_content.get('display_batch', False),
+            'images': widget_content.get('display_images', True),
+            'abstract': widget_content.get('display_abstract', True),
             'limit': widget_content.get('display_limit', None),
             'read_more': widget_content.get('display_read_more', True),
-            'read_more_value': widget_content.get('read_more_text', True),
-            'read_more_layout': widget_content.get('read_more_layout', True),
-            'layout': widget_content.get('display_columns', 'width-100'),
+            'read_more_value': widget_content.get('read_more_text', _(u'Read more')),
+            'read_more_layout': widget_content.get('read_more_layout', 'width-100'),
             'items': self.content_items()
         }
         return data
