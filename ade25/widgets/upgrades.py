@@ -73,3 +73,7 @@ def upgrade_1002(setup):
 def upgrade_1003(setup):
     portal = api.portal.get()
     register_content_widgets(portal)
+
+
+def upgrade_1004(setup):
+    setup.runImportStepFromProfile(default_profile, 'plone.app.registry')

@@ -77,3 +77,77 @@ Ade25WidgetsSettingsBase = layout.wrap_form(
     Ade25WidgetsControlPanelForm,
     ControlPanelFormWrapper
 )
+
+
+class IAde25WidgetsControlPanelWidgets(Interface):
+
+    read_more_icon = schema.TextLine(
+        title=_(u"Read More Icon Name"),
+        description=_(u"Please enter icon to be used in read more links when "
+                      u"a layout with icon is selected. Note: the icon needs to "
+                      u"exist in the themes icon sprite for this to work."),
+        default='chevron',
+        required=False
+    )
+
+    listing_scale = schema.Choice(
+        title=_(u"Content Listing: Image Scale"),
+        vocabulary='ade25.widgets.vocabularies.AvailableImageScales',
+        default='ratio-4:3',
+        required=False
+    )
+    listing_hidden_fields = schema.List(
+        title=_(u"Content Listing: Hidden Elements"),
+        description=_(u"Please select which elements should be hidden in the "
+                      u"widget add and edit forms."),
+        value_type=schema.Choice(
+            vocabulary='ade25.widgets.vocabularies.ContentWidgetSchemaOptions'
+        ),
+        default=['text', 'link', ],
+        required=False
+    )
+
+    listing_cards_scale = schema.Choice(
+        title=_(u"Content Listing Cards: Image Scale"),
+        vocabulary='ade25.widgets.vocabularies.AvailableImageScales',
+        default='ratio-4:3',
+        required=False
+    )
+    listing_cards_hidden_fields = schema.List(
+        title=_(u"Content Listing Cards: Hidden Elements"),
+        description=_(u"Please select which elements should not be available in the "
+                      u"widget add and edit forms."),
+        value_type=schema.Choice(
+            vocabulary='ade25.widgets.vocabularies.ContentWidgetSchemaOptions'
+        ),
+        default=['text', 'link', ],
+        required=False
+    )
+    image_poster_scale = schema.Choice(
+        title=_(u"Poster Image: Image Scale"),
+        vocabulary='ade25.widgets.vocabularies.AvailableImageScales',
+        default='ratio-16:9',
+        required=False
+    )
+    image_poster_hidden_fields = schema.List(
+        title=_(u"Poster Image: Hidden Elements"),
+        description=_(u"Please select which elements should be available in the "
+                      u"widget add and edit forms."),
+        value_type=schema.Choice(
+            vocabulary='ade25.widgets.vocabularies.ContentWidgetSchemaOptions'
+        ),
+        default=['text', 'link', ],
+        required=False
+    )
+
+
+class Ade25WidgetsControlPanelWidgetsForm(RegistryEditForm):
+    schema = IAde25WidgetsControlPanelWidgets
+    schema_prefix = "ade25.widgets"
+    label = u'Ade25 Widgets Settings'
+
+
+Ade25WidgetsSettingsWidgets = layout.wrap_form(
+    Ade25WidgetsControlPanelWidgetsForm,
+    ControlPanelFormWrapper
+)

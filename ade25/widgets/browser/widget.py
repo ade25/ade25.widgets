@@ -7,6 +7,7 @@ import uuid as uuid_tool
 from Acquisition import aq_inner
 from ade25.panelpage.interfaces import IPanelEditor
 from plone import api
+from plone.api.exc import InvalidParameterError
 from plone.autoform.form import AutoExtensibleForm
 from plone.namedfile.interfaces import INamedBlobImage
 from plone.protect.utils import addTokenToUrl
@@ -14,6 +15,7 @@ from plone.supermodel import model
 from plone.z3cform.layout import FormWrapper
 from z3c.form import button
 from z3c.form import form
+from z3c.form.interfaces import HIDDEN_MODE, NOT_CHANGED
 from zope import schema
 from zope.component import getUtility
 from zope.dottedname.resolve import resolve
@@ -183,6 +185,13 @@ class ContentWidgetForm(AutoExtensibleForm, form.Form):
                 image_uid = self._process_image_asset(entry_key, value)
                 widget_content[entry_key] = image_uid
             else:
+                if value is NOT_CHANGED:
+                    # Additional schemata are posted as 'ISchemaInterface.field_name'
+                    # and need to be resolved to their original key
+                    field_key = key.split('.')[-1]
+                    # Keep existing value for fields signaling as not updated
+                    value = editor_data['widget_content'][field_key]
+                    # continue
                 widget_content[entry_key] = value
         storage.store_widget(
             editor_data['widget_id'],
@@ -216,6 +225,29 @@ class ContentWidgetForm(AutoExtensibleForm, form.Form):
         super(ContentWidgetForm, self).updateActions()
         self.actions["cancel"].addClass("c-button--default")
         self.actions["update"].addClass("c-button--primary")
+
+    def updateWidgets(self, prefix=None):
+        super(ContentWidgetForm, self).updateWidgets(prefix=None)
+        context = aq_inner(self.context)
+        editor_data = self.panel_editor[context.UID()]
+        widget_type = editor_data['widget_settings']['widget']
+        # Hidden fields can be configured via control panel
+        try:
+            content_widget_hidden_fields = api.portal.get_registry_record(
+                'ade25.widgets.{0}_hidden_fields'.format(
+                    widget_type.replace('-', '_')
+                )
+            )
+            for field in content_widget_hidden_fields:
+                field_name = '{0}.{1}'.format(
+                    editor_data['widget_settings']['schema'].split('.')[-1],
+                    field
+                )
+                if field_name in self.widgets:
+                    self.widgets[field_name].mode = HIDDEN_MODE
+        except InvalidParameterError:
+            # The content widget has no a registry setting
+            pass
 
 
 class ContentWidgetFormView(FormWrapper):
