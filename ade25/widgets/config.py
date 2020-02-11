@@ -10,6 +10,7 @@ PKG_WIDGETS = {
         "category": "general",
         "type": "content-item",
         "schema": "ade25.widgets.widgets.general.interfaces.IAde25WidgetSeparator",  # noqa
+        "schemata": [],
         "node": {}
     },
     "horizontal-line": {
@@ -20,6 +21,7 @@ PKG_WIDGETS = {
         "category": "general",
         "type": "content-item",
         "schema": "ade25.widgets.widgets.general.interfaces.IAde25WidgetHorizontalLine",  # noqa
+        "schemata": [],
         "node": {}
     },
     "text-block": {
@@ -30,6 +32,7 @@ PKG_WIDGETS = {
         "category": "general",
         "type": "content-item",
         "schema": "ade25.widgets.widgets.general.interfaces.IAde25WidgetTextBlock",  # noqa
+        "schemata": [],
         "node": {}
     },
     "text-formatted": {
@@ -40,6 +43,7 @@ PKG_WIDGETS = {
         "category": "general",
         "type": "content-item",
         "schema": "ade25.widgets.widgets.general.interfaces.IAde25WidgetTextFormatted",  # noqa
+        "schemata": [],
         "node": {}
     },
     "text-html": {
@@ -50,6 +54,7 @@ PKG_WIDGETS = {
         "category": "general",
         "type": "content-item",
         "schema": "ade25.widgets.widgets.general.interfaces.IAde25WidgetTextHtml",  # noqa
+        "schemata": [],
         "node": {}
     },
     "page-header": {
@@ -60,6 +65,7 @@ PKG_WIDGETS = {
         "category": "general",
         "type": "content-item",
         "schema": "ade25.widgets.widgets.general.interfaces.IAde25WidgetPageHeader",  # noqa
+        "schemata": [],
         "node": {}
     },
     "image-cover": {
@@ -70,6 +76,7 @@ PKG_WIDGETS = {
         "category": "image",
         "type": "content-item",
         "schema": "ade25.widgets.widgets.image.interfaces.IAde25WidgetImageCover",  # noqa
+        "schemata": [],
         "node": {}
     },
     "image-poster": {
@@ -80,6 +87,7 @@ PKG_WIDGETS = {
         "category": "image",
         "type": "content-item",
         "schema": "ade25.widgets.widgets.image.interfaces.IAde25WidgetImagePoster",  # noqa
+        "schemata": ["ade25.widgets.widgets.interfaces.IAde25WidgetPartialContentMain"],
         "node": {}
     },
     "slider": {
@@ -90,9 +98,11 @@ PKG_WIDGETS = {
         "category": "gallery",
         "type": "collection",
         "schema": "ade25.widgets.widgets.gallery.slider.interfaces.IAde25WidgetSlider",  # noqa
+        "schemata": [],
         "node": {
             "title": "Slide",
-            "schema": "ade25.widgets.widgets.gallery.slider.interfaces.IAde25WidgetSliderItem"  # noqa
+            "schema": "ade25.widgets.widgets.gallery.slider.interfaces.IAde25WidgetSliderItem",  # noqa
+            "schemata": [],
         }
     },
     "listing": {
@@ -103,6 +113,7 @@ PKG_WIDGETS = {
         "category": "summary",
         "type": "content-item",
         "schema": "ade25.widgets.widgets.summary.interfaces.IAde25WidgetListing",  # noqa
+        "schemata": [],
         "node": {}
     },
     "listing-cards": {
@@ -113,6 +124,7 @@ PKG_WIDGETS = {
         "category": "summary",
         "type": "content-item",
         "schema": "ade25.widgets.widgets.summary.interfaces.IAde25WidgetListingCards",  # noqa
+        "schemata": [],
         "node": {}
     },
     "accordion": {
@@ -123,9 +135,11 @@ PKG_WIDGETS = {
         "category": "more",
         "type": "collection",
         "schema": "ade25.widgets.widgets.more.accordion.interfaces.IAde25WidgetAccordion",  # noqa
+        "schemata": [],
         "node": {
             "title": "Pane",
-            "schema": "ade25.widgets.widgets.more.accordion.interfaces.IAde25WidgetAccordionItem"  # noqa
+            "schema": "ade25.widgets.widgets.more.accordion.interfaces.IAde25WidgetAccordionItem",  # noqa
+            "schemata": [],
         }
     }
 }

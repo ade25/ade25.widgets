@@ -47,7 +47,7 @@
                     </h2>
                 </div>
             </div>
-            <div class="o-page__section" id="layout-contents">
+            <div class="o-page__section o-page__section--spacer" id="layout-contents">
                 <span tal:replace="structure view/contents" />
             </div>
         </div>

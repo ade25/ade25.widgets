@@ -37,7 +37,8 @@
                     </h2>
                 </div>
             </div>
-            <div class="app-control-panels">
+            <div class="o-page__section o-page__section--spacer">
+                <div class="app-control-panels">
                 <div class="o-page__section app-control-panel">
                     <h3 class="app-control-panel__title" i18n:translate="">
                         Widget Setup
@@ -63,6 +64,17 @@
                             Configure
                         </a>
                     </div>
+                </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="o-page__footer">
+            <div class="o-page__section o-page__section--spacer">
+                <div class="c-alert c-alert--danger">
+                    <h4 class="c-alert__title">Danger Zone</h4>
+                    <p>In order to update the available widgets and their corrsponding settings, it is possible to export the configuration as a plain JSON file and update the contents accordingly. Please be aware that a badly formatted file or errors in the required settings could damage the site beyond recovery. You have been warned.</p>
+                    <p><a class="c-button c-button--primary" tal:attributes="href python:context.absolute_url() + '/@@ade25-widgets-export-settings'">Export JSON</a></p>
                 </div>
             </div>
         </div>

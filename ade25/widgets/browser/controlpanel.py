@@ -1,7 +1,13 @@
 # -*- coding: utf-8 -*-
 """Module providing controlpanels"""
+import datetime
+import json
+import time
+import six
+
 from Products.Five import BrowserView
 from Products.statusmessages.interfaces import IStatusMessage
+from ade25.widgets.config import PKG_WIDGETS
 from plone.app.registry.browser.controlpanel import RegistryEditForm
 from plone.autoform import form
 from zope import schema
@@ -151,3 +157,33 @@ Ade25WidgetsSettingsWidgets = layout.wrap_form(
     Ade25WidgetsControlPanelWidgetsForm,
     ControlPanelFormWrapper
 )
+
+
+class Ade25WidgetsSettingsJSON(BrowserView):
+    """ Ade25 settings json export """
+
+    def __call__(self):
+        return self.render()
+
+    @staticmethod
+    def _widget_configuration():
+        content_widgets = PKG_WIDGETS
+        return content_widgets
+
+    def render(self):
+        msg = _(u"JSON file could not be generated")
+        data = {
+            'success': False,
+            'message': msg
+        }
+        configuration = self._widget_configuration()
+        if configuration:
+            data = configuration
+        widgets = {
+            "items": data,
+            "timestamp": six.text_type(int(time.time())),
+            "updated": datetime.datetime.now().isoformat()
+        }
+        self.request.response.setHeader('Content-Type',
+                                        'application/json; charset=utf-8')
+        return json.dumps(widgets)

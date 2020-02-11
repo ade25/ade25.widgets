@@ -37,8 +37,8 @@ class IAde25WidgetImagePoster(Interface):
         title=_(u"Poster Image Copyright Information"),
         required=False
     )
-    text = RichText(
-        title=_(u"Text"),
-        required=False,
-        allowed_mime_types=('text/html', ),
-    )
+    #text = RichText(
+    #    title=_(u"Text"),
+    #    required=False,
+    #    allowed_mime_types=('text/html', ),
+    #)

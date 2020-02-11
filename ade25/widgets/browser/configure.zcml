@@ -29,6 +29,14 @@
           template="controlpanel-widgets.pt"
   />
 
+  <!-- generated configuration json -->
+  <browser:page
+          name="ade25-widgets-export-settings"
+          for="Products.CMFPlone.interfaces.IPloneSiteRoot"
+          class="ade25.widgets.browser.controlpanel.Ade25WidgetsSettingsJSON"
+          permission="cmf.ManagePortal"
+  />
+
 
   <browser:page
       for="*"
