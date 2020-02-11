@@ -73,8 +73,8 @@
             <div class="o-page__section o-page__section--spacer">
                 <div class="c-alert c-alert--danger">
                     <h4 class="c-alert__title">Danger Zone</h4>
-                    <p>In order to update the available widgets and their corrsponding settings, it is possible to export the configuration as a plain JSON file and update the contents accordingly. Please be aware that a badly formatted file or errors in the required settings could damage the site beyond recovery. You have been warned.</p>
-                    <p><a class="c-button c-button--primary" tal:attributes="href python:context.absolute_url() + '/@@ade25-widgets-export-settings'">Export JSON</a></p>
+                    <p>In order to update the available widgets and their corresponding settings, it is possible to export the current package default configuration as a plain JSON file and update the contents accordingly. Please be aware that a badly formatted file or errors in the required settings could damage the site beyond recovery. You have been warned.</p>
+                    <p><a class="c-button c-button--primary" tal:attributes="href python:context.absolute_url() + '/@@ade25-widgets-export-settings'">Generate Widget Configuration</a></p>
                 </div>
             </div>
         </div>

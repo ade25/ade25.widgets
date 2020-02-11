@@ -378,12 +378,15 @@ class WidgetContentListingCards(BrowserView):
             content = storage.read_widget(self.widget_uid())
         except TypeError:
             content = {
-                'read_more_value': translation_service.translate(
-                    'Read more',
-                    'ade25.widgets',
-                    target_language=api.portal.get_default_language()
+                'read_more_value': self.record.get(
+                    'read_more_value', translation_service.translate(
+                        'Read more',
+                        'ade25.widgets',
+                        target_language=api.portal.get_default_language())
                 ),
-                'read_more_layout': 'width-33'
+                'read_more_layout': self.record.get('read_more_layout', 'link'),
+                'image_scale': self.record.get('image_scale', 'ratio-4:3'),
+                'display_columns': self.record.get('display_columns', 'width-33'),
             }
         return content
 
@@ -397,7 +400,9 @@ class WidgetContentListingCards(BrowserView):
             'limit': widget_content.get('display_limit', None),
             'read_more': widget_content.get('display_read_more', True),
             'read_more_value': widget_content.get('read_more_text', _(u'Read more')),
-            'read_more_layout': widget_content.get('read_more_layout', 'width-100'),
+            'read_more_layout': widget_content.get('read_more_layout', 'link'),
+            'image_scale': widget_content.get('image_scale', 'ratio-4:3'),
+            'display_columns': widget_content.get('display_columns', 'width-33'),
             'items': self.content_items()
         }
         return data

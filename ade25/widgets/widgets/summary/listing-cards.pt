@@ -15,7 +15,7 @@
             <tal:items tal:repeat="item batch">
                 <div class="c-card-list__item c-card-list__item--width-33" tal:define="item_uuid python:item['uuid'];"
                          tal:attributes="class python:'c-list__item c-list__item--card ' + item['css_classes']">
-                    <div tal:replace="structure python:context.restrictedTraverse('@@content-widget-content-card')(widget_data=dict(uuid=item_uuid, card_layout='default', abstract=settings['abstract'], image=settings['images'], image_scale='ratio-4:3', read_more=settings['read_more'], read_more_layout=settings['read_more_layout'], read_more_text_value=settings['read_more_value']))">
+                    <div tal:replace="structure python:context.restrictedTraverse('@@content-widget-content-card')(widget_data=dict(uuid=item_uuid, card_layout='default', abstract=settings['abstract'], image=settings['images'], image_scale=settings['image_scale'], read_more=settings['read_more'], read_more_layout=settings['read_more_layout'], read_more_text_value=settings['read_more_value']))">
                         Content Preview Card
                     </div>
                 </div>
@@ -34,7 +34,7 @@
             <tal:items tal:repeat="item items">
                 <div class="c-card-list__item c-card-list__item--width-33" tal:define="item_uuid python:item['uuid'];"
                          tal:attributes="class python:'c-list__item c-list__item--card ' + item['css_classes']">
-                    <div tal:replace="structure python:context.restrictedTraverse('@@content-widget-content-card')(widget_data=dict(uuid=item_uuid, card_layout='default', abstract=settings['abstract'], image=settings['images'], image_scale='ratio-4:3', read_more=settings['read_more'], read_more_layout=settings['read_more_layout'], read_more_text_value=settings['read_more_value']))">
+                    <div tal:replace="structure python:context.restrictedTraverse('@@content-widget-content-card')(widget_data=dict(uuid=item_uuid, card_layout='default', abstract=settings['abstract'], image=settings['images'], image_scale=settings['image_scale'], read_more=settings['read_more'], read_more_layout=settings['read_more_layout'], read_more_text_value=settings['read_more_value']))">
                         Content Preview Card
                     </div>
                 </div>
