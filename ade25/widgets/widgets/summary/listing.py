@@ -195,8 +195,11 @@ class WidgetContentListing(BrowserView):
 
     def widget_stored_data(self):
         context = aq_inner(self.context)
-        storage = IContentWidgets(context)
-        content = storage.read_widget(self.widget_uid())
+        try:
+            storage = IContentWidgets(context)
+            content = storage.read_widget(self.widget_uid())
+        except TypeError:
+            content = dict()
         return content
 
     def get_widget_content(self, entry, fallback):
@@ -368,8 +371,11 @@ class WidgetContentListingCards(BrowserView):
 
     def widget_stored_data(self):
         context = aq_inner(self.context)
-        storage = IContentWidgets(context)
-        content = storage.read_widget(self.widget_uid())
+        try:
+            storage = IContentWidgets(context)
+            content = storage.read_widget(self.widget_uid())
+        except TypeError:
+            content = dict()
         return content
 
     def get_widget_content(self, entry, fallback):
