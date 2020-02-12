@@ -25,6 +25,7 @@
         directory="profiles/default"
         description="Modular content widgets for page integration"
         provides="Products.GenericSetup.interfaces.EXTENSION"
+        post_handler="ade25.widgets.setuphandlers.setup_various"
         />
 
     <!-- Uninstall -->
@@ -54,6 +55,18 @@
     <utility
         name="ade25.widgets.vocabularies.ContentWidgetLayoutOptions"
         component="ade25.widgets.vocabulary.ContentWidgetLayoutVocabulary" />
+
+    <utility
+            name="ade25.widgets.vocabularies.ContentWidgetSchemaOptions"
+            component="ade25.widgets.vocabulary.ContentWidgetSchemaVocabulary" />
+
+    <utility
+            name="ade25.widgets.vocabularies.ContentWidgetReadMeLayoutOptions"
+            component="ade25.widgets.vocabulary.ContentWidgetReadMoreLayoutVocabulary" />
+
+    <utility
+            name="ade25.widgets.vocabularies.AvailableImageScales"
+            component="ade25.widgets.vocabulary.AvailableImageScalesVocabulary" />
 
     <!-- Content Widget Tool -->
     <utility

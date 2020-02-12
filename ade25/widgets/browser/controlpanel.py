@@ -1,7 +1,13 @@
 # -*- coding: utf-8 -*-
 """Module providing controlpanels"""
+import datetime
+import json
+import time
+import six
+
 from Products.Five import BrowserView
 from Products.statusmessages.interfaces import IStatusMessage
+from ade25.widgets.config import PKG_WIDGETS
 from plone.app.registry.browser.controlpanel import RegistryEditForm
 from plone.autoform import form
 from zope import schema
@@ -36,8 +42,6 @@ class IAde25WidgetsControlPanel(Interface):
         value_type=schema.Choice(
             vocabulary='ade25.widgets.vocabularies.AvailableContentWidgets'
         ),
-        defaultFactory=widget_utils.default_widget_types_available,
-        missing_value=(),
         required=False
     )
 
@@ -48,8 +52,6 @@ class IAde25WidgetsControlPanel(Interface):
         value_type=schema.Choice(
             vocabulary='ade25.widgets.vocabularies.AvailableContentWidgets'
         ),
-        defaultFactory=widget_utils.default_widget_types_available,
-        missing_value=(),
         required=False
     )
 
@@ -60,8 +62,6 @@ class IAde25WidgetsControlPanel(Interface):
         value_type=schema.Choice(
             vocabulary='ade25.widgets.vocabularies.AvailableContentWidgets'
         ),
-        defaultFactory=widget_utils.default_widget_types_available,
-        missing_value=(),
         required=False
     )
 
@@ -83,3 +83,107 @@ Ade25WidgetsSettingsBase = layout.wrap_form(
     Ade25WidgetsControlPanelForm,
     ControlPanelFormWrapper
 )
+
+
+class IAde25WidgetsControlPanelWidgets(Interface):
+
+    read_more_icon = schema.TextLine(
+        title=_(u"Read More Icon Name"),
+        description=_(u"Please enter icon to be used in read more links when "
+                      u"a layout with icon is selected. Note: the icon needs to "
+                      u"exist in the themes icon sprite for this to work."),
+        default='chevron',
+        required=False
+    )
+
+    listing_scale = schema.Choice(
+        title=_(u"Content Listing: Image Scale"),
+        vocabulary='ade25.widgets.vocabularies.AvailableImageScales',
+        default='ratio-4:3',
+        required=False
+    )
+    listing_hidden_fields = schema.List(
+        title=_(u"Content Listing: Hidden Elements"),
+        description=_(u"Please select which elements should be hidden in the "
+                      u"widget add and edit forms."),
+        value_type=schema.Choice(
+            vocabulary='ade25.widgets.vocabularies.ContentWidgetSchemaOptions'
+        ),
+        default=['text', 'link', ],
+        required=False
+    )
+
+    listing_cards_scale = schema.Choice(
+        title=_(u"Content Listing Cards: Image Scale"),
+        vocabulary='ade25.widgets.vocabularies.AvailableImageScales',
+        default='ratio-4:3',
+        required=False
+    )
+    listing_cards_hidden_fields = schema.List(
+        title=_(u"Content Listing Cards: Hidden Elements"),
+        description=_(u"Please select which elements should not be available in the "
+                      u"widget add and edit forms."),
+        value_type=schema.Choice(
+            vocabulary='ade25.widgets.vocabularies.ContentWidgetSchemaOptions'
+        ),
+        default=['text', 'link', ],
+        required=False
+    )
+    image_poster_scale = schema.Choice(
+        title=_(u"Poster Image: Image Scale"),
+        vocabulary='ade25.widgets.vocabularies.AvailableImageScales',
+        default='ratio-16:9',
+        required=False
+    )
+    image_poster_hidden_fields = schema.List(
+        title=_(u"Poster Image: Hidden Elements"),
+        description=_(u"Please select which elements should be available in the "
+                      u"widget add and edit forms."),
+        value_type=schema.Choice(
+            vocabulary='ade25.widgets.vocabularies.ContentWidgetSchemaOptions'
+        ),
+        default=['text', 'link', ],
+        required=False
+    )
+
+
+class Ade25WidgetsControlPanelWidgetsForm(RegistryEditForm):
+    schema = IAde25WidgetsControlPanelWidgets
+    schema_prefix = "ade25.widgets"
+    label = u'Ade25 Widgets Settings'
+
+
+Ade25WidgetsSettingsWidgets = layout.wrap_form(
+    Ade25WidgetsControlPanelWidgetsForm,
+    ControlPanelFormWrapper
+)
+
+
+class Ade25WidgetsSettingsJSON(BrowserView):
+    """ Ade25 settings json export """
+
+    def __call__(self):
+        return self.render()
+
+    @staticmethod
+    def _widget_configuration():
+        content_widgets = PKG_WIDGETS
+        return content_widgets
+
+    def render(self):
+        msg = _(u"JSON file could not be generated")
+        data = {
+            'success': False,
+            'message': msg
+        }
+        configuration = self._widget_configuration()
+        if configuration:
+            data = configuration
+        widgets = {
+            "items": data,
+            "timestamp": six.text_type(int(time.time())),
+            "updated": datetime.datetime.now().isoformat()
+        }
+        self.request.response.setHeader('Content-Type',
+                                        'application/json; charset=utf-8')
+        return json.dumps(widgets)

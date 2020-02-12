@@ -4,4 +4,7 @@
     <records interface="ade25.widgets.browser.controlpanel.IAde25WidgetsControlPanel"
              prefix="ade25.widgets" />
 
+    <records interface="ade25.widgets.browser.controlpanel.IAde25WidgetsControlPanelWidgets"
+             prefix="ade25.widgets" />
+
 </registry>

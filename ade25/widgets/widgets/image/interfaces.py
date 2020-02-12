@@ -1,8 +1,10 @@
 # -*- coding: utf-8 -*-
 """Module providing standalone content panel edit forms"""
 from plone.app.textfield import RichText
+from plone.app.textfield.widget import RichTextWidget
 from plone.autoform.interfaces import IFormFieldProvider
 from plone.namedfile import field as named_file
+from plone.autoform import directives
 from zope import schema
 from zope.interface import Interface, provider
 
@@ -35,8 +37,8 @@ class IAde25WidgetImagePoster(Interface):
         title=_(u"Poster Image Copyright Information"),
         required=False
     )
-    text = RichText(
-        title=_(u"Text"),
-        required=False,
-        allowed_mime_types=('text/html', ),
-    )
+    #text = RichText(
+    #    title=_(u"Text"),
+    #    required=False,
+    #    allowed_mime_types=('text/html', ),
+    #)

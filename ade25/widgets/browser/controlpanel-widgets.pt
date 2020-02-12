@@ -20,12 +20,11 @@
             <div class="o-page__section c-page-header">
                 <div class="c-page-header__title">
                     <h1 class="c-page-header__headline" i18n:translate="">
-                        Ade25 Widgets
+                        Ade25 Widgets Widget Settings
                     </h1>
                 </div>
-                <p class="c-page-header__abstract">
-                    Configure content widgets that should be available for integration from the list of
-                    installed widget types.
+                <p class="c-page-header__abstract" i18n:translate="">
+                    Update individual content widget specific settings.
                 </p>
                 <a id="setup-link" class="c-button c-button--default link-parent"
                          tal:attributes="href string:${portal_url}/@@overview-controlpanel"
@@ -47,7 +46,7 @@
                     </h2>
                 </div>
             </div>
-            <div class="o-page__section o-page__section--spacer" id="layout-contents">
+            <div class="o-page__section" id="layout-contents">
                 <span tal:replace="structure view/contents" />
             </div>
         </div>

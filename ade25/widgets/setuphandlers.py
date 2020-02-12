@@ -25,7 +25,10 @@ def register_content_widgets(site):
     widget_settings = api.portal.get_registry_record(
         name="ade25.widgets.widget_settings"
     )
-    stored_widgets = json.loads(widget_settings)
+    try:
+        stored_widgets = json.loads(widget_settings)
+    except TypeError:
+        stored_widgets = {'items': {}}
     records = stored_widgets['items']
     for content_widget, widget_data in content_widgets.items():
         if content_widget not in records.keys():
@@ -55,13 +58,7 @@ def setup_various(context):
     @param context: Products.GenericSetup.context.DirectoryImportContext instance
     """
 
-    # We check from our GenericSetup context whether we are running
-    # add-on installation for your package or any other
-    if context.readDataFile('ade25.widgets.marker.txt') is None:
-        # Not your add-on
-        return
-
-    portal = context.getSite()
+    portal = api.portal.get()
 
     register_content_widgets(portal)
     add_assets_repository(portal)
