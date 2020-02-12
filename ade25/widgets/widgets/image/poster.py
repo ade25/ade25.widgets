@@ -95,12 +95,14 @@ class WidgetImagePoster(BrowserView):
             'headline': widget_content.get('headline'),
             'abstract': widget_content.get('abstract'),
             'text': widget_content.get('text', None),
-            'link': widget_content.get('link'),
+            'link': self.get_link_action(widget_content.get('link')),
             'public': widget_content['is_public']
         }
         return data
 
     def get_link_action(self, link):
         context = aq_inner(self.context)
-        link_action = replace_link_variables_by_paths(context, link)
-        return link_action
+        if link:
+            link_action = replace_link_variables_by_paths(context, link)
+            return link_action
+        return None
