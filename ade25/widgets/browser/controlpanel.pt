@@ -19,7 +19,7 @@
             <h1 class="o-page__title o-page__title--primary" i18n:translate="">
                 Ade25 Widgets Settings
             </h1>
-            <p class="o-page__abstract">
+            <p class="o-page__abstract" i18n:translate="">
                 Configure and setup content widgets
             </p>
             <a id="setup-link" class="c-button c-button--default link-parent"
@@ -38,27 +38,36 @@
                 </div>
             </div>
             <div class="o-page__section o-page__section--spacer">
-                <div class="app-control-panels">
-                <div class="o-page__section app-control-panel">
-                    <h3 class="app-control-panel__title" i18n:translate="">
-                        Widget Setup
-                    </h3>
-                    <p>Configure available content widgets and setup panel page slots.</p>
-                    <div class="app-control-panel__action">
-                        <a class="app-button app-button--default link-parent"
+                <div class="c-control-panels">
+                <div class="o-page__section c-control-panel c-control-panel--primary">
+                    <div class="c-control-panel__header">
+                        <h3 class="c-control-panel__title" i18n:translate="">
+                            Widget Setup
+                        </h3>
+                    </div>
+                    <div class="c-control-panel__main">
+                        <p i18n:translate="">Configure available content widgets and setup panel page slots.</p>
+                    </div>
+                    <div class="c-control-panel__aside">
+                        <a class="c-button c-button--default link-parent"
                                  tal:attributes="href string:${portal_url}/@@ade25-widgets-settings-base"
                                  i18n:translate="">
                             Configure
                         </a>
                     </div>
                 </div>
-                <div class="o-page__section app-control-panel">
-                    <h3 class="app-control-panel__title" i18n:translate="">
-                        Content Widgets
-                    </h3>
-                    <p>Configure individual content widgets</p>
-                    <div class="app-control-panel__action">
-                        <a class="app-button app-button--default link-parent"
+                <div class="o-page__section c-control-panel c-control-panel--primary">
+                    <div class="c-control-panel__header">
+                        <h3 class="c-control-panel__title" i18n:translate="">
+                            Content Widgets
+                        </h3>
+                    </div>
+                    <div class="c-control-panel__main">
+                        <p i18n:translate="">Configure individual content widgets</p>
+                    </div>
+
+                    <div class="c-control-panel__aside">
+                        <a class="c-button c-button--default link-parent"
                                  tal:attributes="href string:${portal_url}/@@ade25-widgets-settings-widgets"
                                  i18n:translate="">
                             Configure
@@ -70,11 +79,20 @@
         </div>
 
         <div class="o-page__footer">
-            <div class="o-page__section o-page__section--spacer">
-                <div class="c-alert c-alert--danger">
-                    <h4 class="c-alert__title">Danger Zone</h4>
-                    <p>In order to update the available widgets and their corresponding settings, it is possible to export the current package default configuration as a plain JSON file and update the contents accordingly. Please be aware that a badly formatted file or errors in the required settings could damage the site beyond recovery. You have been warned.</p>
-                    <p><a class="c-button c-button--primary" tal:attributes="href python:context.absolute_url() + '/@@ade25-widgets-export-settings'">Generate Widget Configuration</a></p>
+            <div class="o-page__section o-page__section--spacer  c-control-panel c-control-panel--primary">
+                <div class="c-control-panel__header">
+                    <h3 class="c-control-panel__title" i18n:translate="">
+                        Maintenance
+                    </h3>
+                </div>
+                <div class="c-control-panel__main">
+                    <div class="c-alert c-alert--danger">
+                        <h4 class="c-alert__title">Danger Zone</h4>
+                        <p>In order to update the available widgets and their corresponding settings, it is possible to export the current package default configuration as a plain JSON file and update the contents accordingly. Please be aware that a badly formatted file or errors in the required settings could damage the site beyond recovery. You have been warned.</p>
+                    </div>
+                </div>
+                <div class="c-control-panel__aside">
+                    <a class="c-button c-button--danger" tal:attributes="href python:context.absolute_url() + '/@@ade25-widgets-export-settings'">Generate Widget Configuration</a>
                 </div>
             </div>
         </div>
