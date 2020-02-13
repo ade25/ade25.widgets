@@ -92,14 +92,14 @@ class IAde25WidgetsControlPanelWidgets(Interface):
         description=_(u"Please enter icon to be used in read more links when "
                       u"a layout with icon is selected. Note: the icon needs to "
                       u"exist in the themes icon sprite for this to work."),
-        default='chevron',
+        default=u'chevron',
         required=False
     )
 
     listing_scale = schema.Choice(
         title=_(u"Content Listing: Image Scale"),
         vocabulary='ade25.widgets.vocabularies.AvailableImageScales',
-        default='ratio-4:3',
+        default=u'ratio-4:3',
         required=False
     )
     listing_hidden_fields = schema.List(
@@ -116,7 +116,7 @@ class IAde25WidgetsControlPanelWidgets(Interface):
     listing_cards_scale = schema.Choice(
         title=_(u"Content Listing Cards: Image Scale"),
         vocabulary='ade25.widgets.vocabularies.AvailableImageScales',
-        default='ratio-4:3',
+        default=u'ratio-4:3',
         required=False
     )
     listing_cards_hidden_fields = schema.List(
@@ -132,7 +132,7 @@ class IAde25WidgetsControlPanelWidgets(Interface):
     image_poster_scale = schema.Choice(
         title=_(u"Poster Image: Image Scale"),
         vocabulary='ade25.widgets.vocabularies.AvailableImageScales',
-        default='ratio-16:9',
+        default=u'ratio-16:9',
         required=False
     )
     image_poster_hidden_fields = schema.List(

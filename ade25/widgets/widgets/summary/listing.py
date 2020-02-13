@@ -205,7 +205,7 @@ class WidgetContentListing(BrowserView):
     def get_widget_content(self, entry, fallback):
         widget_content = self.widget_stored_data()
         try:
-            entry_value = self.record.get(entry)
+            entry_value = self.record['entry']
         except KeyError:
             entry_value = widget_content.get(entry, fallback)
         return entry_value
@@ -381,7 +381,7 @@ class WidgetContentListingCards(BrowserView):
     def get_widget_content(self, entry, fallback):
         widget_content = self.widget_stored_data()
         try:
-            entry_value = self.record.get(entry)
+            entry_value = self.record['entry']
         except KeyError:
             entry_value = widget_content.get(entry, fallback)
         return entry_value
