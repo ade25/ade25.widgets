@@ -25,8 +25,11 @@ def register_content_widgets(site):
     widget_settings = api.portal.get_registry_record(
         name="ade25.widgets.widget_settings"
     )
-    stored_widgets = json.loads(widget_settings)
-    records = stored_widgets["items"]
+    try:
+        stored_widgets = json.loads(widget_settings)
+    except TypeError:
+        stored_widgets = {'items': {}}
+    records = stored_widgets['items']
     for content_widget, widget_data in content_widgets.items():
         if content_widget not in records.keys():
             records[content_widget] = widget_data
@@ -55,7 +58,8 @@ def run_after(context):
     """
     @param context: Products.GenericSetup.context.DirectoryImportContext instance
     """
-    portal = context.getSite()
+
+    portal = api.portal.get()
 
     register_content_widgets(portal)
     add_assets_repository(portal)

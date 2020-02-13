@@ -1,14 +1,47 @@
 <div class="c-poster" tal:condition="python:view.has_content()">
     <tal:block tal:define="widget_content python:view.widget_content()">
-        <div class="c-poster__aside" tal:condition="python:widget_content['image']">
-            <span tal:replace="structure python:widget_content['image']" />
-        </div>
-        <div class="c-poster__main">
-                <div class="c-poster__text" tal:condition="python:widget_content['text']"
-                         tal:define="widget_text python:widget_content['text']"
-                         tal:content="structure widget_text/output">
-                    Poster Teaser Text
+        <div class="c-poster__content c-poster__content--default" tal:condition="python:not widget_content['link']">
+            <div class="c-poster__aside" tal:condition="python:widget_content['image']">
+                <span tal:replace="structure python:widget_content['image']" />
+            </div>
+            <div class="c-poster__main">
+                <div class="c-poster__title" tal:condition="python:widget_content['headline']"
+                         tal:content="python:widget_content['headline']">
+                    Poster Headline
                 </div>
+                <div class="c-poster__abstract" tal:condition="python:widget_content['abstract']"
+                         tal:content="python:widget_content['abstract']">
+                    Poster Headline
+                </div>
+                <div class="c-poster__text" tal:condition="python:widget_content['text']">
+                    <div tal:replace="structure python:widget_content['text'].output">
+                        Poster Text
+                    </div>
+                </div>
+            </div>
         </div>
+        <div class="c-poster__content c-poster__content--primary" tal:condition="python:widget_content['link']">
+            <a class="c-poster__link" tal:attributes="href python:widget_content['link']">
+                <div class="c-poster__aside" tal:condition="python:widget_content['image']">
+                    <span tal:replace="structure python:widget_content['image']" />
+                </div>
+                <div class="c-poster__main">
+                    <div class="c-poster__title" tal:condition="python:widget_content['headline']"
+                             tal:content="python:widget_content['headline']">
+                        Poster Headline
+                    </div>
+                    <div class="c-poster__abstract" tal:condition="python:widget_content['abstract']"
+                             tal:content="python:widget_content['abstract']">
+                        Poster Headline
+                    </div>
+                    <div class="c-poster__text" tal:condition="python:widget_content['text']">
+                        <div tal:replace="structure python:widget_content['text'].output">
+                            Poster Text
+                        </div>
+                    </div>
+                </div>
+            </a>
+        </div>
+
     </tal:block>
 </div>

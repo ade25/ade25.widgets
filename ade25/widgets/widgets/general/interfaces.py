@@ -46,3 +46,21 @@ class IAde25WidgetTextHtml(Interface):
         title=_("HTML Content"),
         required=False
     )
+
+
+@provider(IFormFieldProvider)
+class IAde25WidgetPageHeader(Interface):
+    """ Content Widget to display page header """
+
+    headline = schema.TextLine(
+        title=u"Page Headline",
+        description=_(u"Please enter the main page headline."),
+        required=False,
+    )
+
+    abstract = schema.Text(
+        title=u"Page Abstract",
+        description=_(u"Use the abstract to provide a short description of ."
+                      u"the page content."),
+        required=False,
+    )

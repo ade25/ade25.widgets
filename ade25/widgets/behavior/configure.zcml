@@ -3,6 +3,7 @@
         xmlns:plone="http://namespaces.plone.org/plone">
 
     <plone:behavior
+            name="ade25.contentwidgets"
             title="ContentWidgets"
             description="Manage assigned content widgets"
             provides="ade25.widgets.interfaces.IContentWidgets"

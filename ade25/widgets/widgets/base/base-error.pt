@@ -1,0 +1,22 @@
+<div class="c-widget-error" tal:condition="python:view.display_widget()"
+    i18n:domain="ade25.widget"
+     xmlns:xlink="http://www.w3.org/1999/xlink">
+
+    <div class="c-widget-editor__item c-widget-editor__item--danger">
+        <div class="c-widget-editor__item-aside">
+            <svg class="o-icon o-icon--size-3 o-icon__ui--alert-dims">
+                <use xlink:href="/assets/symbol/svg/sprite.symbol.svg#ui--alert"></use>
+            </svg>
+        </div>
+        <div class="c-widget-editor__item-main">
+            <h5 class="c-widget-editor__item-title" i18n:translate="">
+                Panel Display Error
+            </h5>
+            <small i18n:translate="">This widget cannot be displayed due to a rendering error. Please review the widget settings.</small>
+        </div>
+        <div class="c-widget-editor__item-actions">
+
+        </div>
+    </div>
+
+</div>

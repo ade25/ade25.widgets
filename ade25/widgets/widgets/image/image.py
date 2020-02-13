@@ -4,6 +4,8 @@ import uuid as uuid_tool
 
 from Acquisition import aq_inner
 from Products.Five import BrowserView
+from ade25.widgets.interfaces import IContentWidgets
+from plone import api
 
 
 class WidgetImageInline(BrowserView):
@@ -108,9 +110,41 @@ class WidgetImageCover(BrowserView):
             return True
         return False
 
-    def widget_image_cover(self):
+    @staticmethod
+    def has_stored_image(image_object):
+        context = image_object
         try:
-            content = self.has_lead_image()
-        except (KeyError, TypeError):
-            content = None
+            lead_img = context.image
+        except AttributeError:
+            lead_img = None
+        if lead_img is not None:
+            return True
+        return False
+
+    def image_tag(self, image_uid):
+        image = api.content.get(UID=image_uid)
+        if self.has_stored_image(image):
+            figure = image.restrictedTraverse('@@figure')(
+                image_field_name='image',
+                caption_field_name='image_caption',
+                scale='cover',
+                aspect_ratio='16/9',
+                lqip=True,
+                lazy_load=True
+            )
+            return figure
+        return None
+
+    def widget_image_cover(self):
+        context = aq_inner(self.context)
+        storage = IContentWidgets(context)
+        content = storage.read_widget(self.widget_uid())
         return content
+
+    def widget_content(self):
+        widget_content = self.widget_image_cover()
+        data = {
+            'image': self.image_tag(widget_content['image']),
+            'public': widget_content['is_public']
+        }
+        return data

@@ -62,6 +62,12 @@ class WidgetImagePoster(BrowserView):
             return True
         return False
 
+    @staticmethod
+    def _compute_aspect_ratio(scale_name):
+        if scale_name.startswith('ratio'):
+            return scale_name.split('-')[1].replace(':', '/')
+        return scale_name
+
     def image_tag(self, image_uid):
         image = api.content.get(UID=image_uid)
         if self.has_stored_image(image):
@@ -86,12 +92,17 @@ class WidgetImagePoster(BrowserView):
         widget_content = self.widget_image_cover()
         data = {
             'image': self.image_tag(widget_content['image']),
-            'text': widget_content['text'],
+            'headline': widget_content.get('headline'),
+            'abstract': widget_content.get('abstract'),
+            'text': widget_content.get('text', None),
+            'link': self.get_link_action(widget_content.get('link')),
             'public': widget_content['is_public']
         }
         return data
 
     def get_link_action(self, link):
         context = aq_inner(self.context)
-        link_action = replace_link_variables_by_paths(context, link)
-        return link_action
+        if link:
+            link_action = replace_link_variables_by_paths(context, link)
+            return link_action
+        return None

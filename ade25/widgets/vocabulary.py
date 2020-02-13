@@ -12,6 +12,39 @@ from ade25.widgets import MessageFactory as _
 
 
 @implementer(IVocabularyFactory)
+class ContentWidgetSectionsVocabularyFactory(object):
+
+    def __call__(self, context):
+        widgets = self.get_display_options()
+        terms = [
+            self.generate_simple_term(widget_key, widget_term)
+            for widget_key, widget_term in widgets.items()
+        ]
+        return SimpleVocabulary(terms)
+
+    @staticmethod
+    def generate_simple_term(widget, widget_term):
+        term = SimpleTerm(
+            value=widget,
+            token=b2a_qp(widget.encode('utf-8')),
+            title=_(widget_term)
+        )
+        return term
+
+    @staticmethod
+    def get_display_options():
+        display_options = {
+            'content-widgets-page-header': _(u'Content Widgets Page Header'),
+            'content-widgets-page-main': _(u'Content Widgets Main Content Area'),
+            'content-widgets-page-footer': _(u'Content Widgets Page Footer')
+        }
+        return display_options
+
+
+ContentWidgetSectionsVocabulary = ContentWidgetSectionsVocabularyFactory()
+
+
+@implementer(IVocabularyFactory)
 class AvailableContentWidgetsVocabularyFactory(object):
 
     def __call__(self, context):
@@ -36,8 +69,11 @@ class AvailableContentWidgetsVocabularyFactory(object):
         registry_settings = api.portal.get_registry_record(
             'ade25.widgets.widget_settings'
         )
-        settings = json.loads(registry_settings)
-        available_widgets = settings['items']
+        try:
+            settings = json.loads(registry_settings)
+            available_widgets = settings['items']
+        except TypeError:
+            available_widgets = dict()
         return available_widgets
 
 
@@ -119,3 +155,110 @@ class ContentWidgetLayoutVocabularyFactory(object):
 
 
 ContentWidgetLayoutVocabulary = ContentWidgetLayoutVocabularyFactory()
+
+
+@implementer(IVocabularyFactory)
+class ContentWidgetReadMoreLayoutVocabularyFactory(object):
+
+    def __call__(self, context):
+        widgets = self.get_display_options()
+        terms = [
+            self.generate_simple_term(widget_key, widget_term)
+            for widget_key, widget_term in widgets.items()
+        ]
+        return SimpleVocabulary(terms)
+
+    @staticmethod
+    def generate_simple_term(widget, widget_term):
+        term = SimpleTerm(
+            value=widget,
+            token=b2a_qp(widget.encode('utf-8')),
+            title=_(widget_term)
+        )
+        return term
+
+    @staticmethod
+    def get_display_options():
+        display_options = {
+            "link": _(u'Plain Link'),
+            "link-icon": _(u'Link with icon after the link text'),
+            "link-icon-prefix": _(u'Link with icon before the link text'),
+            "icon": _(u'Icon only'),
+            "button": _(u'Button'),
+            "button-icon": _(u'Button with icon after the link text'),
+            "button-icon-prefix": _(u'Button with icon before the link text'),
+        }
+        return display_options
+
+
+ContentWidgetReadMoreLayoutVocabulary = ContentWidgetReadMoreLayoutVocabularyFactory()
+
+
+@implementer(IVocabularyFactory)
+class AvailableImageScalesVocabularyFactory(object):
+
+    def __call__(self, context):
+        widgets = self.get_display_options()
+        terms = [
+            self.generate_simple_term(widget_key, widget_term)
+            for widget_key, widget_term in widgets.items()
+        ]
+        return SimpleVocabulary(terms)
+
+    @staticmethod
+    def generate_simple_term(widget, widget_term):
+        term = SimpleTerm(
+            value=widget,
+            token=b2a_qp(widget.encode('utf-8')),
+            title=_(widget_term)
+        )
+        return term
+
+    @staticmethod
+    def get_display_options():
+        display_options = {}
+        registry_settings = api.portal.get_registry_record(
+            'ade25.base.responsive_image_scales'
+        )
+        for image_scale in registry_settings:
+            scale_information = json.loads(image_scale)
+            scale_info = next(iter(scale_information.keys()))
+            display_options[scale_info] = scale_info.capitalize()
+        return display_options
+
+
+AvailableImageScalesVocabulary = AvailableImageScalesVocabularyFactory()
+
+
+@implementer(IVocabularyFactory)
+class ContentWidgetSchemaVocabularyFactory(object):
+
+    def __call__(self, context):
+        widgets = self.get_display_options()
+        terms = [
+            self.generate_simple_term(widget_key, widget_term)
+            for widget_key, widget_term in widgets.items()
+        ]
+        return SimpleVocabulary(terms)
+
+    @staticmethod
+    def generate_simple_term(widget, widget_term):
+        term = SimpleTerm(
+            value=widget,
+            token=b2a_qp(widget.encode('utf-8')),
+            title=_(widget_term)
+        )
+        return term
+
+    @staticmethod
+    def get_display_options():
+        display_options = {
+            'headline': _(u'Headline'),
+            'abstract': _(u'Abstract'),
+            'text': _(u'Formatted Text'),
+            'link': _(u"Link")
+        }
+        return display_options
+
+
+ContentWidgetSchemaVocabulary = ContentWidgetSchemaVocabularyFactory()

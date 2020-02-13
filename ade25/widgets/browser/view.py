@@ -1,4 +1,4 @@
-    # -*- coding: utf-8 -*-
+# -*- coding: utf-8 -*-
 """Module providing views for the folderish content page type"""
 import uuid as uuid_tool
 from Acquisition import aq_inner
@@ -20,7 +20,7 @@ class ContentWidgetView(BrowserView):
             'widget_name': identifier,
             'widget_type': widget_type,
             'widget_mode': widget_mode,
-            'widget_data': data_set
+            'widget_data': data_set,
         }
         return self.render()
 
@@ -50,10 +50,17 @@ class ContentWidgetView(BrowserView):
             view_name = '@@content-widget-{0}'.format(
                 self.params['widget_type']
             )
-            rendered_widget = context.restrictedTraverse(view_name)(
-                widget_mode=self.params['widget_mode'],
-                widget_data=self.params['widget_data']
-            )
+            try:
+                rendered_widget = context.restrictedTraverse(view_name)(
+                    widget_mode=self.params['widget_mode'],
+                    widget_data=self.params['widget_data']
+                )
+            except:
+                view_name = '@@content-widget-error'
+                rendered_widget = context.restrictedTraverse(view_name)(
+                    widget_mode=self.params['widget_mode'],
+                    widget_data=self.params['widget_data']
+                )
         else:
             view_name = '@@content-widget-base'
             rendered_widget = context.restrictedTraverse(view_name)()

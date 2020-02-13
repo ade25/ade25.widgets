@@ -1,6 +1,7 @@
-<div class="o-page__image o-page__image--cover" tal:condition="view/has_content">
-    <div class="o-page__asset"
-             tal:define="responsive_image python:context.restrictedTraverse('@@figure')(image_field_name='image', caption_field_name='image_caption', scale='default', lqip=True, lazy_load=True)">
-        <span tal:replace="structure responsive_image" />
-    </div>
+<div class="o-page__asset o-page__asset--image" tal:condition="python:view.has_content()">
+    <tal:block tal:define="widget_content python:view.widget_content()">
+        <div class="o-image--cover" tal:condition="python:widget_content['image']">
+            <span tal:replace="structure python:widget_content['image']" />
+        </div>
+    </tal:block>
 </div>
