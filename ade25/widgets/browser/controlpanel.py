@@ -135,6 +135,12 @@ class IAde25WidgetsControlPanelWidgets(Interface):
         default=u'ratio-16:9',
         required=False
     )
+    image_poster_scale = schema.Choice(
+        title=_(u"Poster Image: Image Scale"),
+        vocabulary='ade25.widgets.vocabularies.AvailableImageScales',
+        default=u'ratio-16:9',
+        required=False
+    )
     image_poster_hidden_fields = schema.List(
         title=_(u"Poster Image: Hidden Elements"),
         description=_(u"Please select which elements should be available in the "
