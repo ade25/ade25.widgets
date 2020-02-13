@@ -10,6 +10,7 @@ from Products.statusmessages.interfaces import IStatusMessage
 from ade25.widgets.config import PKG_WIDGETS
 from plone.app.registry.browser.controlpanel import RegistryEditForm
 from plone.autoform import form
+from plone.autoform import directives as form_directives
 from zope import schema
 from zope.interface import Interface
 from plone.z3cform import layout
@@ -96,6 +97,7 @@ class IAde25WidgetsControlPanelWidgets(Interface):
         required=False
     )
 
+    form_directives.widget('listing_scale', klass='js-choices-selector')
     listing_scale = schema.Choice(
         title=_(u"Content Listing: Image Scale"),
         vocabulary='ade25.widgets.vocabularies.AvailableImageScales',
@@ -113,6 +115,7 @@ class IAde25WidgetsControlPanelWidgets(Interface):
         required=False
     )
 
+    form_directives.widget('listing_cards_scale', klass='js-choices-selector')
     listing_cards_scale = schema.Choice(
         title=_(u"Content Listing Cards: Image Scale"),
         vocabulary='ade25.widgets.vocabularies.AvailableImageScales',
@@ -129,6 +132,8 @@ class IAde25WidgetsControlPanelWidgets(Interface):
         default=['text', 'link', ],
         required=False
     )
+
+    form_directives.widget('image_poster_scale', klass='js-choices-selector')
     image_poster_scale = schema.Choice(
         title=_(u"Poster Image: Image Scale"),
         vocabulary='ade25.widgets.vocabularies.AvailableImageScales',
