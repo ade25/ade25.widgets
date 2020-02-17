@@ -18,6 +18,7 @@ from plone.supermodel import model
 from plone.z3cform.layout import FormWrapper
 from z3c.form import button
 from z3c.form import form
+from z3c.form.interfaces import NOT_CHANGED
 from zope import schema
 from zope.component import getUtility, getMultiAdapter
 from zope.dottedname.resolve import resolve
@@ -185,7 +186,14 @@ class ContentWidgetItemForm(AutoExtensibleForm, form.Form):
                 text_value = value
                 widget_item[entry_key] = text_value
             else:
-                widget_item[entry_key] = value
+                if value is NOT_CHANGED:
+                    # Additional schemata are posted as 'ISchemaInterface.field_name'
+                    # and need to be resolved to their original key
+                    field_key = key.split('.')[-1]
+                    # Keep existing value for fields signaling as not updated
+                    value = widget_content[widget_item_node][field_key]
+                    # continue
+                widget_content[entry_key] = value
         if widget_item_node in item_order:
             widget_content[widget_item_node] = widget_item
         else:
