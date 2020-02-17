@@ -16,7 +16,7 @@ logger = logging.getLogger(__name__)
 
 
 def register_content_widgets(site):
-    """Run custom add-on package installation code to add custom
+    """ Run custom add-on package installation code to add custom
        site specific content widgets
 
     @param site: Plone site
@@ -34,26 +34,27 @@ def register_content_widgets(site):
         if content_widget not in records.keys():
             records[content_widget] = widget_data
     stored_widgets["items"] = records
-    stored_widgets["timestamp"] = six.text_type(int(time.time())),
-    stored_widgets["updated"] = datetime.datetime.now().isoformat(),
+    stored_widgets["timestamp"] = (six.text_type(int(time.time())),)
+    stored_widgets["updated"] = (datetime.datetime.now().isoformat(),)
     api.portal.set_registry_record(
-        name='ade25.widgets.widget_settings',
-        value=safe_unicode(json.dumps(stored_widgets))
+        name="ade25.widgets.widget_settings",
+        value=safe_unicode(json.dumps(stored_widgets)),
     )
 
 
 def add_assets_repository(site):
     # Create a folder for widget asset management if needed
-    if 'asset-repository' not in site:
+    if "asset-repository" not in site:
         api.content.create(
             container=site,
-            type='ade25.widgets.assetsfolder',
-            id='asset-repository',
-            title=u'Asset Repository')
-        api.content.transition(obj=site['asset-repository'], transition='publish')
+            type="ade25.widgets.assetsfolder",
+            id="asset-repository",
+            title=u"Asset Repository",
+        )
+        api.content.transition(obj=site["asset-repository"], transition="publish")
 
 
-def setup_various(context):
+def run_after(context):
     """
     @param context: Products.GenericSetup.context.DirectoryImportContext instance
     """

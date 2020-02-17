@@ -10,6 +10,7 @@ from Products.statusmessages.interfaces import IStatusMessage
 from ade25.widgets.config import PKG_WIDGETS
 from plone.app.registry.browser.controlpanel import RegistryEditForm
 from plone.autoform import form
+from plone.autoform import directives as form_directives
 from zope import schema
 from zope.interface import Interface
 from plone.z3cform import layout
@@ -92,14 +93,15 @@ class IAde25WidgetsControlPanelWidgets(Interface):
         description=_(u"Please enter icon to be used in read more links when "
                       u"a layout with icon is selected. Note: the icon needs to "
                       u"exist in the themes icon sprite for this to work."),
-        default='chevron',
+        default=u'chevron',
         required=False
     )
 
+    form_directives.widget('listing_scale', klass='js-choices-selector')
     listing_scale = schema.Choice(
         title=_(u"Content Listing: Image Scale"),
         vocabulary='ade25.widgets.vocabularies.AvailableImageScales',
-        default='ratio-4:3',
+        default=u'ratio-4:3',
         required=False
     )
     listing_hidden_fields = schema.List(
@@ -113,10 +115,11 @@ class IAde25WidgetsControlPanelWidgets(Interface):
         required=False
     )
 
+    form_directives.widget('listing_cards_scale', klass='js-choices-selector')
     listing_cards_scale = schema.Choice(
         title=_(u"Content Listing Cards: Image Scale"),
         vocabulary='ade25.widgets.vocabularies.AvailableImageScales',
-        default='ratio-4:3',
+        default=u'ratio-4:3',
         required=False
     )
     listing_cards_hidden_fields = schema.List(
@@ -129,10 +132,12 @@ class IAde25WidgetsControlPanelWidgets(Interface):
         default=['text', 'link', ],
         required=False
     )
+
+    form_directives.widget('image_poster_scale', klass='js-choices-selector')
     image_poster_scale = schema.Choice(
         title=_(u"Poster Image: Image Scale"),
         vocabulary='ade25.widgets.vocabularies.AvailableImageScales',
-        default='ratio-16:9',
+        default=u'ratio-16:9',
         required=False
     )
     image_poster_hidden_fields = schema.List(

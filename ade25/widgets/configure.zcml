@@ -25,7 +25,7 @@
         directory="profiles/default"
         description="Modular content widgets for page integration"
         provides="Products.GenericSetup.interfaces.EXTENSION"
-        post_handler="ade25.widgets.setuphandlers.setup_various"
+        post_handler="ade25.widgets.setuphandlers.run_after"
         />
 
     <!-- Uninstall -->
