@@ -172,9 +172,10 @@ class ContentWidgetCollectionForm(AutoExtensibleForm, form.Form):
         editor_data = self.panel_editor[context.UID()]
         storage = IContentWidgets(context)
         record = storage.read_widget(editor_data["widget_id"])
-        item_order = record["item_order"]
-        if item_order:
-            widget_content = record
+        if record:
+            item_order = record.get("item_order")
+            if item_order:
+                widget_content = record
         else:
             widget_content = editor_data["widget_content"]
         if not widget_content:

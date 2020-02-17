@@ -133,13 +133,14 @@ class IAde25WidgetsControlPanelWidgets(Interface):
         required=False
     )
 
-    form_directives.widget('image_poster_scale', klass='js-choices-selector')
-    image_poster_scale = schema.Choice(
-        title=_(u"Poster Image: Image Scale"),
+    form_directives.widget('image_cover_scale', klass='js-choices-selector')
+    image_cover_scale = schema.Choice(
+        title=_(u"Cover Image: Image Scale"),
         vocabulary='ade25.widgets.vocabularies.AvailableImageScales',
-        default=u'ratio-16:9',
+        default=u'ratio-4:3',
         required=False
     )
+    form_directives.widget('image_poster_scale', klass='js-choices-selector')
     image_poster_scale = schema.Choice(
         title=_(u"Poster Image: Image Scale"),
         vocabulary='ade25.widgets.vocabularies.AvailableImageScales',

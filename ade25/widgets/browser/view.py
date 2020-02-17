@@ -56,7 +56,7 @@ class ContentWidgetView(BrowserView):
                     widget_data=self.params['widget_data']
                 )
             except:
-                view_name = '@@content-widget-error'
+                #view_name = '@@content-widget-error'
                 rendered_widget = context.restrictedTraverse(view_name)(
                     widget_mode=self.params['widget_mode'],
                     widget_data=self.params['widget_data']

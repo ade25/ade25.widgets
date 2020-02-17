@@ -1,6 +1,6 @@
 <div class="c-card c-card--default"
      xmlns:xlink="http://www.w3.org/1999/xlink"
-     i18n:domain="hph.widgets"
+     i18n:domain="ade25.widgets"
      tal:define="content python:view.widget_content(); settings python:view.record"
      tal:attributes="class python:'c-card c-card--default ' + content['css_classes']">
 

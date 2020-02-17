@@ -121,14 +121,28 @@ class WidgetImageCover(BrowserView):
             return True
         return False
 
+    def image_scale(self):
+        registry_record = api.portal.get_registry_record(
+            'ade25.widgets.image_cover_scale'
+        )
+        widget_content = self.widget_stored_data()
+        image_scale = widget_content.get('image_scale', registry_record)
+        return image_scale
+
+    @staticmethod
+    def _compute_aspect_ratio(scale_name):
+        if scale_name.startswith('ratio'):
+            return scale_name.split('-')[1].replace(':', '/')
+        return '1'
+
     def image_tag(self, image_uid):
         image = api.content.get(UID=image_uid)
         if self.has_stored_image(image):
             figure = image.restrictedTraverse('@@figure')(
                 image_field_name='image',
                 caption_field_name='image_caption',
-                scale='cover',
-                aspect_ratio='16/9',
+                scale=self.image_scale(),
+                aspect_ratio=self._compute_aspect_ratio(self.image_scale()),
                 lqip=True,
                 lazy_load=True
             )
@@ -141,8 +155,17 @@ class WidgetImageCover(BrowserView):
         content = storage.read_widget(self.widget_uid())
         return content
 
+    def widget_stored_data(self):
+        context = aq_inner(self.context)
+        try:
+            storage = IContentWidgets(context)
+            content = storage.read_widget(self.widget_uid())
+        except TypeError:
+            content = dict()
+        return content
+
     def widget_content(self):
-        widget_content = self.widget_image_cover()
+        widget_content = self.widget_stored_data()
         data = {
             'image': self.image_tag(widget_content['image']),
             'public': widget_content['is_public']

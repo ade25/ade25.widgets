@@ -1,6 +1,6 @@
 <div class="o-page__asset o-page__asset--image" tal:condition="python:view.has_content()">
     <tal:block tal:define="widget_content python:view.widget_content()">
-        <div class="o-image--cover" tal:condition="python:widget_content['image']">
+        <div class="c-cover-image" tal:condition="python:widget_content['image']">
             <span tal:replace="structure python:widget_content['image']" />
         </div>
     </tal:block>
