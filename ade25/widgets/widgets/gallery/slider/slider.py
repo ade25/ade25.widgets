@@ -80,7 +80,9 @@ class WidgetSlider(BrowserView):
             content_items = stored_widget["items"]
             if content_items:
                 try:
-                    item_content.update(content_items[widget_node])
+                    node_content = content_items[widget_node]
+                    if node_content['is_public']:
+                        item_content.update(node_content)
                 except KeyError:
                     item_content = None
         return item_content
@@ -97,7 +99,24 @@ class WidgetSlider(BrowserView):
         return link_action
 
     def widget_content_items(self):
-        return self.widget_item_nodes()
+        widget_nodes = list()
+        item_nodes = self.widget_item_nodes()
+        for item_node in item_nodes:
+            node_content = self.widget_item_content(item_node)
+            if node_content:
+                image_uid = node_content.get('image', None)
+                data = {
+                    'uid': node_content.get('uid'),
+                    'image': self.image_tag(image_uid),
+                    'image_caption': node_content.get('image_caption'),
+                    'headline': node_content.get('headline'),
+                    'abstract': node_content.get('abstract'),
+                    'text': node_content.get('text', None),
+                    'link': self.get_link_action(node_content.get('link')),
+                    'public': node_content.get('is_public')
+                }
+                widget_nodes.append(data)
+        return widget_nodes
 
     def widget_custom_styles(self):
         if self.record and 'styles' in self.record:
@@ -144,16 +163,17 @@ class WidgetSlider(BrowserView):
         return False
 
     def image_tag(self, image_uid):
-        image = api.content.get(UID=image_uid)
-        if self.has_stored_image(image):
-            figure = image.restrictedTraverse('@@figure')(
-                image_field_name='image',
-                caption_field_name='image_caption',
-                scale='slider',
-                aspect_ratio='16/9',
-                lqip=True,
-                lazy_load=True,
-                css_class='o-figure--slider c-slide__figure'
-            )
-            return figure
+        if image_uid:
+            image = api.content.get(UID=image_uid)
+            if self.has_stored_image(image):
+                figure = image.restrictedTraverse('@@figure')(
+                    image_field_name='image',
+                    caption_field_name='image_caption',
+                    scale='slider',
+                    aspect_ratio='16/9',
+                    lqip=True,
+                    lazy_load=True,
+                    css_class='o-figure--slider c-slide__figure'
+                )
+                return figure
         return None

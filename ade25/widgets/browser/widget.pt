@@ -60,7 +60,13 @@
                             <span tal:replace="repeat/widget_node/number"></span> -
                             <span tal:content="python:node_settings['title']"></span>
                         </h5>
-                        <!-- <small>Static temporary placeholder block</small>-->
+                        <small tal:condition="python:not view.widget_item_node_is_public(widget_node)">
+                            &nbsp;
+                            <svg class="o-icon o-icon--size-1 o-icon--danger o-icon__ui--hidden-dims">
+                                Hidden
+                                <use xlink:href="/assets/symbol/svg/sprite.symbol.svg#ui--hidden"></use>
+                            </svg>
+                        </small>
                     </div>
                     <div class="c-widget-editor__item-actions">
                         <tal:actions tal:repeat="action_name python:view.widget_actions(content_type='collection-item')">
