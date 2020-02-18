@@ -400,6 +400,16 @@ class ContentWidgetFormView(FormWrapper):
     def has_widget_item_nodes(self):
         return len(self.widget_item_nodes()) > 0
 
+    def widget_item_node_is_public(self, node_id):
+        context = aq_inner(self.context)
+        editor = self.panel_editor()[context.UID()]
+        stored_nodes = editor['widget_content'].get('items')
+        if stored_nodes:
+            widget_node_data = stored_nodes.get(node_id)
+            if widget_node_data:
+                return widget_node_data.get('is_public', True)
+        return True
+
     def widget_reorder_handler(self):
         context = aq_inner(self.context)
         context_url = context.absolute_url()

@@ -193,7 +193,7 @@ class ContentWidgetItemForm(AutoExtensibleForm, form.Form):
                     # Keep existing value for fields signaling as not updated
                     value = widget_content[widget_item_node][field_key]
                     # continue
-                widget_content[entry_key] = value
+                widget_item[entry_key] = value
         if widget_item_node in item_order:
             widget_content[widget_item_node] = widget_item
         else:
