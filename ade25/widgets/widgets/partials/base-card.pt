@@ -17,7 +17,7 @@
     <div class="c-card__main">
         <div class="c-card__header">
             <div class="c-card__title">
-                <a class="c-card__link" tal:attributes="href python:content['url']"
+                <a class="c-card__link c-card__link--header" tal:attributes="href python:content['url']"
                          tal:content="python:content['title']">
                         ${context/Title}
                 </a>
@@ -25,7 +25,7 @@
         </div>
         <div class="c-card__section">
             <div class="c-card__abstract" tal:condition="python:content['description']">
-                <a class="c-card__link"
+                <a class="c-card__link c-card__link--main"
                          tal:attributes="href python:content['url']"
                          tal:content="python:content['description']">
                         ${context/Description}
@@ -34,7 +34,7 @@
         </div>
     </div>
     <div class="c-card__footer" tal:condition="python:settings['read_more']">
-        <a class="c-card__link" tal:attributes="href python:content['url']">
+        <a class="c-card__link c-card__link--footer" tal:attributes="href python:content['url']">
             <div tal:replace="structure python:view.read_more_link()" />
         </a>
     </div>
