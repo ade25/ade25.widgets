@@ -84,7 +84,7 @@ class WidgetSlider(BrowserView):
                     if node_content['is_public']:
                         item_content.update(node_content)
                 except KeyError:
-                    item_content = None
+                    item_content['is_public'] = False
         return item_content
 
     @staticmethod
@@ -115,7 +115,8 @@ class WidgetSlider(BrowserView):
                     'link': self.get_link_action(node_content.get('link')),
                     'public': node_content.get('is_public')
                 }
-                widget_nodes.append(data)
+                if data['public']:
+                    widget_nodes.append(data)
         return widget_nodes
 
     def widget_custom_styles(self):
