@@ -5,6 +5,7 @@ from plone.app.textfield.widget import RichTextWidget
 from plone.autoform.interfaces import IFormFieldProvider
 from plone.namedfile import field as named_file
 from plone.autoform import directives
+from z3c.relationfield import RelationChoice
 from zope import schema
 from zope.interface import Interface, provider
 
@@ -17,8 +18,26 @@ class IAde25WidgetImageCover(Interface):
 
     image = named_file.NamedBlobImage(
         title=_(u"Cover Image"),
-        required=True
+        required=False
     )
+    image_related = RelationChoice(
+        title=_(u"Cover Image Select"),
+        description=_(u"Select existing image in the asset repository"),
+        required=False,
+        default=None,
+        vocabulary='plone.app.vocabularies.Catalog'
+    )
+
+    image_alt = schema.TextLine(
+        title=_(u"Cover Image Alt Text"),
+        required=False
+    )
+
+    image_title = schema.TextLine(
+        title=_(u"Cover Image Title Text"),
+        required=False
+    )
+
     image_caption = schema.TextLine(
         title=_(u"Cover Image Copyright Information"),
         required=False

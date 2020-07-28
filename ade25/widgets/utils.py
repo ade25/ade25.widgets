@@ -7,6 +7,7 @@ import time
 import uuid as uuid_tool
 from string import Template
 
+import six
 from Acquisition import aq_inner
 from Products.CMFPlone.utils import safe_unicode
 
@@ -182,3 +183,27 @@ def content_widget_settings(widget_data):
     except ValueError:
         settings = "{}"
     return safe_unicode(settings)
+
+
+def register_content_widgets(content_widgets):
+    """ Run custom add-on package installation code to add custom
+       site specific content widgets
+
+    @param content_widgets: Dictionary of custom content widgets
+
+    """
+    widget_settings = api.portal.get_registry_record(
+        name='ade25.widgets.widget_settings'
+    )
+    stored_widgets = json.loads(widget_settings)
+    records = stored_widgets['items']
+    for content_widget, widget_data in content_widgets.items():
+        if content_widget not in records.keys():
+            records[content_widget] = widget_data
+    stored_widgets["items"] = records
+    stored_widgets["timestamp"] = six.text_type(int(time.time())),
+    stored_widgets["updated"] = datetime.datetime.now().isoformat(),
+    api.portal.set_registry_record(
+        name='ade25.widgets.widget_settings',
+        value=json.dumps(stored_widgets)
+    )
