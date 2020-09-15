@@ -19,10 +19,12 @@ from plone.z3cform.layout import FormWrapper
 from z3c.form import button
 from z3c.form import form
 from z3c.form.interfaces import NOT_CHANGED
-from zope import schema
+from z3c.relationfield import RelationValue
+from zope import schema, component
 from zope.component import getUtility, getMultiAdapter
 from zope.dottedname.resolve import resolve
 from zope.interface import implementer
+from zope.intid import IIntIds
 from zope.lifecycleevent import modified
 from zope.publisher.interfaces import IPublishTraverse
 
@@ -99,10 +101,13 @@ class ContentWidgetItemForm(AutoExtensibleForm, form.Form):
                             if image_uid:
                                 asset = api.content.get(UID=image_uid)
                                 widget_content[key] = getattr(asset, key, value)
+                        elif key.endswith('_related'):
+                            # Make sure we do not fall over old widget attribute values
+                            widget_content[key] = RelationValue(None)
                         else:
                             widget_content[key] = widget_node.get(
                                 key,
-                                value.title
+                                None
                             )
         return widget_content
 
@@ -162,6 +167,13 @@ class ContentWidgetItemForm(AutoExtensibleForm, form.Form):
         widget_file.reindexObject(idxs='modified')
         return widget_file.UID()
 
+    @staticmethod
+    def _process_relations(target_object):
+        if target_object:
+            int_ids = component.getUtility(IIntIds)
+            return RelationValue(int_ids.getId(target_object))
+        return RelationValue(None)
+
     def applyChanges(self, data):
         context = aq_inner(self.context)
         editor_data = self.panel_editor[context.UID()]
@@ -178,6 +190,9 @@ class ContentWidgetItemForm(AutoExtensibleForm, form.Form):
         widget_item_node = editor_data["widget_node"]
         for key, value in data.items():
             entry_key = self.prettify_key(key)
+            # Additional schemata are posted as 'ISchemaInterface.field_name'
+            # and need to be resolved to their original key
+            field_key = key.split('.')[-1]
             if INamedBlobImage.providedBy(value):
                 image_uid = self._process_image_asset(entry_key, value)
                 widget_item[entry_key] = image_uid
@@ -187,12 +202,18 @@ class ContentWidgetItemForm(AutoExtensibleForm, form.Form):
                 widget_item[entry_key] = text_value
             else:
                 if value is NOT_CHANGED:
-                    # Additional schemata are posted as 'ISchemaInterface.field_name'
-                    # and need to be resolved to their original key
-                    field_key = key.split('.')[-1]
                     # Keep existing value for fields signaling as not updated
                     value = widget_content[widget_item_node][field_key]
                     # continue
+                if entry_key.endswith('_related'):
+                    # Handle asset relation choice
+                    widget_item[entry_key] = self._process_relations(value)
+                    source_entry_key = key.replace('_related', '')
+                    source_value = data.get(source_entry_key, None)
+                    if not source_value:
+                        # Actual image uploads take preference. Only if no image has
+                        # been uploaded write relation choice to image field.
+                        widget_item[source_entry_key] = value.UID()
                 widget_item[entry_key] = value
         if widget_item_node in item_order:
             widget_content[widget_item_node] = widget_item

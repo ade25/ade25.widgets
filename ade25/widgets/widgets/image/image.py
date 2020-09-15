@@ -1,11 +1,13 @@
 # -*- coding: utf-8 -*-
 """Module providing base widget"""
+import uuid
 import uuid as uuid_tool
 
 from Acquisition import aq_inner
 from Products.Five import BrowserView
 from ade25.widgets.interfaces import IContentWidgets
 from plone import api
+from plone.api.exc import MissingParameterError
 
 
 class WidgetImageInline(BrowserView):
@@ -166,8 +168,18 @@ class WidgetImageCover(BrowserView):
 
     def widget_content(self):
         widget_content = self.widget_stored_data()
+        image_uid = widget_content['image']
+        if 'image_related' in widget_content:
+            related_image_record = widget_content.get('image_related')
+            if related_image_record:
+                try:
+                    related_uid = uuid.UUID(str(related_image_record))
+                    image_uid = related_uid
+                except ValueError:
+                    # TODO: Catch edge cases here if necessary
+                    pass
         data = {
-            'image': self.image_tag(widget_content['image']),
+            'image': self.image_tag(image_uid),
             'public': widget_content['is_public']
         }
         return data

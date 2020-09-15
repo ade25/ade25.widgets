@@ -143,3 +143,138 @@ PKG_WIDGETS = {
         }
     }
 }
+
+# Limited TinyMCe editor options
+# Usage:
+# directives.widget(
+#     "text",
+#     RichTextFieldWidget,
+#     pattern_options=TINY_MCE_LIGHT_OPTIONS
+# )
+# text = RichTextField(
+#     title="Text",
+#     required=False,
+# )
+
+TINY_MCE_LIGHT_OPTIONS = {
+    "tiny": {
+        "menu": {
+            "edit": {
+                "items": "undo redo",
+                "title": "Edit",
+            },
+            "format": {
+                "items": "bold italic underline | formats",
+                "title": "Format",
+            },
+            "insert": {"items": "hr", "title": "Insert"},
+            "table": {
+                "items": "",
+                "title": "Table",
+            },
+            "tools": {
+                "items": "code",
+                "title": "Tools",
+            },
+            "view": {
+                "items": "",
+                "title": "View",
+            },
+        },
+        "menubar": ["edit", "table", "format", "toolsview", "insert"],
+        "toolbar": "undo redo | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent",
+        "plugins": [
+            "hr",
+            "lists",
+            "nonbreaking",
+            "noneditable",
+            "pagebreak",
+            "paste",
+            "code",
+        ],
+        "style_formats": [
+            {
+                "items": [
+                    {"format": "h2", "title": "Header 2"},
+                    {"format": "h3", "title": "Header 3"},
+                    {"format": "h4", "title": "Header 4"},
+                    {"format": "h5", "title": "Header 5"},
+                    {"format": "h6", "title": "Header 6"},
+                ],
+                "title": "Headers",
+            },
+            {
+                "items": [
+                    {"format": "p", "title": "Paragraph"},
+                    {"format": "blockquote", "title": "Blockquote"},
+                    {"format": "div", "title": "Div"},
+                    {"format": "pre", "title": "Pre"},
+                ],
+                "title": "Block",
+            },
+            {
+                "items": [
+                    {"format": "bold", "icon": "bold", "title": "Bold"},
+                    {"format": "italic", "icon": "italic", "title": "Italic"},
+                    {
+                        "format": "underline",
+                        "icon": "underline",
+                        "title": "Underline",
+                    },
+                    {
+                        "format": "strikethrough",
+                        "icon": "strikethrough",
+                        "title": "Strikethrough",
+                    },
+                    {
+                        "format": "superscript",
+                        "icon": "superscript",
+                        "title": "Superscript",
+                    },
+                    {
+                        "format": "subscript",
+                        "icon": "subscript",
+                        "title": "Subscript",
+                    },
+                    {"format": "code", "icon": "code", "title": "Code"},
+                ],
+                "title": "Inline",
+            },
+            {
+                "items": [
+                    {
+                        "format": "alignleft",
+                        "icon": "alignleft",
+                        "title": "Left",
+                    },
+                    {
+                        "format": "aligncenter",
+                        "icon": "aligncenter",
+                        "title": "Center",
+                    },
+                    {
+                        "format": "alignright",
+                        "icon": "alignright",
+                        "title": "Right",
+                    },
+                    {
+                        "format": "alignjustify",
+                        "icon": "alignjustify",
+                        "title": "Justify",
+                    },
+                ],
+                "title": "Alignment",
+            },
+            {
+                "items": [
+                    {
+                        "classes": "listing",
+                        "selector": "table",
+                        "title": "Listing",
+                    }
+                ],
+                "title": "Tables",
+            },
+        ],
+    }
+}

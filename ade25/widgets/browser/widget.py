@@ -16,10 +16,13 @@ from plone.z3cform.layout import FormWrapper
 from z3c.form import button
 from z3c.form import form
 from z3c.form.interfaces import HIDDEN_MODE, NOT_CHANGED
-from zope import schema
+from z3c.relationfield import RelationValue
+from z3c.relationfield.interfaces import IRelationValue
+from zope import schema, component
 from zope.component import getUtility
 from zope.dottedname.resolve import resolve
 from zope.interface import implementer
+from zope.intid import IIntIds
 from zope.lifecycleevent import modified
 from zope.publisher.interfaces import IPublishTraverse
 
@@ -50,7 +53,6 @@ class ContentWidgetForm(AutoExtensibleForm, form.Form):
     css_class = 'o-form o-form--widget'
 
     label = _(u'Content Widget')
-    #template = ViewPageTemplateFile('widget.pt')
     enableCSRFProtection = True
     formErrorsMessage = _(u'There were errors.')
 
@@ -91,10 +93,13 @@ class ContentWidgetForm(AutoExtensibleForm, form.Form):
                         if image_uid:
                             asset = api.content.get(UID=image_uid)
                             widget_content[key] = getattr(asset, key, value)
+                    elif key.endswith('_related'):
+                        # Make sure we do not fall over old widget attribute values
+                        widget_content[key] = RelationValue(None)
                     else:
                         widget_content[key] = stored_widget_data.get(
                             key,
-                            value.title
+                            None
                         )
         return widget_content
 
@@ -174,6 +179,13 @@ class ContentWidgetForm(AutoExtensibleForm, form.Form):
         widget_file.reindexObject(idxs='modified')
         return widget_file.UID()
 
+    @staticmethod
+    def _process_relations(target_object):
+        if target_object:
+            int_ids = component.getUtility(IIntIds)
+            return RelationValue(int_ids.getId(target_object))
+        return RelationValue(None)
+
     def applyChanges(self, data):
         context = aq_inner(self.context)
         editor_data = self.panel_editor[context.UID()]
@@ -181,17 +193,28 @@ class ContentWidgetForm(AutoExtensibleForm, form.Form):
         widget_content = dict()
         for key, value in data.items():
             entry_key = self.prettify_key(key)
+            # Additional schemata are posted as 'ISchemaInterface.field_name'
+            # and need to be resolved to their original key
+            field_key = key.split('.')[-1]
+            # Handle image like content
             if INamedBlobImage.providedBy(value):
                 image_uid = self._process_image_asset(entry_key, value)
                 widget_content[entry_key] = image_uid
             else:
                 if value is NOT_CHANGED:
-                    # Additional schemata are posted as 'ISchemaInterface.field_name'
-                    # and need to be resolved to their original key
-                    field_key = key.split('.')[-1]
                     # Keep existing value for fields signaling as not updated
-                    value = editor_data['widget_content'][field_key]
-                    # continue
+                    stored_content = editor_data.get('widget_content')
+                    if widget_content:
+                        value = stored_content.get(field_key, None)
+                if entry_key.endswith('_related'):
+                    # Handle asset relation choice
+                    widget_content[entry_key] = self._process_relations(value)
+                    source_entry_key = key.replace('_related', '')
+                    source_value = data.get(source_entry_key, None)
+                    if not source_value:
+                        # Actual image uploads take preference. Only if no image has
+                        # been uploaded write relation choice to image field.
+                        widget_content[source_entry_key] = value.UID()
                 widget_content[entry_key] = value
         storage.store_widget(
             editor_data['widget_id'],
@@ -227,7 +250,6 @@ class ContentWidgetForm(AutoExtensibleForm, form.Form):
         self.actions["update"].addClass("c-button--primary")
 
     def updateWidgets(self, prefix=None):
-        super(ContentWidgetForm, self).updateWidgets(prefix=None)
         context = aq_inner(self.context)
         editor_data = self.panel_editor[context.UID()]
         widget_type = editor_data['widget_settings']['widget']
@@ -248,6 +270,7 @@ class ContentWidgetForm(AutoExtensibleForm, form.Form):
         except InvalidParameterError:
             # The content widget has no a registry setting
             pass
+        super(ContentWidgetForm, self).updateWidgets(prefix=None)
 
 
 class ContentWidgetFormView(FormWrapper):

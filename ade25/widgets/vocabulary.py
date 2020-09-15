@@ -4,6 +4,10 @@ import json
 from binascii import b2a_qp
 
 from plone import api
+from plone.app.layout.navigation.root import getNavigationRootObject
+from plone.app.vocabularies.catalog import CatalogVocabulary
+from plone.app.vocabularies.utils import parseQueryString
+from zope.component.hooks import getSite
 from zope.interface import implementer
 from zope.schema.interfaces import IVocabularyFactory
 from zope.schema.vocabulary import SimpleVocabulary, SimpleTerm
@@ -262,3 +266,32 @@ class ContentWidgetSchemaVocabularyFactory(object):
 
 
 ContentWidgetSchemaVocabulary = ContentWidgetSchemaVocabularyFactory()
+
+
+@implementer(IVocabularyFactory)
+class WidgetAssetsCatalogVocabularyFactory(object):
+
+    def __call__(self, context, query=None):
+        parsed = {}
+        if query:
+            parsed = parseQueryString(context, query['criteria'])
+            if 'sort_on' in query:
+                parsed['sort_on'] = query['sort_on']
+            if 'sort_order' in query:
+                parsed['sort_order'] = str(query['sort_order'])
+
+        # If no path is specified check if we are in a sub-site and use that
+        # as the path root for catalog searches
+        if 'path' not in parsed:
+            site = getSite()
+            nav_root = api.portal.get()
+            site_path = site.getPhysicalPath()
+            if nav_root and nav_root.getPhysicalPath() != site_path:
+                parsed['path'] = {
+                    'query': '/'.join(nav_root.getPhysicalPath()),
+                    'depth': -1
+                }
+        return CatalogVocabulary.fromItems(parsed, context)
+
+
+ContentWidgetAssetsVocabulary = WidgetAssetsCatalogVocabularyFactory()

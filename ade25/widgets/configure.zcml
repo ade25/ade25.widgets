@@ -68,6 +68,10 @@
             name="ade25.widgets.vocabularies.AvailableImageScales"
             component="ade25.widgets.vocabulary.AvailableImageScalesVocabulary" />
 
+    <utility
+            name="ade25.widgets.vocabularies.ContentWidgetAssets"
+            component="ade25.widgets.vocabulary.ContentWidgetAssetsVocabulary" />
+
     <!-- Content Widget Tool -->
     <utility
             factory=".tool.ContentWidgetTool"
