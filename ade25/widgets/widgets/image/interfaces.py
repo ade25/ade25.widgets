@@ -30,6 +30,87 @@ def assets_vocabulary(context=None):
     return vocabulary
 
 
+class IAde25WidgetImageBase(Interface):
+    """ Base image metadata fields """
+
+    image = named_file.NamedBlobImage(
+        title=_(u"Cover Image"),
+        required=False
+    )
+
+    image_related = RelationChoice(
+        title=_(u"Cover Image Select"),
+        description=_(u"Select existing image in the asset repository"),
+        required=False,
+        default=None,
+        vocabulary='ade25.widgets.vocabularies.ContentWidgetAssets'
+    )
+
+    directives.widget(
+        'image_related',
+        RelatedItemsFieldWidget,
+        pattern_options={
+            'recentlyUsed': False,
+            'basePath':  asset_repository_path(),
+            'path':  asset_repository_path(),
+            'mode': 'auto',
+            'favorites': [],
+            'folderTypes': ['Folder', 'ade25.widgets.assetsfolder', ],
+            'selectableTypes': ['Image'],
+        }
+    )
+
+    image_alt = schema.TextLine(
+        title=_(u"Image Alt Text"),
+        required=False
+    )
+
+    image_title = schema.TextLine(
+        title=_(u"Image Title Text"),
+        required=False
+    )
+
+    image_caption = schema.TextLine(
+        title=_(u"Image Copyright Information"),
+        required=False
+    )
+
+
+class IAde25WidgetImageUpload(Interface):
+    """ Image field for uploading images stored in annotation """
+
+    image = named_file.NamedBlobImage(
+        title=_(u"Cover Image"),
+        required=False
+    )
+
+
+class IAde25WidgetImageRelated(Interface):
+    """ Image field that allows selection from asset repository """
+
+    image_related = RelationChoice(
+        title=_(u"Cover Image Select"),
+        description=_(u"Select existing image in the asset repository"),
+        required=False,
+        default=None,
+        vocabulary='ade25.widgets.vocabularies.ContentWidgetAssets'
+    )
+
+    directives.widget(
+        'image_related',
+        RelatedItemsFieldWidget,
+        pattern_options={
+            'recentlyUsed': False,
+            'basePath':  asset_repository_path(),
+            'path':  asset_repository_path(),
+            'mode': 'auto',
+            'favorites': [],
+            'folderTypes': ['Folder', 'ade25.widgets.assetsfolder', ],
+            'selectableTypes': ['Image'],
+        }
+    )
+
+
 @provider(IFormFieldProvider)
 class IAde25WidgetImageCover(Interface):
     """ Content widget image cover """
