@@ -83,9 +83,9 @@ class RepositoryManagerAssetTitleCleanup(BrowserView):
                 asset = getattr(asset_obj, 'image', None)
                 if asset:
                     asset_filename = getattr(asset, 'filename', record.Title)
-                    asset_obj.title = asset_filename
+                    asset_obj.setTitle(asset_filename)
                     modified(asset_obj)
-                    # asset_obj.reindexObject(idxs='modified')
+                    asset_obj.reindexObject(idxs='modified')
                     asset_idx += 1
             except AttributeError:
                 # Handle error

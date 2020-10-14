@@ -158,9 +158,10 @@ class ContentWidgetItemForm(AutoExtensibleForm, form.Form):
         widget_file = api.content.create(
             container=asset_repository,
             type="Image",
-            title="Widget Asset {0}".format(
+            id="widget-asset-{0}".format(
                 self.generate_hash_from_filename(field_value.filename),
             ),
+            title=field_value.filename,
             image=field_value
         )
         modified(widget_file)
