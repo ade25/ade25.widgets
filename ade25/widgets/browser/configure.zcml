@@ -123,6 +123,24 @@
             layer="..interfaces.IAde25WidgetsLayer"
     />
 
+    <!-- Asset repository views -->
+    <browser:page
+          for="ade25.widgets.assetsfolder.IAssetsFolder"
+          name="asset-manager"
+          class=".repository.RepositoryManagerView"
+          template="repository.pt"
+          permission="cmf.ModifyPortalContent"
+          layer="..interfaces.IAde25WidgetsLayer"
+    />
+
+    <browser:page
+          for="ade25.widgets.assetsfolder.IAssetsFolder"
+          name="asset-manager-rename-images"
+          class=".repository.RepositoryManagerAssetTitleCleanup"
+          permission="cmf.ManagePortal"
+          layer="..interfaces.IAde25WidgetsLayer"
+    />
+
 
 
 </configure>

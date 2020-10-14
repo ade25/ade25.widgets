@@ -1,8 +1,10 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2020-02-11 10:41+0000\n"
-"PO-Revision-Date: 2020-02-11 13:29+0100\n"
+"POT-Creation-Date: 2020-10-13 12:19+0000\n"
+"PO-Revision-Date: 2020-10-13 14:42+0200\n"
+"Last-Translator: \n"
+"Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -11,484 +13,535 @@ msgstr ""
 "Language-Name: English\n"
 "Preferred-Encodings: utf-8 latin1\n"
 "Domain: DOMAIN\n"
-"Last-Translator: \n"
-"Language-Team: \n"
 "Language: de\n"
-"X-Generator: Poedit 2.3\n"
+"X-Generator: Poedit 2.4.1\n"
 
-#: ade25.widgets/ade25/widgets/vocabulary.py:150
+#: ade25.widgets/ade25/widgets/vocabulary.py
 msgid "2 card per row"
 msgstr "2 Spalten pro Zeile"
 
-#: ade25.widgets/ade25/widgets/vocabulary.py:151
+#: ade25.widgets/ade25/widgets/vocabulary.py
 msgid "3 cards per row (default)"
 msgstr "3 Spalten pro Zeile (Standard)"
 
-#: ade25.widgets/ade25/widgets/vocabulary.py:152
+#: ade25.widgets/ade25/widgets/vocabulary.py
 msgid "4 cards per row"
 msgstr "4 Spalten pro Zeile"
 
-#: ade25.widgets/ade25/widgets/vocabulary.py:257
-#: ade25.widgets/ade25/widgets/widgets/interfaces.py:48
+#: ade25.widgets/ade25/widgets/vocabulary.py
+#: ade25.widgets/ade25/widgets/widgets/interfaces.py
 msgid "Abstract"
 msgstr "Kurztext"
 
-#: ade25.widgets/ade25/widgets/browser/controlpanel-base.pt:22
-#: ade25.widgets/ade25/widgets/configure.zcml:29
+#: ade25.widgets/ade25/widgets/browser/controlpanel-base.pt
+#: ade25.widgets/ade25/widgets/configure.zcml
 msgid "Ade25 Widgets"
 msgstr "Ade25 Widgets"
 
-#: ade25.widgets/ade25/widgets/browser/controlpanel-base.pt:35
-#: ade25.widgets/ade25/widgets/browser/controlpanel-widgets.pt:34
-#: ade25.widgets/ade25/widgets/browser/controlpanel.pt:19
+#: ade25.widgets/ade25/widgets/browser/controlpanel-base.pt
+#: ade25.widgets/ade25/widgets/browser/controlpanel-widgets.pt
+#: ade25.widgets/ade25/widgets/browser/controlpanel.pt
 msgid "Ade25 Widgets Settings"
 msgstr "Ade25 Widgets Einstellungen"
 
-#: ade25.widgets/ade25/widgets/browser/controlpanel-widgets.pt:22
+#: ade25.widgets/ade25/widgets/browser/controlpanel-widgets.pt
 msgid "Ade25 Widgets Widget Settings"
 msgstr "Ade25 Widgets Konfiguration der Widgets"
 
-#: ade25.widgets/ade25/widgets/vocabulary.py:187
+#: ade25.widgets/ade25/widgets/vocabulary.py
 msgid "Button"
 msgstr "Button"
 
-#: ade25.widgets/ade25/widgets/vocabulary.py:188
+#: ade25.widgets/ade25/widgets/vocabulary.py
 msgid "Button with icon after the link text"
 msgstr "Button mit dem Text nachgestelltem Icon"
 
-#: ade25.widgets/ade25/widgets/vocabulary.py:189
+#: ade25.widgets/ade25/widgets/vocabulary.py
 msgid "Button with icon before the link text"
 msgstr "Button mit vor Icon vor dem Text"
 
-#: ade25.widgets/ade25/widgets/browser/widget-formwrapper.pt:25
+#: ade25.widgets/ade25/widgets/browser/widget-formwrapper.pt
 msgid "Cancel"
 msgstr "Abbrechen"
 
-#: ade25.widgets/ade25/widgets/browser/widgetcollection.py:535
+#: ade25.widgets/ade25/widgets/browser/widgetcollection.py
 msgid "Collection node order updated"
 msgstr "Die Sortierreihenfolge der Elemente wurde aktualisiert"
 
-#: ade25.widgets/ade25/widgets/browser/controlpanel.pt:47
+#: ade25.widgets/ade25/widgets/browser/controlpanel.pt
 msgid "Configure"
 msgstr "Konfigurieren"
 
-#: ade25.widgets/ade25/widgets/browser/controlpanel.py:117
+#: ade25.widgets/ade25/widgets/browser/controlpanel.pt
+msgid "Configure and setup content widgets"
+msgstr ""
+
+#: ade25.widgets/ade25/widgets/browser/controlpanel.pt
+msgid "Configure available content widgets and setup panel page slots."
+msgstr ""
+
+#: ade25.widgets/ade25/widgets/browser/controlpanel.pt
+msgid "Configure individual content widgets"
+msgstr ""
+
+#: ade25.widgets/ade25/widgets/browser/controlpanel.py
 msgid "Content Listing Cards: Hidden Elements"
 msgstr "Liste von Inhalten als Karten: nicht verwendete Elemente"
 
-#: ade25.widgets/ade25/widgets/browser/controlpanel.py:111
+#: ade25.widgets/ade25/widgets/browser/controlpanel.py
 msgid "Content Listing Cards: Image Scale"
 msgstr "Liste von Inhalten als Karten: Bildskalierung der Bilder innerhalb der Cards"
 
-#: ade25.widgets/ade25/widgets/browser/controlpanel.py:100
+#: ade25.widgets/ade25/widgets/browser/controlpanel.py
 msgid "Content Listing: Hidden Elements"
 msgstr "Liste von Inhalten: nicht verwendete Elemente"
 
-#: ade25.widgets/ade25/widgets/browser/controlpanel.py:94
+#: ade25.widgets/ade25/widgets/browser/controlpanel.py
 msgid "Content Listing: Image Scale"
 msgstr "Liste von Inhalten: Skalierung der Vorschaubilder"
 
-#: ade25.widgets/ade25/widgets/browser/widget.py:52
-#: ade25.widgets/ade25/widgets/browser/widgetcollection.py:54
+#: ade25.widgets/ade25/widgets/browser/widget.py
+#: ade25.widgets/ade25/widgets/browser/widgetcollection.py
 msgid "Content Widget"
 msgstr "Inhaltelement"
 
-#: ade25.widgets/ade25/widgets/browser/widgetitem.py:55
+#: ade25.widgets/ade25/widgets/browser/widgetitem.py
 msgid "Content Widget Item"
 msgstr "Komponente des Inhaltselements"
 
-#: ade25.widgets/ade25/widgets/browser/controlpanel.pt:55
+#: ade25.widgets/ade25/widgets/browser/controlpanel.pt
 msgid "Content Widgets"
 msgstr "Inhaltselemente"
 
-#: ade25.widgets/ade25/widgets/browser/controlpanel.py:43
-#: ade25.widgets/ade25/widgets/vocabulary.py:38
+#: ade25.widgets/ade25/widgets/browser/controlpanel.py
+#: ade25.widgets/ade25/widgets/vocabulary.py
 msgid "Content Widgets Main Content Area"
 msgstr "Inhaltselemente des Hauptbereichs der Seite"
 
-#: ade25.widgets/ade25/widgets/browser/controlpanel.py:53
-#: ade25.widgets/ade25/widgets/vocabulary.py:39
+#: ade25.widgets/ade25/widgets/browser/controlpanel.py
+#: ade25.widgets/ade25/widgets/vocabulary.py
 msgid "Content Widgets Page Footer"
 msgstr "Inhaltselemente im Fussbereich der Seite"
 
-#: ade25.widgets/ade25/widgets/browser/controlpanel.py:33
-#: ade25.widgets/ade25/widgets/vocabulary.py:37
+#: ade25.widgets/ade25/widgets/browser/controlpanel.py
+#: ade25.widgets/ade25/widgets/vocabulary.py
 msgid "Content Widgets Page Header"
 msgstr "Inhaltselemente im Kopfbereich der Seite"
 
-#: ade25.widgets/ade25/widgets/browser/controlpanel.pt:35
+#: ade25.widgets/ade25/widgets/browser/controlpanel.pt
 msgid "Control panels"
 msgstr "Konfigurationsseiten"
 
-#: ade25.widgets/ade25/widgets/widgets/image/interfaces.py:19
+#: ade25.widgets/ade25/widgets/widgets/image/interfaces.py
 msgid "Cover Image"
 msgstr "Cover Bild"
 
-#: ade25.widgets/ade25/widgets/widgets/image/interfaces.py:23
+#: ade25.widgets/ade25/widgets/widgets/image/interfaces.py
+msgid "Cover Image Alt Text"
+msgstr ""
+
+#: ade25.widgets/ade25/widgets/widgets/image/interfaces.py
 msgid "Cover Image Copyright Information"
 msgstr "Cover Bild Copyright Information"
 
-#: ade25.widgets/ade25/widgets/widgets/summary/interfaces.py:38
+#: ade25.widgets/ade25/widgets/widgets/image/interfaces.py
+msgid "Cover Image Select"
+msgstr ""
+
+#: ade25.widgets/ade25/widgets/widgets/image/interfaces.py
+msgid "Cover Image Title Text"
+msgstr ""
+
+#: ade25.widgets/ade25/widgets/browser/controlpanel.py
+msgid "Cover Image: Image Scale"
+msgstr ""
+
+#: ade25.widgets/ade25/widgets/widgets/summary/interfaces.py
 msgid "Cover Images"
 msgstr "Cover Bilder"
 
-#: ade25.widgets/ade25/widgets/widgets/summary/interfaces.py:44
+#: ade25.widgets/ade25/widgets/widgets/summary/interfaces.py
 msgid "Display Abstract"
 msgstr "Vorschautext anzeigen"
 
-#: ade25.widgets/ade25/widgets/widgets/summary/interfaces.py:51
+#: ade25.widgets/ade25/widgets/widgets/summary/interfaces.py
 msgid "Display Columns Reverse"
 msgstr "Inhaltsblöcke in umgekehrter Reihenfolge anzeigen"
 
-#: ade25.widgets/ade25/widgets/widgets/summary/interfaces.py:22
+#: ade25.widgets/ade25/widgets/widgets/summary/interfaces.py
 msgid "Display Limit"
 msgstr "Anzahl angezeigter Objekte"
 
-#: ade25.widgets/ade25/widgets/widgets/summary/interfaces.py:29
+#: ade25.widgets/ade25/widgets/widgets/summary/interfaces.py
 msgid "Display Pagination"
 msgstr "Blätterfunktion einblenden"
 
-#: ade25.widgets/ade25/widgets/widgets/interfaces.py:18
-#: ade25.widgets/ade25/widgets/widgets/summary/interfaces.py:59
+#: ade25.widgets/ade25/widgets/widgets/interfaces.py
+#: ade25.widgets/ade25/widgets/widgets/summary/interfaces.py
 msgid "Display Read More Link"
 msgstr "Verlinkung anzeigen"
 
-#: ade25.widgets/ade25/widgets/widgets/summary/interfaces.py:39
+#: ade25.widgets/ade25/widgets/widgets/summary/interfaces.py
 msgid "Display lead images in content snippets."
 msgstr "Bilder im Vorschaublock der Inhalte zeigen."
 
-#: ade25.widgets/ade25/widgets/widgets/interfaces.py:24
-#: ade25.widgets/ade25/widgets/widgets/summary/interfaces.py:65
+#: ade25.widgets/ade25/widgets/widgets/interfaces.py
+#: ade25.widgets/ade25/widgets/widgets/summary/interfaces.py
 msgid "Enter displayed text for read more element."
 msgstr "Bitte gehen Sie den Text ein der verlinkt werden soll."
 
-#: ade25.widgets/ade25/widgets/widgets/summary/interfaces.py:18
+#: ade25.widgets/ade25/widgets/widgets/summary/interfaces.py
 msgid "Enter optional headline to display above the listing."
 msgstr "Geben Sie hier eine optionale Überschrift an, die oberhalb der Inhaltsliste angezeigt werden soll."
 
-#: ade25.widgets/ade25/widgets/vocabulary.py:258
+#: ade25.widgets/ade25/widgets/vocabulary.py
 msgid "Formatted Text"
 msgstr "Formatierter Text"
 
-#: ade25.widgets/ade25/widgets/utils.py:83
+#: ade25.widgets/ade25/widgets/utils.py
 msgid "Gallery"
 msgstr "Galerie"
 
-#: ade25.widgets/ade25/widgets/utils.py:81
+#: ade25.widgets/ade25/widgets/utils.py
 msgid "General"
 msgstr "Allgemein"
 
-#: ade25.widgets/ade25/widgets/widgets/general/interfaces.py:46
+#: ade25.widgets/ade25/widgets/widgets/general/interfaces.py
 msgid "HTML Content"
 msgstr "HTML Quelltext"
 
-#: ade25.widgets/ade25/widgets/vocabulary.py:256
-#: ade25.widgets/ade25/widgets/widgets/gallery/slider/interfaces.py:34
-#: ade25.widgets/ade25/widgets/widgets/interfaces.py:43
+#: ade25.widgets/ade25/widgets/vocabulary.py
+#: ade25.widgets/ade25/widgets/widgets/gallery/slider/interfaces.py
+#: ade25.widgets/ade25/widgets/widgets/interfaces.py
 msgid "Headline"
 msgstr "Überschrift"
 
-#: ade25.widgets/ade25/widgets/vocabulary.py:106
+#: ade25.widgets/ade25/widgets/vocabulary.py
 msgid "Hidden"
 msgstr "Versteckt"
 
-#: ade25.widgets/ade25/widgets/vocabulary.py:110
+#: ade25.widgets/ade25/widgets/vocabulary.py
 msgid "Hidden from 1200px"
 msgstr "Versteckt ab einer Bildschirmbreite von 1200px"
 
-#: ade25.widgets/ade25/widgets/vocabulary.py:111
+#: ade25.widgets/ade25/widgets/vocabulary.py
 msgid "Hidden from 1400px"
 msgstr "Versteckt ab einer Bildschirmbreite von 1400px"
 
-#: ade25.widgets/ade25/widgets/vocabulary.py:112
+#: ade25.widgets/ade25/widgets/vocabulary.py
 msgid "Hidden from 1600px"
 msgstr "Versteckt ab einer Bildschirmbreite von 1600px"
 
-#: ade25.widgets/ade25/widgets/vocabulary.py:107
+#: ade25.widgets/ade25/widgets/vocabulary.py
 msgid "Hidden from 576px"
 msgstr "Versteckt ab einer Bildschirmbreite von 576px"
 
-#: ade25.widgets/ade25/widgets/vocabulary.py:108
+#: ade25.widgets/ade25/widgets/vocabulary.py
 msgid "Hidden from 768px"
 msgstr "Versteckt ab einer Bildschirmbreite von 768px"
 
-#: ade25.widgets/ade25/widgets/vocabulary.py:109
+#: ade25.widgets/ade25/widgets/vocabulary.py
 msgid "Hidden from 992px"
 msgstr "Versteckt ab einer Bildschirmbreite von 992px"
 
-#: ade25.widgets/ade25/widgets/vocabulary.py:186
+#: ade25.widgets/ade25/widgets/vocabulary.py
 msgid "Icon only"
 msgstr "Nur Icon"
 
-#: ade25.widgets/ade25/widgets/utils.py:82
+#: ade25.widgets/ade25/widgets/utils.py
 msgid "Image"
 msgstr "Bild"
 
-#: ade25.widgets/ade25/widgets/widgets/gallery/slider/interfaces.py:29
+#: ade25.widgets/ade25/widgets/widgets/image/interfaces.py
+msgid "Image Alt Text"
+msgstr ""
+
+#: ade25.widgets/ade25/widgets/widgets/gallery/slider/interfaces.py
+#: ade25.widgets/ade25/widgets/widgets/image/interfaces.py
 msgid "Image Copyright Information"
 msgstr "Bildbeschreibung / Copyright"
 
-#: ade25.widgets/ade25/widgets/vocabulary.py:259
-#: ade25.widgets/ade25/widgets/widgets/gallery/slider/interfaces.py:45
-#: ade25.widgets/ade25/widgets/widgets/interfaces.py:59
+#: ade25.widgets/ade25/widgets/widgets/image/interfaces.py
+msgid "Image Title Text"
+msgstr ""
+
+#: ade25.widgets/ade25/widgets/browser/controlpanel.py
+msgid "JSON file could not be generated"
+msgstr ""
+
+#: ade25.widgets/ade25/widgets/vocabulary.py
+#: ade25.widgets/ade25/widgets/widgets/gallery/slider/interfaces.py
+#: ade25.widgets/ade25/widgets/widgets/interfaces.py
 msgid "Link"
 msgstr "Link"
 
-#: ade25.widgets/ade25/widgets/vocabulary.py:184
+#: ade25.widgets/ade25/widgets/vocabulary.py
 msgid "Link with icon after the link text"
 msgstr "Textlich mit nachgestelltem Icon"
 
-#: ade25.widgets/ade25/widgets/vocabulary.py:185
+#: ade25.widgets/ade25/widgets/vocabulary.py
 msgid "Link with icon before the link text"
 msgstr "Textlich mit vorgestelltem Icon"
 
-#: ade25.widgets/ade25/widgets/widgets/summary/interfaces.py:119
+#: ade25.widgets/ade25/widgets/widgets/summary/interfaces.py
 msgid "Listing Layout"
 msgstr "Listen Layout"
 
-#: ade25.widgets/ade25/widgets/configure.zcml:29
+#: ade25.widgets/ade25/widgets/browser/controlpanel.pt
+msgid "Maintenance"
+msgstr ""
+
+#: ade25.widgets/ade25/widgets/configure.zcml
 msgid "Modular content widgets for page integration"
 msgstr "Modulare Inhaltsblöcke zur Integration in ein konfigurierbares Layout"
 
-#: ade25.widgets/ade25/widgets/utils.py:85
+#: ade25.widgets/ade25/widgets/utils.py
 msgid "More"
-msgstr "Weiter"
+msgstr "Sonstige"
 
-#: ade25.widgets/ade25/widgets/widgets/gallery/slider/interfaces.py:46
-#: ade25.widgets/ade25/widgets/widgets/interfaces.py:60
+#: ade25.widgets/ade25/widgets/widgets/gallery/slider/interfaces.py
+#: ade25.widgets/ade25/widgets/widgets/interfaces.py
 msgid "Optional internal or external link that will be used as redirection target when section is accessed.Logged in users will see the target link instead."
 msgstr "Optionaler interner oder externer Link an den der Besucher weitergeleitet werden soll."
 
-#: ade25.widgets/ade25/widgets/widgets/more/accordion/interfaces.py:28
+#: ade25.widgets/ade25/widgets/widgets/more/accordion/interfaces.py
 msgid "Panel Content"
 msgstr "Panel Inhalt"
 
-#: ade25.widgets/ade25/widgets/widgets/more/accordion/interfaces.py:23
+#: ade25.widgets/ade25/widgets/widgets/more/accordion/interfaces.py
 msgid "Panel Headline"
 msgstr "Panel Überschrift"
 
-#: ade25.widgets/ade25/widgets/browser/widgetcollection.py:543
+#: ade25.widgets/ade25/widgets/browser/widgetcollection.py
 msgid "Panel configuration data not available"
 msgstr "Zu diesem Panel ist leider keine Konfiguration verfügbar"
 
-#: ade25.widgets/ade25/widgets/vocabulary.py:183
+#: ade25.widgets/ade25/widgets/vocabulary.py
 msgid "Plain Link"
 msgstr "Einfacher Link"
 
-#: ade25.widgets/ade25/widgets/browser/controlpanel.py:86
+#: ade25.widgets/ade25/widgets/browser/controlpanel.py
 msgid "Please enter icon to be used in read more links when a layout with icon is selected. Note: the icon needs to exist in the themes icon sprite for this to work."
 msgstr "Bitte gehen Sie hier den Namen des Icons an, der bei einem ausgewählten weiterführenden Link mit Icon verwendet werden soll. Hinweis: das entsprechende Icon müsste im SVG Icon Sprite des aktiven Themas enthalten sein."
 
-#: ade25.widgets/ade25/widgets/widgets/general/interfaces.py:57
+#: ade25.widgets/ade25/widgets/widgets/general/interfaces.py
 msgid "Please enter the main page headline."
 msgstr "Bitte gehen Sie hier die Hauptüberschrift (H1) der Seite ein."
 
-#: ade25.widgets/ade25/widgets/browser/controlpanel.py:134
+#: ade25.widgets/ade25/widgets/browser/controlpanel.py
 msgid "Please select which elements should be available in the widget add and edit forms."
 msgstr "Bitte wählen Sie hier die Felder des Widgets die von Redakteuren gepflegt werden sollen."
 
-#: ade25.widgets/ade25/widgets/browser/controlpanel.py:101
+#: ade25.widgets/ade25/widgets/browser/controlpanel.py
 msgid "Please select which elements should be hidden in the widget add and edit forms."
 msgstr "Bitte wählen Sie hier die Felder des Widgets die von Redakteuren gepflegt werden sollen."
 
-#: ade25.widgets/ade25/widgets/browser/controlpanel.py:118
+#: ade25.widgets/ade25/widgets/browser/controlpanel.py
 msgid "Please select which elements should not be available in the widget add and edit forms."
 msgstr "Bitte wählen Sie hier die Felder des Widgets die von Redakteuren gepflegt werden sollen."
 
-#: ade25.widgets/ade25/widgets/widgets/image/interfaces.py:33
+#: ade25.widgets/ade25/widgets/widgets/image/interfaces.py
 msgid "Poster Image"
 msgstr "Poster Bild"
 
-#: ade25.widgets/ade25/widgets/widgets/image/interfaces.py:37
+#: ade25.widgets/ade25/widgets/widgets/image/interfaces.py
 msgid "Poster Image Copyright Information"
 msgstr "Poster Bild Beschreibung / Copyright"
 
-#: ade25.widgets/ade25/widgets/browser/controlpanel.py:133
+#: ade25.widgets/ade25/widgets/browser/controlpanel.py
 msgid "Poster Image: Hidden Elements"
 msgstr "Poster Bild: ausgeblendete Felder"
 
-#: ade25.widgets/ade25/widgets/browser/controlpanel.py:127
+#: ade25.widgets/ade25/widgets/browser/controlpanel.py
 msgid "Poster Image: Image Scale"
 msgstr "Poster Bild: verwendete Bildskalierung"
 
-#: ade25.widgets/ade25/widgets/browser/widgetitem.py:37
+#: ade25.widgets/ade25/widgets/browser/widgetitem.py
 msgid "Public"
 msgstr "Veröffentlicht"
 
-#: ade25.widgets/ade25/widgets/browser/controlpanel.py:85
+#: ade25.widgets/ade25/widgets/browser/controlpanel.py
 msgid "Read More Icon Name"
 msgstr "Name des Icons für den weiterführenden Link"
 
-#: ade25.widgets/ade25/widgets/widgets/interfaces.py:30
-#: ade25.widgets/ade25/widgets/widgets/summary/interfaces.py:71
+#: ade25.widgets/ade25/widgets/widgets/interfaces.py
+#: ade25.widgets/ade25/widgets/widgets/summary/interfaces.py
 msgid "Read More Layout"
 msgstr "Erscheinungsbild des weiterführenden Links"
 
-#: ade25.widgets/ade25/widgets/widgets/interfaces.py:23
-#: ade25.widgets/ade25/widgets/widgets/summary/interfaces.py:64
+#: ade25.widgets/ade25/widgets/widgets/interfaces.py
+#: ade25.widgets/ade25/widgets/widgets/summary/interfaces.py
 msgid "Read More Text"
 msgstr "Text des weiterführenden Links"
 
-#: ade25.widgets/ade25/widgets/widgets/interfaces.py:25
-#: ade25.widgets/ade25/widgets/widgets/summary/interfaces.py:66
-#: ade25.widgets/ade25/widgets/widgets/summary/listing.py:217
+#: ade25.widgets/ade25/widgets/widgets/interfaces.py
+#: ade25.widgets/ade25/widgets/widgets/summary/interfaces.py
+#: ade25.widgets/ade25/widgets/widgets/summary/listing.py
 msgid "Read more"
 msgstr "Weiterlesen"
 
-#: ade25.widgets/ade25/widgets/browser/controlpanel.py:44
+#: ade25.widgets/ade25/widgets/browser/controlpanel.py
 msgid "Select Content Widgets that should be available for the main page content area."
 msgstr "Bitte wählen Sie die Content Widgets aus, die im Hauptbereich der Seite angelegt werden können."
 
-#: ade25.widgets/ade25/widgets/browser/controlpanel.py:34
+#: ade25.widgets/ade25/widgets/browser/controlpanel.py
 msgid "Select Content Widgets that should be available for the page header section."
 msgstr "Bitte wählen Sie die Content Widgets, die im Kopf der Seite verwendet werden können."
 
-#: ade25.widgets/ade25/widgets/widgets/interfaces.py:31
-#: ade25.widgets/ade25/widgets/widgets/summary/interfaces.py:72
+#: ade25.widgets/ade25/widgets/widgets/image/interfaces.py
+msgid "Select existing image in the asset repository"
+msgstr "Wählen Sie ein bestehendes Bild aus der Datenbank aus"
+
+#: ade25.widgets/ade25/widgets/widgets/interfaces.py
+#: ade25.widgets/ade25/widgets/widgets/summary/interfaces.py
 msgid "Select how the card footer link should be displayed."
 msgstr "Bitte wählen Sie, wie die Fusszeile der Vorschaukarte dargestellt werden soll."
 
-#: ade25.widgets/ade25/widgets/widgets/summary/interfaces.py:45
+#: ade25.widgets/ade25/widgets/widgets/summary/interfaces.py
 msgid "Select if the content snippet should also display the content item summary text next to the title."
 msgstr "Bitte wählen Sie, ob die Inhaltsvorschau eine Kurzbeschreibung des Objektes zusätzlich zum Titel anzeigen soll."
 
-#: ade25.widgets/ade25/widgets/widgets/summary/interfaces.py:52
+#: ade25.widgets/ade25/widgets/widgets/summary/interfaces.py
 msgid "Select if the content snippet should display the columns in reverse with the image to the left (if it ist activated)."
 msgstr "Wählen Sie hier, wenn der Vorschaublock die Spalten in umgekehrter Reihenfolge anzeigen soll. Dadurch wird ein vorhandenes Vorschaubild in der linken Spalte angezeigt."
 
-#: ade25.widgets/ade25/widgets/widgets/summary/interfaces.py:112
+#: ade25.widgets/ade25/widgets/widgets/summary/interfaces.py
 msgid "Select if the preview cards should also display the content item summary text next to the title."
 msgstr "Bitte wählen Sie, ob die Vorschaukarte eine Kurzbeschreibung unterhalb des Titels anzeigen soll."
 
-#: ade25.widgets/ade25/widgets/browser/widgetitem.py:38
+#: ade25.widgets/ade25/widgets/browser/widgetitem.py
 msgid "Select if this widget should be visible in the view or remain in a draft version."
 msgstr "Wählen Sie, ob das Widget öffentlich sichtbar sein soll oder zunächst als Entwurf behandelt werden soll ( nur sichtbar für Redakteure)."
 
-#: ade25.widgets/ade25/widgets/widgets/summary/interfaces.py:23
+#: ade25.widgets/ade25/widgets/widgets/summary/interfaces.py
 msgid "Select maximum number of snippets to display. Leave empty when the widget should list all content items."
 msgstr "Bitte wählen Sie die maximale Anzahl von Vorschaublöcken, die angezeigt werden sollen. Ohne Angabe listet das Widget alle verfügbaren Inhalte."
 
-#: ade25.widgets/ade25/widgets/widgets/summary/interfaces.py:120
+#: ade25.widgets/ade25/widgets/widgets/summary/interfaces.py
 msgid "Select the number of cards that should be displayed per column if the screen size allows for horizontal alignment."
 msgstr "Geben Sie an, wie viele Vorschaublöcke pro Zeile angezeigt werden sollen, wenn die Bildschirmbreite eine horizontale Anordnung erlaubt."
 
-#: ade25.widgets/ade25/widgets/browser/controlpanel-base.pt:45
-#: ade25.widgets/ade25/widgets/browser/controlpanel-widgets.pt:44
+#: ade25.widgets/ade25/widgets/browser/controlpanel-base.pt
+#: ade25.widgets/ade25/widgets/browser/controlpanel-widgets.pt
 msgid "Settings"
 msgstr "Einstellungen"
 
-#: ade25.widgets/ade25/widgets/browser/controlpanel.py:27
+#: ade25.widgets/ade25/widgets/browser/controlpanel.py
 msgid "Setup initialized."
 msgstr "Das Setup wurde gestartet."
 
-#: ade25.widgets/ade25/widgets/widgets/gallery/slider/interfaces.py:25
+#: ade25.widgets/ade25/widgets/widgets/gallery/slider/interfaces.py
 msgid "Slide Image"
 msgstr "Bild des Slide Elements"
 
-#: ade25.widgets/ade25/widgets/utils.py:84
+#: ade25.widgets/ade25/widgets/browser/repository.pt
+msgid "Sorry. You need to be authenticated to manage the image assets associated with content widgets."
+msgstr "Entschuldigung. Sie müssen angemeldet sein, um Objekte im Speicher für Dateien verwalten zu können."
+
+#: ade25.widgets/ade25/widgets/utils.py
 msgid "Summary"
 msgstr "Zusammenfassung"
 
-#: ade25.widgets/ade25/widgets/widgets/gallery/slider/interfaces.py:39
-#: ade25.widgets/ade25/widgets/widgets/general/interfaces.py:36
-#: ade25.widgets/ade25/widgets/widgets/image/interfaces.py:41
+#: ade25.widgets/ade25/widgets/widgets/gallery/slider/interfaces.py
+#: ade25.widgets/ade25/widgets/widgets/general/interfaces.py
+#: ade25.widgets/ade25/widgets/widgets/interfaces.py
 msgid "Text"
 msgstr "Text"
 
-#: ade25.widgets/ade25/widgets/widgets/general/interfaces.py:26
+#: ade25.widgets/ade25/widgets/widgets/general/interfaces.py
 msgid "Text Content"
 msgstr "Textinhalt"
 
-#: ade25.widgets/ade25/widgets/browser/widget.py:55
-#: ade25.widgets/ade25/widgets/browser/widgetcollection.py:56
-#: ade25.widgets/ade25/widgets/browser/widgetitem.py:57
+#: ade25.widgets/ade25/widgets/browser/widget.py
+#: ade25.widgets/ade25/widgets/browser/widgetcollection.py
+#: ade25.widgets/ade25/widgets/browser/widgetitem.py
 msgid "There were errors."
 msgstr "Es sind leider Fehler aufgetreten."
 
-#: ade25.widgets/ade25/widgets/browser/widget.py:35
-#: ade25.widgets/ade25/widgets/browser/widgetcollection.py:37
+#: ade25.widgets/ade25/widgets/browser/widget.py
+#: ade25.widgets/ade25/widgets/browser/widgetcollection.py
 msgid "This widget is public and will be displayed in the page view"
 msgstr "Dieses Widget ist veröffentlicht und ist beim Seitenaufruf sichtbar"
 
-#: ade25.widgets/ade25/widgets/configure.zcml:38
+#: ade25.widgets/ade25/widgets/configure.zcml
 msgid "Uninstall Content Widgets Support (ade25.widgets)"
 msgstr "Entfernen der Unterstützung für konfigurierbare Inhaltselemente"
 
-#: ade25.widgets/ade25/widgets/configure.zcml:38
+#: ade25.widgets/ade25/widgets/configure.zcml
 msgid "Uninstall content widgets and integrations"
 msgstr "Löscht alle verfügbaren Inhaltselemente und die dazugehörigen Einstellungen"
 
-#: ade25.widgets/ade25/widgets/browser/widget.py:210
-#: ade25.widgets/ade25/widgets/browser/widgetcollection.py:216
-#: ade25.widgets/ade25/widgets/browser/widgetitem.py:221
+#: ade25.widgets/ade25/widgets/browser/widget.py
+#: ade25.widgets/ade25/widgets/browser/widgetcollection.py
+#: ade25.widgets/ade25/widgets/browser/widgetitem.py
 msgid "Update"
 msgstr "Aktualisieren"
 
-#: ade25.widgets/ade25/widgets/browser/controlpanel-widgets.pt:26
+#: ade25.widgets/ade25/widgets/browser/controlpanel-widgets.pt
 msgid "Update individual content widget specific settings."
 msgstr "Aktualisieren Sie die Einstellungen dieses Widgets."
 
-#: ade25.widgets/ade25/widgets/widgets/general/interfaces.py:63
+#: ade25.widgets/ade25/widgets/widgets/general/interfaces.py
 msgid "Use the abstract to provide a short description of .the page content."
 msgstr "Verwenden Sie die Einleitung um den Inhalt der Seite kurz zu beschreiben und zusammenzufassen."
 
-#: ade25.widgets/ade25/widgets/vocabulary.py:113
+#: ade25.widgets/ade25/widgets/vocabulary.py
 msgid "Visible"
 msgstr "Sichtbar"
 
-#: ade25.widgets/ade25/widgets/vocabulary.py:117
+#: ade25.widgets/ade25/widgets/vocabulary.py
 msgid "Visible from 1200px"
 msgstr "Sichtbar ab einer Bildschirmbreite von 1200px"
 
-#: ade25.widgets/ade25/widgets/vocabulary.py:118
+#: ade25.widgets/ade25/widgets/vocabulary.py
 msgid "Visible from 1400px"
 msgstr "Sichtbar ab einer Bildschirmbreite von 1400px"
 
-#: ade25.widgets/ade25/widgets/vocabulary.py:119
+#: ade25.widgets/ade25/widgets/vocabulary.py
 msgid "Visible from 1600px"
 msgstr "Sichtbar ab einer Bildschirmbreite von 1600px"
 
-#: ade25.widgets/ade25/widgets/vocabulary.py:114
+#: ade25.widgets/ade25/widgets/vocabulary.py
 msgid "Visible from 576px"
 msgstr "Sichtbar ab einer Bildschirmbreite von 576px"
 
-#: ade25.widgets/ade25/widgets/vocabulary.py:115
+#: ade25.widgets/ade25/widgets/vocabulary.py
 msgid "Visible from 768px"
 msgstr "Sichtbar ab einer Bildschirmbreite von 768px"
 
-#: ade25.widgets/ade25/widgets/vocabulary.py:116
+#: ade25.widgets/ade25/widgets/vocabulary.py
 msgid "Visible from 992px"
 msgstr "Sichtbar ab einer Bildschirmbreite von 992px"
 
-#: ade25.widgets/ade25/widgets/widgets/summary/interfaces.py:30
+#: ade25.widgets/ade25/widgets/widgets/summary/interfaces.py
 msgid "When selected the listing will show the contents divided into pages and display batch navigation. The configured display limit will refer to the maximum number of items per page and the widget will always show all content."
 msgstr "Die Inhalte werden, wenn ausgewählt, in einzelne Seiten aufgeteilt die über eine Blätterfunktion erreichbar sind. Die hinterlegte maximale Anzahl der aufgelisteten Inhalte versteht sich dadurch als maximale Anzahl pro Seite und das Widget wird immer alle Inhalte auflisten."
 
-#: ade25.widgets/ade25/widgets/browser/controlpanel.py:63
+#: ade25.widgets/ade25/widgets/browser/controlpanel.py
 msgid "Widget Settings JSON"
 msgstr "Verfügbare Content Widgets (JSON Konfiguration)"
 
-#: ade25.widgets/ade25/widgets/browser/controlpanel.pt:42
+#: ade25.widgets/ade25/widgets/browser/controlpanel.pt
 msgid "Widget Setup"
 msgstr "Widget Setup"
 
-#: ade25.widgets/ade25/widgets/browser/controlpanel.py:64
+#: ade25.widgets/ade25/widgets/browser/controlpanel.py
 msgid "Widget configuration registry storing a string representation of a valid JSON settings array"
 msgstr "Dieses JSON Objekt zur Konfiguration der Content Widget wird in der Seitenkonfiguration als solches gespeichert und muss valides JSON beinhalten"
 
-#: ade25.widgets/ade25/widgets/browser/widget.py:204
-#: ade25.widgets/ade25/widgets/browser/widgetcollection.py:205
-#: ade25.widgets/ade25/widgets/browser/widgetitem.py:210
+#: ade25.widgets/ade25/widgets/browser/widget.py
+#: ade25.widgets/ade25/widgets/browser/widgetcollection.py
+#: ade25.widgets/ade25/widgets/browser/widgetitem.py
 msgid "cancel"
 msgstr "Abbrechen"
 
 #. Default: "Up to Site Setup"
-#: ade25.widgets/ade25/widgets/browser/controlpanel-base.pt:30
-#: ade25.widgets/ade25/widgets/browser/controlpanel-widgets.pt:29
-#: ade25.widgets/ade25/widgets/browser/controlpanel.pt:25
+#: ade25.widgets/ade25/widgets/browser/controlpanel-base.pt
+#: ade25.widgets/ade25/widgets/browser/controlpanel-widgets.pt
+#: ade25.widgets/ade25/widgets/browser/controlpanel.pt
 msgid "label_up_to_plone_setup"
 msgstr "Übersicht Konfiguration"
 
-#: ade25.widgets/ade25/widgets/vocabulary.py:63
+#: ade25.widgets/ade25/widgets/vocabulary.py
 msgid "title"
 msgstr "Titel"

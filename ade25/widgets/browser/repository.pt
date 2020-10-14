@@ -1,0 +1,108 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      xmlns:xlink="http://www.w3.org/1999/xlink"
+      lang="en"
+         metal:use-macro="context/main_template/macros/master"
+         i18n:domain="ade25.widgets">
+<body>
+
+<metal:main fill-slot="main">
+    <metal:content-core define-macro="main">
+
+        <div class="o-page__header">
+
+            <div class="o-page__section c-page-header">
+                <div class="c-page-header__title" tal:condition="python:context.Title()">
+                    <h1 class="c-page-header__headline c-page-header__headline--primary">
+                        <span tal:replace="python:context.Title()">
+                            Page Title</span>
+                    </h1>
+                </div>
+                <div class="c-page-header__subtitle" tal:condition="python:context.Description()">
+                    <p class="c-page-header__abstract"
+                             tal:content="python:context.Description()">
+                            ${context/Description}
+                    </p>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="o-page__main">
+            <section class="o-page__section" tal:condition="python:view.is_authenticated()">
+
+                <div class="c-list" tal:define="Batch python:modules['Products.CMFPlone'].Batch;
+                                                b_size python:int(request.get('b_size', 20));
+                                                b_start python:int(request.get('b_start', 0));
+                                                results python:view.available_assets();
+                                                batch python:Batch(results, b_size, b_start);">
+
+                        <div class="c-list c-list--default o-separator">
+                            <tal:list tal:repeat="item batch">
+                                <div class="c-list__item">
+                                    <div class="c-widget-editor__item c-widget-editor__item--primary">
+                                        <div class="c-widget-editor__item-aside c-widget-editor__item-aside--stretch">
+                                            <svg class="o-icon o-icon--size-3 o-icon__widget--image-dims">
+                                                <use xlink:href="/assets/symbol/svg/sprite.symbol.svg#widget--image"></use>
+                                            </svg>
+                                        </div>
+                                        <div class="c-widget-editor__item-main c-widget-editor__item-main--centered">
+                                            <div class="o-grid o-grid--gutter o-grid--md">
+                                                <div class="o-grid__item o-grid__item--width-75">
+                                                    <h5 class="c-widget-editor__item-title c-widget-editor__item-title--spacer">
+                                                        <span tal:replace="repeat/item/number"></span> -
+                                                        <span tal:content="python:item['title']"></span>
+                                                    </h5>
+                                                </div>
+                                                <div class="o-grid__item o-grid__item--width-25">
+                                                    <img class="o-image o-image--inline" tal:define="item_object python:item['item_object'];
+                                                            scales item_object/@@images;
+                                                                    thumbnail python:scales.scale('image', width=64, height=64)"
+                                                             tal:attributes="src thumbnail/url;
+                                                                    width thumbnail/width;
+                                                                    height thumbnail/height" />
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        <div class="c-widget-editor__item-actions c-widget-editor__item-actions--sm">
+                                            <a class="c-button c-button--default c-widget-editor__item-link"
+                                                     tal:attributes="href python:item['url'] + '/edit'">
+                                                <svg class="o-icon o-icon--md o-icon-ui--pen-dims">
+                                                    <use xlink:href="/assets/symbol/svg/sprite.symbol.svg#ui--pen"></use>
+                                                </svg>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </tal:list>
+                        </div>
+
+
+                    <tal:batchnavigation
+                            define="batchnavigation nocall:context/@@batchnavigation"
+                            replace="structure python:batchnavigation(batch)" />
+
+                </div>
+
+            </section>
+            <div class="c-alert c-alert--default" tal:condition="python:not view.is_authenticated()">
+                <p i18n:translate="">
+                    Sorry. You need to be authenticated to manage the image assets associated with content widgets.
+                </p>
+            </div>
+        </div>
+
+        <div class="o-page__footer">
+
+        </div>
+
+
+    </metal:content-core>
+</metal:main>
+
+</body>
+</html>
+
