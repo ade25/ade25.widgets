@@ -266,7 +266,7 @@ class ContentWidgetForm(AutoExtensibleForm, form.Form):
                     editor_data['widget_settings']['schema'].split('.')[-1],
                     field
                 )
-                if field_name in self.widgets:
+                if self.widgets and field_name in self.widgets:
                     self.widgets[field_name].mode = HIDDEN_MODE
         except InvalidParameterError:
             # The content widget has no a registry setting
