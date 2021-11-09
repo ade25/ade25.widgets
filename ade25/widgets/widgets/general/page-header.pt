@@ -3,7 +3,7 @@
         <div class="o-page__section c-page-header">
             <div class="c-page-header__title" tal:condition="python:widget_content['headline']">
                 <h1 class="c-page-header__headline">
-                        <span tal:replace="python:widget_content['headline']">
+                        <span tal:replace="structure python:widget_content['headline']">
                             Page Title</span>
                 </h1>
             </div>
