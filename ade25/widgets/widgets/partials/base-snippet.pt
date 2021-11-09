@@ -8,7 +8,7 @@
         <div class="c-snippet__header">
             <h2 class="c-snippet__title">
                 <a class="c-snippet__link" tal:attributes="href python:content['url']"
-                         tal:content="python:content['title']">
+                         tal:content="structure python:content['title']">
                         ${context/Title}
                 </a>
             </h2>
